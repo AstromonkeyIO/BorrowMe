@@ -150,15 +150,50 @@
 
 - (IBAction)signUpButtonPressed:(id)sender {
     
+    NSString* errorMessage;
+    
+    if(self.signUpUsernameInput.text.length == 0 || self.signUpPasswordInput.text.length == 0 || self.signUpPasswordInputRepeat.text.length == 0 || self.signUpEmailInput.text.length == 0 || self.signUpPhoneInput.text.length == 0)
+    {
+        
+        errorMessage = @"Please fill out everything!";
         if(self.signUpPasswordInput.text != self.signUpPasswordInputRepeat.text)
         {
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Oh No" message:@"Your passwords don't match!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-            alertView.cancelButtonIndex = -1;
-            [alertView show];
+            
+            errorMessage = @"Your passwords don't match!";
             
         }
-    
-    
+        
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Oh No" message:errorMessage delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        alertView.cancelButtonIndex = -1;
+        [alertView show];
+        
+    }
+    else
+    {
+        
+        PFUser *user = [PFUser user];
+        user.username = self.signUpUsernameInput.text;
+        user.password = self.signUpPasswordInput.text;
+        user.email = self.signUpEmailInput.text;
+        user[@"phone"] = self.signUpPhoneInput.text;
+        user[@"profilePicture"] = self.signUpUserProfilePictureFile;
+        
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error)
+            {
+                [self performSegueWithIdentifier:@"Login-Success" sender:self];
+                // Hooray! Let them use the app now.
+            } else
+            {
+                NSString *errorString = [error userInfo][@"error"];
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Oh No" message:errorString delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+                alertView.cancelButtonIndex = -1;
+                [alertView show];
+                // Show the errorString somewhere and let the user try again.
+            }
+        }];
+        
+    }
     
     
     
