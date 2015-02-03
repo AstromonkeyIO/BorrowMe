@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface Login : UIViewController <UIImagePickerControllerDelegate> {
+@interface Login : UIViewController <UIImagePickerControllerDelegate, UITextFieldDelegate> {
     
     IBOutlet UIScrollView* scroller;
     

@@ -33,6 +33,9 @@
 		66953B2B1A79BE3500AEB78C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66953B2A1A79BE3500AEB78C /* SystemConfiguration.framework */; };
 		66953B2D1A79BE4700AEB78C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 66953B2C1A79BE4700AEB78C /* libz.dylib */; };
 		66953B2F1A79BE7400AEB78C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 66953B2E1A79BE7400AEB78C /* libsqlite3.dylib */; };
+		66F4C3361A7F1866001B97AA /* MainFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F4C3351A7F1866001B97AA /* MainFeed.m */; };
+		66F4C3391A7F3389001B97AA /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F4C3381A7F3389001B97AA /* Post.m */; };
+		66F4C33D1A7F4749001B97AA /* NewPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F4C33C1A7F4749001B97AA /* NewPost.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +81,12 @@
 		66953B2A1A79BE3500AEB78C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		66953B2C1A79BE4700AEB78C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		66953B2E1A79BE7400AEB78C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		66F4C3341A7F1865001B97AA /* MainFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainFeed.h; sourceTree = "<group>"; };
+		66F4C3351A7F1866001B97AA /* MainFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainFeed.m; sourceTree = "<group>"; };
+		66F4C3371A7F3389001B97AA /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
+		66F4C3381A7F3389001B97AA /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
+		66F4C33B1A7F4749001B97AA /* NewPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPost.h; sourceTree = "<group>"; };
+		66F4C33C1A7F4749001B97AA /* NewPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPost.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +169,8 @@
 		66953AE11A79BCE200AEB78C /* BorrowMe */ = {
 			isa = PBXGroup;
 			children = (
+				66F4C33A1A7F46FD001B97AA /* NewPost */,
+				66F4C3331A7F1822001B97AA /* MainFeed */,
 				6678BF3A1A7DB4440060B73A /* LoginAndSignUp */,
 				66953AE61A79BCE200AEB78C /* AppDelegate.h */,
 				66953AE71A79BCE200AEB78C /* AppDelegate.m */,
@@ -208,6 +219,26 @@
 				66953B101A79BD6F00AEB78C /* ParseUI.framework */,
 			);
 			path = "parse-library-1.6.2";
+			sourceTree = "<group>";
+		};
+		66F4C3331A7F1822001B97AA /* MainFeed */ = {
+			isa = PBXGroup;
+			children = (
+				66F4C3341A7F1865001B97AA /* MainFeed.h */,
+				66F4C3351A7F1866001B97AA /* MainFeed.m */,
+				66F4C3371A7F3389001B97AA /* Post.h */,
+				66F4C3381A7F3389001B97AA /* Post.m */,
+			);
+			name = MainFeed;
+			sourceTree = "<group>";
+		};
+		66F4C33A1A7F46FD001B97AA /* NewPost */ = {
+			isa = PBXGroup;
+			children = (
+				66F4C33B1A7F4749001B97AA /* NewPost.h */,
+				66F4C33C1A7F4749001B97AA /* NewPost.m */,
+			);
+			name = NewPost;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +341,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66F4C3361A7F1866001B97AA /* MainFeed.m in Sources */,
+				66F4C3391A7F3389001B97AA /* Post.m in Sources */,
+				66F4C33D1A7F4749001B97AA /* NewPost.m in Sources */,
 				66953AE81A79BCE200AEB78C /* AppDelegate.m in Sources */,
 				66953AE51A79BCE200AEB78C /* main.m in Sources */,
 				66953AEB1A79BCE200AEB78C /* BorrowMe.xcdatamodeld in Sources */,

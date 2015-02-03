@@ -9,8 +9,6 @@
 #import "Login.h"
 
 
-
-
 @implementation Login
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -25,8 +23,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [scroller setScrollEnabled:YES];
-    [scroller setContentSize:CGSizeMake(320, 625)];
+    //[scroller setScrollEnabled:YES];
+    //[scroller setContentSize:CGSizeMake(320, 625)];
+    //self.usernameInput.delegate = self;
     
     CALayer * loginBoxLayer = [self.loginBox layer];
     [loginBoxLayer setMasksToBounds:YES];
@@ -281,6 +280,14 @@
     [self dismissViewControllerAnimated:NO completion:nil ];
     
 }
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    
+    [self.view endEditing:YES];
+    return NO;
+    
+}
+
 
 
 
