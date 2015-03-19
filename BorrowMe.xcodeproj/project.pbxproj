@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6678BF411A7DB7720060B73A /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 6678BF401A7DB7720060B73A /* Login.m */; };
+		660314481AA3038600C0F763 /* MyPostNoLenders.m in Sources */ = {isa = PBXBuildFile; fileRef = 660314471AA3038600C0F763 /* MyPostNoLenders.m */; };
+		661DB0931A9D32AD00400B86 /* MyPosts.m in Sources */ = {isa = PBXBuildFile; fileRef = 661DB0921A9D32AD00400B86 /* MyPosts.m */; };
+		661FA3FB1A9B10E900D79003 /* RespondToPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 661FA3FA1A9B10E900D79003 /* RespondToPost.m */; };
+		664CAE771A88B0E600E3E929 /* PostObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 664CAE761A88B0E600E3E929 /* PostObject.m */; };
+		6678BF411A7DB7720060B73A /* LoginAndSignUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 6678BF401A7DB7720060B73A /* LoginAndSignUp.m */; };
+		668AD9DA1AA0597600627437 /* MyPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 668AD9D91AA0597600627437 /* MyPost.m */; };
+		668FC80E1AB110C300AB2BAD /* Response.m in Sources */ = {isa = PBXBuildFile; fileRef = 668FC80D1AB110C300AB2BAD /* Response.m */; };
 		66953AE51A79BCE200AEB78C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66953AE41A79BCE200AEB78C /* main.m */; };
 		66953AE81A79BCE200AEB78C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66953AE71A79BCE200AEB78C /* AppDelegate.m */; };
 		66953AEB1A79BCE200AEB78C /* BorrowMe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 66953AE91A79BCE200AEB78C /* BorrowMe.xcdatamodeld */; };
@@ -33,6 +39,12 @@
 		66953B2B1A79BE3500AEB78C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66953B2A1A79BE3500AEB78C /* SystemConfiguration.framework */; };
 		66953B2D1A79BE4700AEB78C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 66953B2C1A79BE4700AEB78C /* libz.dylib */; };
 		66953B2F1A79BE7400AEB78C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 66953B2E1A79BE7400AEB78C /* libsqlite3.dylib */; };
+		66AC793F1A9EA91300DDF2AE /* MyPostObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 66AC793E1A9EA91300DDF2AE /* MyPostObject.m */; };
+		66B07F751AAE8E86000F4B21 /* MyPostLenders.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B07F741AAE8E86000F4B21 /* MyPostLenders.m */; };
+		66B07F781AAE94F0000F4B21 /* MyPostItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B07F771AAE94F0000F4B21 /* MyPostItem.m */; };
+		66B07F7B1AAE96D3000F4B21 /* MyPostLender.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B07F7A1AAE96D3000F4B21 /* MyPostLender.m */; };
+		66F42B5E1A96D08E00F99A31 /* hourglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 66F42B5D1A96D08E00F99A31 /* hourglass.png */; };
+		66F42B601A96D21D00F99A31 /* hourglass2.png in Resources */ = {isa = PBXBuildFile; fileRef = 66F42B5F1A96D21D00F99A31 /* hourglass2.png */; };
 		66F4C3361A7F1866001B97AA /* MainFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F4C3351A7F1866001B97AA /* MainFeed.m */; };
 		66F4C3391A7F3389001B97AA /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F4C3381A7F3389001B97AA /* Post.m */; };
 		66F4C33D1A7F4749001B97AA /* NewPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F4C33C1A7F4749001B97AA /* NewPost.m */; };
@@ -49,8 +61,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6678BF3F1A7DB7720060B73A /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
-		6678BF401A7DB7720060B73A /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
+		660314461AA3038600C0F763 /* MyPostNoLenders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPostNoLenders.h; sourceTree = "<group>"; };
+		660314471AA3038600C0F763 /* MyPostNoLenders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostNoLenders.m; sourceTree = "<group>"; };
+		661DB0911A9D32AD00400B86 /* MyPosts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPosts.h; sourceTree = "<group>"; };
+		661DB0921A9D32AD00400B86 /* MyPosts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPosts.m; sourceTree = "<group>"; };
+		661FA3F91A9B10E900D79003 /* RespondToPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RespondToPost.h; sourceTree = "<group>"; };
+		661FA3FA1A9B10E900D79003 /* RespondToPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespondToPost.m; sourceTree = "<group>"; };
+		664CAE751A88B0E600E3E929 /* PostObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostObject.h; sourceTree = "<group>"; };
+		664CAE761A88B0E600E3E929 /* PostObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostObject.m; sourceTree = "<group>"; };
+		6678BF3F1A7DB7720060B73A /* LoginAndSignUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAndSignUp.h; sourceTree = "<group>"; };
+		6678BF401A7DB7720060B73A /* LoginAndSignUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAndSignUp.m; sourceTree = "<group>"; };
+		668AD9D81AA0597600627437 /* MyPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPost.h; sourceTree = "<group>"; };
+		668AD9D91AA0597600627437 /* MyPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPost.m; sourceTree = "<group>"; };
+		668FC80C1AB110C300AB2BAD /* Response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Response.h; sourceTree = "<group>"; };
+		668FC80D1AB110C300AB2BAD /* Response.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Response.m; sourceTree = "<group>"; };
 		66953ADF1A79BCE200AEB78C /* BorrowMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BorrowMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66953AE31A79BCE200AEB78C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66953AE41A79BCE200AEB78C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -81,6 +105,16 @@
 		66953B2A1A79BE3500AEB78C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		66953B2C1A79BE4700AEB78C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		66953B2E1A79BE7400AEB78C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		66AC793D1A9EA91300DDF2AE /* MyPostObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPostObject.h; sourceTree = "<group>"; };
+		66AC793E1A9EA91300DDF2AE /* MyPostObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostObject.m; sourceTree = "<group>"; };
+		66B07F731AAE8E86000F4B21 /* MyPostLenders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPostLenders.h; sourceTree = "<group>"; };
+		66B07F741AAE8E86000F4B21 /* MyPostLenders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostLenders.m; sourceTree = "<group>"; };
+		66B07F761AAE94F0000F4B21 /* MyPostItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPostItem.h; sourceTree = "<group>"; };
+		66B07F771AAE94F0000F4B21 /* MyPostItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostItem.m; sourceTree = "<group>"; };
+		66B07F791AAE96D3000F4B21 /* MyPostLender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPostLender.h; sourceTree = "<group>"; };
+		66B07F7A1AAE96D3000F4B21 /* MyPostLender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostLender.m; sourceTree = "<group>"; };
+		66F42B5D1A96D08E00F99A31 /* hourglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass.png; sourceTree = "<group>"; };
+		66F42B5F1A96D21D00F99A31 /* hourglass2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass2.png; sourceTree = "<group>"; };
 		66F4C3341A7F1865001B97AA /* MainFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainFeed.h; sourceTree = "<group>"; };
 		66F4C3351A7F1866001B97AA /* MainFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainFeed.m; sourceTree = "<group>"; };
 		66F4C3371A7F3389001B97AA /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
@@ -125,11 +159,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		661DB0901A9D315C00400B86 /* MyPosts */ = {
+			isa = PBXGroup;
+			children = (
+				661DB0911A9D32AD00400B86 /* MyPosts.h */,
+				661DB0921A9D32AD00400B86 /* MyPosts.m */,
+				66AC793D1A9EA91300DDF2AE /* MyPostObject.h */,
+				66AC793E1A9EA91300DDF2AE /* MyPostObject.m */,
+				668AD9D81AA0597600627437 /* MyPost.h */,
+				668AD9D91AA0597600627437 /* MyPost.m */,
+				660314461AA3038600C0F763 /* MyPostNoLenders.h */,
+				660314471AA3038600C0F763 /* MyPostNoLenders.m */,
+				66B07F731AAE8E86000F4B21 /* MyPostLenders.h */,
+				66B07F741AAE8E86000F4B21 /* MyPostLenders.m */,
+				66B07F761AAE94F0000F4B21 /* MyPostItem.h */,
+				66B07F771AAE94F0000F4B21 /* MyPostItem.m */,
+				66B07F791AAE96D3000F4B21 /* MyPostLender.h */,
+				66B07F7A1AAE96D3000F4B21 /* MyPostLender.m */,
+				668FC80C1AB110C300AB2BAD /* Response.h */,
+				668FC80D1AB110C300AB2BAD /* Response.m */,
+			);
+			name = MyPosts;
+			sourceTree = "<group>";
+		};
+		661FA3F51A9B0E8200D79003 /* RespondToPost */ = {
+			isa = PBXGroup;
+			children = (
+				661FA3F91A9B10E900D79003 /* RespondToPost.h */,
+				661FA3FA1A9B10E900D79003 /* RespondToPost.m */,
+			);
+			name = RespondToPost;
+			sourceTree = "<group>";
+		};
 		6678BF3A1A7DB4440060B73A /* LoginAndSignUp */ = {
 			isa = PBXGroup;
 			children = (
-				6678BF3F1A7DB7720060B73A /* Login.h */,
-				6678BF401A7DB7720060B73A /* Login.m */,
+				6678BF3F1A7DB7720060B73A /* LoginAndSignUp.h */,
+				6678BF401A7DB7720060B73A /* LoginAndSignUp.m */,
 			);
 			name = LoginAndSignUp;
 			sourceTree = "<group>";
@@ -169,6 +235,9 @@
 		66953AE11A79BCE200AEB78C /* BorrowMe */ = {
 			isa = PBXGroup;
 			children = (
+				661DB0901A9D315C00400B86 /* MyPosts */,
+				661FA3F51A9B0E8200D79003 /* RespondToPost */,
+				66F42B5C1A96D05600F99A31 /* Resources */,
 				66F4C33A1A7F46FD001B97AA /* NewPost */,
 				66F4C3331A7F1822001B97AA /* MainFeed */,
 				6678BF3A1A7DB4440060B73A /* LoginAndSignUp */,
@@ -221,6 +290,15 @@
 			path = "parse-library-1.6.2";
 			sourceTree = "<group>";
 		};
+		66F42B5C1A96D05600F99A31 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				66F42B5F1A96D21D00F99A31 /* hourglass2.png */,
+				66F42B5D1A96D08E00F99A31 /* hourglass.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		66F4C3331A7F1822001B97AA /* MainFeed */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +306,8 @@
 				66F4C3351A7F1866001B97AA /* MainFeed.m */,
 				66F4C3371A7F3389001B97AA /* Post.h */,
 				66F4C3381A7F3389001B97AA /* Post.m */,
+				664CAE751A88B0E600E3E929 /* PostObject.h */,
+				664CAE761A88B0E600E3E929 /* PostObject.m */,
 			);
 			name = MainFeed;
 			sourceTree = "<group>";
@@ -321,7 +401,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66F42B5E1A96D08E00F99A31 /* hourglass.png in Resources */,
 				66953AF11A79BCE200AEB78C /* Main.storyboard in Resources */,
+				66F42B601A96D21D00F99A31 /* hourglass2.png in Resources */,
 				66953AF61A79BCE200AEB78C /* LaunchScreen.xib in Resources */,
 				66953AF31A79BCE200AEB78C /* Images.xcassets in Resources */,
 			);
@@ -343,11 +425,21 @@
 			files = (
 				66F4C3361A7F1866001B97AA /* MainFeed.m in Sources */,
 				66F4C3391A7F3389001B97AA /* Post.m in Sources */,
+				668FC80E1AB110C300AB2BAD /* Response.m in Sources */,
 				66F4C33D1A7F4749001B97AA /* NewPost.m in Sources */,
+				661FA3FB1A9B10E900D79003 /* RespondToPost.m in Sources */,
+				66B07F781AAE94F0000F4B21 /* MyPostItem.m in Sources */,
 				66953AE81A79BCE200AEB78C /* AppDelegate.m in Sources */,
+				661DB0931A9D32AD00400B86 /* MyPosts.m in Sources */,
+				66AC793F1A9EA91300DDF2AE /* MyPostObject.m in Sources */,
+				66B07F751AAE8E86000F4B21 /* MyPostLenders.m in Sources */,
+				668AD9DA1AA0597600627437 /* MyPost.m in Sources */,
+				664CAE771A88B0E600E3E929 /* PostObject.m in Sources */,
+				660314481AA3038600C0F763 /* MyPostNoLenders.m in Sources */,
 				66953AE51A79BCE200AEB78C /* main.m in Sources */,
 				66953AEB1A79BCE200AEB78C /* BorrowMe.xcdatamodeld in Sources */,
-				6678BF411A7DB7720060B73A /* Login.m in Sources */,
+				6678BF411A7DB7720060B73A /* LoginAndSignUp.m in Sources */,
+				66B07F7B1AAE96D3000F4B21 /* MyPostLender.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

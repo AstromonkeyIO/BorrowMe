@@ -8,6 +8,7 @@
 
 #import "MainFeed.h"
 #import "Post.h"
+#import "RespondToPost.h"
 
 @implementation MainFeed
 
@@ -25,19 +26,41 @@
 {
     [super viewWillAppear:animated];
     self.currentUser = [PFUser currentUser];
+    //[self pullFromDatabase];
+    //[self.tableView reloadData];
     
+//    
+//    self.navBar = self.navigationController.navigationBar;
+//    [self.navBar setBackgroundImage:[UIImage new] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+//    [self.navBar setShadowImage:[UIImage new]];
+//    self.navBar.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewDidLoad
 {
     
     [super viewDidLoad];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];    
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.currentUser = [PFUser currentUser];
+    NSLog(@"current user %@", self.currentUser);
+    
     self.posts = [[NSMutableArray alloc] init];
     [self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
+    
+    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
+    [gestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
 
+}
+
+-(void)swipeLeft:(UISwipeGestureRecognizer *)recognizer {
+    
+    [self performSegueWithIdentifier:@"NewPostSegue" sender:self];    
+    
 }
 
 - (void) pullFromDatabase
@@ -45,37 +68,41 @@
 
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     //[query whereKey:@"playerName" equalTo:@"Dan Stemkoski"];
-    [query includeKey:@"User"];
-    [query includeKey:@"User.username"];
-    
     [query orderByDescending:@"createdAt"];
+    [query includeKey:@"User"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (!error) {
             
             // The find succeeded.
             // Do something with the found objects
+            
             if([self.posts count] != 0)
             {
                 [self.posts removeAllObjects];
             }
-            [self.posts addObjectsFromArray:posts];
             
-            /*
-            for (PFObject *post in self.posts) {
+            for (PFObject *post in posts) {
                 // This does not require a network access.
-                PFUser* user = post[@"user"];
-                [user fetchIfNeeded];
-                //NSLog(@"Helllllloooooo: %@", user);
-                NSLog(@"Helllllloooooo: %@", user.username);
+                //PFUser* user = post[@"user"];
+                
+                PFUser* user = (PFUser*)[[[post relationForKey:@"user"] query] getFirstObject];
+                NSLog(@"%@", user);
+                
+                PostObject* postObject = [[PostObject alloc] init];
+                [postObject setUserObject:user];
+                [postObject setItemObject: [post valueForKey:@"item"]];
+                [postObject setPostObject: post];
+                [self.posts addObject:postObject];
                 
             }
-            */
+            NSLog(@"posts array %@", self.posts);
             
+            //[self.posts addObjectsFromArray:posts];
             
-            
-            
+
             dispatch_async(dispatch_get_main_queue(), ^ {
                 [self.tableView reloadData];
+                [self.refreshControl endRefreshing];
             });
             
         } else {
@@ -118,88 +145,48 @@
     [postBubbleLayer setCornerRadius:5.0];
     
     CGPoint saveCenter = post.profilePicture.center;
-    CGRect newFrame = CGRectMake(post.profilePicture.frame.origin.x, post.profilePicture.frame.origin.y, 60, 60);
+    CGRect newFrame = CGRectMake(post.profilePicture.frame.origin.x, post.profilePicture.frame.origin.y, 80, 80);
     post.profilePicture.frame = newFrame;
-    post.profilePicture.layer.cornerRadius = 60 / 2.0;
+    post.profilePicture.layer.cornerRadius = 80 / 2.0;
     post.profilePicture.center = saveCenter;
     post.profilePicture.clipsToBounds = YES;
     
-    post.userId = [[self.posts objectAtIndex:indexPath.row] valueForKey:@"userId"];
-    post.item.text = [[self.posts objectAtIndex:indexPath.row] valueForKey:@"item"];
+    PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
+    post.item.text = [[self.posts objectAtIndex:indexPath.row] getItem];
+ 
+    PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
+    NSData* profilePictureData = [profilePictureFile getData];
+    post.profilePicture.image = [UIImage imageWithData: profilePictureData];
     
     
-    NSLog(@"user class %@ !!!!!!!",[[self.posts objectAtIndex:indexPath.row] objectForKey:@"user"]);
+    NSString* buttonTitle = [NSString stringWithFormat:@"%@", [user valueForKey:@"username"]];
+    [post.username setTitle: buttonTitle forState: UIControlStateNormal];
+    
+    CALayer* helpButtonLayer = [post.helpButton layer];
+    [helpButtonLayer setMasksToBounds:YES];
+    [helpButtonLayer setCornerRadius:5.0];
+    
+    [[post.helpButton layer] setBorderWidth:2.0f];
+    [[post.helpButton layer] setBorderColor:[UIColor colorWithRed: 102.0/255.0 green: 255.0/255.0 blue:102.0/255.0 alpha: 1.0].CGColor];
+    
     
     /*
-    NSString* username = [[[self.posts objectAtIndex:indexPath.row] objectForKey:@"user"] valueForKey:@"username"];
-    
-    [post.username setTitle: username forState: UIControlStateNormal];
+    CALayer * helpButtonLayer = [post.helpButton layer];
+    [helpButtonLayer setMasksToBounds:YES];
+    [helpButtonLayer setCornerRadius:10.0];
     */
     
+    //[[self.askButton layer] setBorderWidth:2.0f];
+    //[[self.askButton layer] setBorderColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0].CGColor];
+    
+
     return post;
-    /*
-    int firstIndex = indexPath.row;
-    
-    
-    if(firstIndex == 0)
-    {
-        TELIndividualNewsFeedHeaderSectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HeaderSection" forIndexPath:indexPath];
-        
-        CGPoint saveCenter = cell.creatorProfile.center;
-        CGRect newFrame = CGRectMake(cell.creatorProfile.frame.origin.x, cell.creatorProfile.frame.origin.y, 70, 70);
-        cell.creatorProfile.frame = newFrame;
-        cell.creatorProfile.layer.cornerRadius = 70 / 2.0;
-        cell.creatorProfile.center = saveCenter;
-        cell.creatorProfile.clipsToBounds = YES;
-        
-        PFFile* creatorProfileFile = [[self.comments objectAtIndex:indexPath.row] valueForKey:@"creatorProfile"];
-        NSData* creatorProfileData = [creatorProfileFile getData];
-        cell.creatorProfile.image = [UIImage imageWithData:creatorProfileData];
-        
-        cell.creatorName.text = [NSString stringWithFormat:@" by %@", [[self.comments objectAtIndex:indexPath.row]valueForKey:@"creatorName"]];
-        cell.title.text =[[self.comments objectAtIndex:indexPath.row] valueForKey:@"title"];
-        PFFile* imageFile = [[self.comments objectAtIndex:indexPath.row] valueForKey:@"image"];
-        NSData* imageData = [imageFile getData];
-        cell.image.image = [UIImage imageWithData:imageData];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return cell;
-    }
-    else
-    {
-        TELCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Comment" forIndexPath:indexPath];
-        
-        CGPoint saveCenter = cell.commentorProfile.center;
-        CGRect newFrame = CGRectMake(cell.commentorProfile.frame.origin.x, cell.commentorProfile.frame.origin.y, 44, 44);
-        cell.commentorProfile.frame = newFrame;
-        cell.commentorProfile.layer.cornerRadius = 44 / 2.0;
-        cell.commentorProfile.center = saveCenter;
-        cell.commentorProfile.clipsToBounds = YES;
-        
-        PFFile* commentorProfileFile = [[self.comments objectAtIndex:indexPath.row] valueForKey:@"commentorProfile"];
-        NSData* commentorProfileData = [commentorProfileFile getData];
-        cell.commentorProfile.image = [UIImage imageWithData:commentorProfileData];
-        
-        cell.commentorName.text = [[self.comments objectAtIndex:indexPath.row]valueForKey:@"commentorName"];
-        
-        
-        cell.content.text = [[self.comments objectAtIndex:indexPath.row] valueForKey:@"content"];
-        CALayer * l = [cell.content layer];
-        [l setMasksToBounds:YES];
-        [l setCornerRadius:5.0];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-        return cell;
-    }
-     */
-    return nil;
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        return 100;
+        return 160;
 }
 
 
@@ -249,18 +236,17 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
-    if([segue.identifier isEqualToString:@"PostCommentSegue"])
+    if([segue.identifier isEqualToString:@"RespondToPostSegue"])
     {
-        /*
+            
+        RespondToPost* linkedInHelpBorrowerViewController = (RespondToPost *)segue.destinationViewController;
+
+         PostObject* passPostObject = [self.posts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         
-        TELPostCommentViewController* linkedInTableViewController = (TELPostCommentViewController *)segue.destinationViewController;
+        linkedInHelpBorrowerViewController.receivedPostObject = passPostObject;
         
-        
-        PFObject *passNewsFeedObject = self.receivedNewsFeedObject;
-        linkedInTableViewController.receivedNewsFeedObject = passNewsFeedObject;
-         */
     }
-    
+
 }
 
 - (IBAction)backButtonPressed:(id)sender {

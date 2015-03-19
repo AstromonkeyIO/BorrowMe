@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "MainFeed.h"
 
-@interface NewPost : UIViewController {
-    
-    IBOutlet UIScrollView* scroller;
-    
-}
+@interface NewPost : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *itemInput;
 @property (strong, nonatomic) PFUser* currentUser;
+@property (weak, nonatomic) IBOutlet UILabel *itemInputBubble;
+@property (weak, nonatomic) IBOutlet UIButton *askButton;
+@property (strong, nonatomic) MainFeed* mainFeed;
+@property (weak, nonatomic) IBOutlet UILabel *backgroundBubble;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UITextView *noteBox;
 
 
 @end

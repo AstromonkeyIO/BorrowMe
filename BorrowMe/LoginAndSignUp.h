@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface Login : UIViewController <UIImagePickerControllerDelegate, UITextFieldDelegate> {
+@interface LoginAndSignUp : UIViewController <UIImagePickerControllerDelegate, UITextFieldDelegate> {
     
     IBOutlet UIScrollView* scroller;
     
@@ -31,5 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *signUpProfilePicture;
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (strong, nonatomic) PFFile* signUpUserProfilePictureFile;
+@property (strong, nonatomic) UIGestureRecognizer* gestureRecognizer;
+@property (weak, nonatomic) IBOutlet UILabel *blueCircle;
 
 @end

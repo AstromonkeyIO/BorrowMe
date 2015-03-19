@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Tom Lee. All rights reserved.
 //
 
-#import "Login.h"
+#import "LoginAndSignUp.h"
 
 
-@implementation Login
+@implementation LoginAndSignUp
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,6 +23,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAllKeyboards)];
+    self.gestureRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:self.gestureRecognizer];
+    
+    
+    //Temporary auto login for testing purposes
+    /*
+    [PFUser logInWithUsernameInBackground:@"a" password:@"a" block:^(PFUser *user,NSError *error) {
+        
+        if (user)
+        {
+            [self performSegueWithIdentifier:@"Login-Success" sender:self];
+        }
+        
+    }];
+     */
+    
+    
+    
     //[scroller setScrollEnabled:YES];
     //[scroller setContentSize:CGSizeMake(320, 625)];
     //self.usernameInput.delegate = self;
@@ -61,6 +80,7 @@
     self.signUpProfilePicture.center = saveCenter2;
     self.signUpProfilePicture.clipsToBounds = YES;
     
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,13 +114,17 @@
             self.userProfile.image = [UIImage imageWithData:profilePictureData];
             self.loginSuccessMessage.text = [NSString stringWithFormat:@"Welcome %@!", user.username];
             self.loginSuccessMessage.hidden = NO;
+            self.usernameInput.hidden = YES;
+            self.passwordInput.hidden = YES;
+            self.loginButton.hidden = YES;
             
+            /*
             [NSTimer scheduledTimerWithTimeInterval:1.0
                                              target:self
                                            selector:@selector(changeMessage)
                                            userInfo:nil
                                             repeats:NO];
-            
+            */
             
             
             
@@ -205,9 +229,6 @@
     
 }
 
-
-
-
 - (void) changeMessage {
     
     self.loginSuccessMessage.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0];
@@ -285,6 +306,12 @@
     
     [self.view endEditing:YES];
     return NO;
+    
+}
+
+- (void) dismissAllKeyboards {
+    
+    [self.view endEditing:YES];
     
 }
 

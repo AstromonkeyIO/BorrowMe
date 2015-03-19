@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *username;
 @property (strong, nonatomic) NSString* userId;
 @property (weak, nonatomic) IBOutlet UILabel *item;
+@property (weak, nonatomic) IBOutlet UIButton *helpButton;
 
 
 

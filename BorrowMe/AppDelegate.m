@@ -22,7 +22,6 @@
                   clientKey:@"qpXaYZDFu8BmVbERWxFr7L3ScbJgi0MjZtlH3zkB"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    
     return YES;
 }
 
