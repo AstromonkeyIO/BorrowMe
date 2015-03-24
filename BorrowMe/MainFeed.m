@@ -24,16 +24,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    
     [super viewWillAppear:animated];
     self.currentUser = [PFUser currentUser];
-    //[self pullFromDatabase];
-    //[self.tableView reloadData];
     
-//    
-//    self.navBar = self.navigationController.navigationBar;
-//    [self.navBar setBackgroundImage:[UIImage new] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-//    [self.navBar setShadowImage:[UIImage new]];
-//    self.navBar.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewDidLoad
@@ -48,24 +42,13 @@
     [self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
-    
-    UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
-    [gestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [self.view addGestureRecognizer:gestureRecognizer];
-    
     self.view.backgroundColor = [UIColor whiteColor];
-
-}
-
--(void)swipeLeft:(UISwipeGestureRecognizer *)recognizer {
-    
-    [self performSegueWithIdentifier:@"NewPostSegue" sender:self];    
     
 }
 
 - (void) pullFromDatabase
 {
-
+    
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     //[query whereKey:@"playerName" equalTo:@"Dan Stemkoski"];
     [query orderByDescending:@"createdAt"];
@@ -82,8 +65,6 @@
             }
             
             for (PFObject *post in posts) {
-                // This does not require a network access.
-                //PFUser* user = post[@"user"];
                 
                 PFUser* user = (PFUser*)[[[post relationForKey:@"user"] query] getFirstObject];
                 NSLog(@"%@", user);
@@ -96,10 +77,6 @@
                 
             }
             NSLog(@"posts array %@", self.posts);
-            
-            //[self.posts addObjectsFromArray:posts];
-            
-
             dispatch_async(dispatch_get_main_queue(), ^ {
                 [self.tableView reloadData];
                 [self.refreshControl endRefreshing];
@@ -145,11 +122,12 @@
     [postBubbleLayer setCornerRadius:5.0];
     
     CGPoint saveCenter = post.profilePicture.center;
-    CGRect newFrame = CGRectMake(post.profilePicture.frame.origin.x, post.profilePicture.frame.origin.y, 80, 80);
+    CGRect newFrame = CGRectMake(post.profilePicture.frame.origin.x, post.profilePicture.frame.origin.y, 60, 60);
     post.profilePicture.frame = newFrame;
-    post.profilePicture.layer.cornerRadius = 80 / 2.0;
+    post.profilePicture.layer.cornerRadius = 60 / 2.0;
     post.profilePicture.center = saveCenter;
     post.profilePicture.clipsToBounds = YES;
+    
     
     PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
     post.item.text = [[self.posts objectAtIndex:indexPath.row] getItem];
@@ -165,10 +143,10 @@
     CALayer* helpButtonLayer = [post.helpButton layer];
     [helpButtonLayer setMasksToBounds:YES];
     [helpButtonLayer setCornerRadius:5.0];
-    
+    /*
     [[post.helpButton layer] setBorderWidth:2.0f];
     [[post.helpButton layer] setBorderColor:[UIColor colorWithRed: 102.0/255.0 green: 255.0/255.0 blue:102.0/255.0 alpha: 1.0].CGColor];
-    
+    */
     
     /*
     CALayer * helpButtonLayer = [post.helpButton layer];
@@ -229,6 +207,9 @@
  }
  */
 
+- (void) help {
+    
+}
 
 #pragma mark - Navigation
 

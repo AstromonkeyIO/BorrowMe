@@ -10,7 +10,7 @@
 #import "MyPostLender.h"
 #import "MyPostItem.h"
 #import "Response.h"
-
+#import <MessageUI/MessageUI.h>
 
 @implementation MyPostLenders
 
@@ -48,9 +48,15 @@
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
+    /*
     UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
     [gestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
     [self.view addGestureRecognizer:gestureRecognizer];
+    */
+     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showTextDialog:) name:@"RespondToLender" object:nil];
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     
 }
 
@@ -120,6 +126,22 @@
     
 }
 
+- (void)singleTapOnTableViewCell:(UITapGestureRecognizer *)recognizer
+{
+    NSLog(@"single tap!");
+    
+}
+
+- (void)doubleTapOnTableViewCell:(UITapGestureRecognizer *) recognizer
+{
+    NSLog(@"double tap");
+    /*
+    [[self.responses objectAtIndex: indexPath.row ] deleteInBackground];
+    [self.responses removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    */
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -139,17 +161,18 @@
     else {
  */
         MyPostLender* myPostLender = [tableView dequeueReusableCellWithIdentifier:@"MyPostLender" forIndexPath:indexPath];
+        myPostLender.selectionStyle = UITableViewCellSelectionStyleNone;
     
         CALayer * borderLayer = [myPostLender.border layer];
         [borderLayer setMasksToBounds:YES];
-        [borderLayer setCornerRadius:5.0];
-    /*
-        CALayer * itemImageLayer = [myPostLender.itemImage layer];
-        [itemImageLayer setMasksToBounds:YES];
-        [itemImageLayer setCornerRadius:5.0];
-        */
+        [borderLayer setCornerRadius:10.0];
+    
+        CALayer * messageButtonLayer = [myPostLender.messageButton layer];
+        [messageButtonLayer setMasksToBounds:YES];
+        [messageButtonLayer setCornerRadius:5.0];
     
     
+        /*
         CGPoint saveCenter = myPostLender.profileImage.center;
         CGRect newFrame = CGRectMake(myPostLender.profileImage.frame.origin.x, myPostLender.profileImage.frame.origin.y, 50, 50);
         
@@ -157,19 +180,33 @@
         myPostLender.profileImage.layer.cornerRadius = 50 / 2.0;
         myPostLender.profileImage.center = saveCenter;
         myPostLender.profileImage.clipsToBounds = YES;
-
-        //PFFile* profilePictureFile = [[self.receivedMyPostObject.lenders objectAtIndex:indexPath.row] valueForKey:@"profilePicture"];
-        //NSData* profilePictureData = [profilePictureFile getData];
-        
-        Response* response = [self.responses objectAtIndex:indexPath.row];
-       //NSLog(@"item image   %@",[response valueForKey:@"itemImage"]);
+        */
+        CGPoint saveCenter = myPostLender.userProfileButton.center;
+        CGRect newFrame = CGRectMake(myPostLender.userProfileButton.frame.origin.x, myPostLender.userProfileButton.frame.origin.y, 50, 50);
     
+        myPostLender.userProfileButton.frame = newFrame;
+        myPostLender.userProfileButton.layer.cornerRadius = 50 / 2.0;
+        myPostLender.userProfileButton.center = saveCenter;
+        myPostLender.userProfileButton.clipsToBounds = YES;
+    
+    
+
+        Response* response = [self.responses objectAtIndex:indexPath.row];
         PFFile* profilePictureFile = [response.user valueForKey:@"profilePicture"];
         NSData* profilePictureData = [profilePictureFile getData];
     
         myPostLender.profileImage.image = [UIImage imageWithData: profilePictureData];
         myPostLender.itemImage.image = [UIImage imageWithData: response.itemImageData];
         myPostLender.username.text = [response.user valueForKey:@"username"];
+        myPostLender.index = indexPath.row;
+    
+    
+        [myPostLender.usernameButton setTitle:[response.user valueForKey:@"username"] forState:UIControlStateNormal];
+        [myPostLender.userProfileButton setBackgroundImage:myPostLender.profileImage.image
+                        forState:UIControlStateNormal];
+
+    
+    
         return myPostLender;
         
     //}
@@ -288,7 +325,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-   return 410;
+   return 440;
     
 }
 
@@ -306,6 +343,77 @@
     // Return YES if you want the specified item to be editable.
     return YES;
 }
+
+- (void) showTextDialog: (NSNotification*) notification {
+    
+    NSInteger index = [notification.userInfo[@"index"] integerValue];
+    
+    Response* response = [self.responses objectAtIndex:index];
+    PFUser* user = response.user;
+    
+    NSString* recipientPhoneNumber = user[@"phone"];
+    NSString* item = self.receivedMyPostObject.item;
+    
+    
+    NSString* textMessageContent = [NSString stringWithFormat:@"Hello from Neighbors! %@ would like to borrow your %@", user[@"username"], item];
+    
+    MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
+    if([MFMessageComposeViewController canSendText])
+    {
+        controller.body = textMessageContent;
+        controller.recipients = [NSArray arrayWithObjects:recipientPhoneNumber, nil];
+        controller.messageComposeDelegate = self;
+        [self presentModalViewController:controller animated:YES];
+    }
+    
+    
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            NSLog(@"Cancelled");
+            break;
+        case MessageComposeResultFailed:
+            break;
+        case MessageComposeResultSent:
+            
+            break;
+        default:
+            break;
+    }
+    
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+
+
+/*
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            NSLog(@"Cancelled");
+            break;
+        case MessageComposeResultFailed:
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"MyApp" message:@"Unknown Error"
+                                                           delegate:self cancelButtonTitle:@”OK” otherButtonTitles: nil];
+            [alert show];
+            [alert release];
+            break;
+        case MessageComposeResultSent:
+            
+            break;
+        default:
+            break;
+    }
+    
+    [self dismissModalViewControllerAnimated:YES];
+}
+*/
+
 /*
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {

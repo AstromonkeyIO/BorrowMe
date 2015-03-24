@@ -36,6 +36,12 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [self.itemInput becomeFirstResponder];
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -45,27 +51,43 @@
 - (IBAction)closeWindow:(id)sender {
     
     [self resignFirstResponder];
-    
-    [self dismissViewControllerAnimated:YES completion:Nil];
+    [self.tabBarController setSelectedIndex:0];
+    //[self dismissViewControllerAnimated:YES completion:Nil];
     
 }
 
 - (IBAction)askButtonPressed:(id)sender {
     
     [self.itemInput resignFirstResponder];
-    PFObject *newPost = [PFObject objectWithClassName:@"Posts"];
-    newPost[@"item"] = self.itemInput.text;
-    newPost[@"deadline"] = self.datePicker.date;
-    PFRelation *relation = [newPost relationForKey:@"user"];
-    [relation addObject:self.currentUser];
-    [newPost save];
+    
+    if(self.itemInput.text.length == 0)
+    {
+        
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Oh No!"
+                                                              message:@"Please tell us what you are trying to borrow!"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles: nil];
+        [myAlertView show];
+        
+    }
+    else
+    {
+        
+        PFObject *newPost = [PFObject objectWithClassName:@"Posts"];
+        newPost[@"item"] = self.itemInput.text;
+        newPost[@"deadline"] = self.datePicker.date;
+        PFRelation *relation = [newPost relationForKey:@"user"];
+        [relation addObject:self.currentUser];
+        [newPost save];
 
-    PFRelation* userToPostRelation = [self.currentUser relationForKey:@"posts"];
-    [userToPostRelation addObject:newPost];
-    [self.currentUser save];
-    
-    [self dismissViewControllerAnimated:YES completion:Nil];
-    
+        PFRelation* userToPostRelation = [self.currentUser relationForKey:@"posts"];
+        [userToPostRelation addObject:newPost];
+        [self.currentUser save];
+        [self.tabBarController setSelectedIndex:0];
+        //[self dismissViewControllerAnimated:YES completion:Nil];
+        
+    }
 }
 
 -(void)swipeRight:(UISwipeGestureRecognizer *)recognizer {

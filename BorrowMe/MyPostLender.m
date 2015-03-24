@@ -13,4 +13,24 @@
 
 
 
+
+- (IBAction)RespondToLender:(id)sender {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RespondToLender" object:nil userInfo:@{@"index" : @(self.index)}];
+    
+    /*
+    MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
+    if([MFMessageComposeViewController canSendText])
+    {
+        controller.body = @"Hello from Mugunth";
+        controller.recipients = [NSArray arrayWithObjects:@"12345678", @"87654321", nil];
+        controller.messageComposeDelegate = self;
+        [self. presentModalViewController:controller animated:YES];
+    }
+     */
+    
+    
+}
+
+
 @end

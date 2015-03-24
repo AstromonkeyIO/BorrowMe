@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import <MessageUI/MessageUI.h>
 
-@interface LoginAndSignUp : UIViewController <UIImagePickerControllerDelegate, UITextFieldDelegate> {
+@interface LoginAndSignUp : UIViewController <UIImagePickerControllerDelegate, UITextFieldDelegate, MFMessageComposeViewControllerDelegate> {
     
     IBOutlet UIScrollView* scroller;
     

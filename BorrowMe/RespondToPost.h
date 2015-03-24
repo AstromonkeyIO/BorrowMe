@@ -13,7 +13,13 @@
 @interface RespondToPost : UIViewController  <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) PostObject* receivedPostObject;
+@property (weak, nonatomic) IBOutlet UITextField *itemDescription;
 @property (weak, nonatomic) IBOutlet UIImageView *itemImage;
-
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
+@property (weak, nonatomic) IBOutlet UIButton *pickPhotoButton;
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
+@property (weak, nonatomic) IBOutlet UIButton *addMoreDescriptionButton;
+@property (weak, nonatomic) IBOutlet UIView *mainLayer;
+@property (strong, nonatomic) UIGestureRecognizer* gestureRecognizer;
 
 @end

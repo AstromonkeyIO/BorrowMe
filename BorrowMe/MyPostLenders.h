@@ -16,4 +16,5 @@
 @property (strong, nonatomic) MyPostObject* receivedMyPostObject;
 @property (strong, nonatomic) NSMutableArray* responses;
 
+
 @end

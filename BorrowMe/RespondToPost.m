@@ -14,6 +14,21 @@
     
     NSLog(@"%@", [self.receivedPostObject getPost]);
     
+    CALayer* mainLayer = [self.mainLayer layer];
+    [mainLayer setMasksToBounds:YES];
+    [mainLayer setCornerRadius:7.5];
+    
+    CALayer* sendButtonLayer = [self.sendButton layer];
+    [sendButtonLayer setMasksToBounds:YES];
+    [sendButtonLayer setCornerRadius:5.0];
+    
+    [self.itemDescription becomeFirstResponder];
+    self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAllKeyboards)];
+    self.gestureRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:self.gestureRecognizer];
+    
+    
+    
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         
         UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Error"
@@ -24,6 +39,9 @@
         [myAlertView show];
         
     }
+    
+    
+    
     
 }
 
@@ -67,22 +85,58 @@
 
 - (IBAction)sendResponseToBorrower:(id)sender {
     
-    PFObject* newResponse = [PFObject objectWithClassName:@"Responses"];
-    NSData *imageData = UIImageJPEGRepresentation(self.itemImage.image, 0.1);
-    PFFile* imageInPFFile = [PFFile fileWithName:@"test.png" data:imageData];
-    newResponse[@"itemImage"] = imageInPFFile;
+    if(self.itemDescription.text.length == 0)
+    {
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Oh No!"
+                                                              message:@"Please talk about your item just a little bit"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles: nil];
+        [myAlertView show];
     
-    PFRelation * newResponseToUserrelation = [newResponse relationForKey:@"user"];
-    [newResponseToUserrelation addObject: [PFUser currentUser]];
-    [newResponse save];
+    }
+    else if(!self.itemImage.image) {
+        
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Oh No!"
+                                                              message:@"No image of the item!"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles: nil];
+        [myAlertView show];
+        
+    }
+    else
+    {
+        PFObject* newResponse = [PFObject objectWithClassName:@"Responses"];
+        NSData *imageData = UIImageJPEGRepresentation(self.itemImage.image, 0.1);
+        PFFile* imageInPFFile = [PFFile fileWithName:@"test.png" data:imageData];
+        newResponse[@"itemImage"] = imageInPFFile;
     
-    PFRelation* responseToPostRelation = [[self.receivedPostObject getPost] relationForKey:@"responses"];
-    [responseToPostRelation addObject: newResponse];
-    [self.receivedPostObject.post save];
+        PFRelation * newResponseToUserrelation = [newResponse relationForKey:@"user"];
+        [newResponseToUserrelation addObject: [PFUser currentUser]];
+        [newResponse save];
     
-    [self dismissViewControllerAnimated:YES completion:Nil];
+        PFRelation* responseToPostRelation = [[self.receivedPostObject getPost] relationForKey:@"responses"];
+        [responseToPostRelation addObject: newResponse];
+        [self.receivedPostObject.post save];
+    
+        self.itemDescription.text = @"";
+        [self dismissViewControllerAnimated:YES completion:Nil];
+    }
+    
     
 }
 
+- (IBAction)cancelButtonPressed:(id)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    
+}
+
+- (void) dismissAllKeyboards {
+    
+    [self.view endEditing:YES];
+    
+}
 
 @end

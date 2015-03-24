@@ -15,5 +15,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *itemImage;
 @property (weak, nonatomic) IBOutlet UIView *border;
 @property (weak, nonatomic) IBOutlet UILabel *info;
+@property (assign, nonatomic) NSInteger index;
+@property (weak, nonatomic) IBOutlet UIButton *messageButton;
+@property (weak, nonatomic) IBOutlet UIButton *usernameButton;
+@property (weak, nonatomic) IBOutlet UIButton *userProfileButton;
 
 @end

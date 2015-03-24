@@ -163,6 +163,7 @@
     [myPostItemLayer setMasksToBounds:YES];
     [myPostItemLayer setCornerRadius:5.0];
     
+    
     CGPoint saveCenter = myPost.lenderPicture1.center;
     CGRect newFrame = CGRectMake(myPost.lenderPicture1.frame.origin.x, myPost.lenderPicture1.frame.origin.y, 40, 40);
     
@@ -365,11 +366,19 @@
     if([segue.identifier isEqualToString:@"GoToMyPostLenders"])
     {
         
+        /*
         MyPostLenders* linkedInMyPostLendersViewController = (MyPostLenders *)segue.destinationViewController;
         
         MyPostObject* passMyPostObject = [self.myPosts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         
         linkedInMyPostLendersViewController.receivedMyPostObject = passMyPostObject;
+         */
+        MyPostObject* passMyPostObject = [self.myPosts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        MyPostLenders* tableView = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
+        
+       // MyPostLenders* tableView = (MyPostLenders*)[self.navigationController.viewControllers objectAtIndex:0];
+        tableView.receivedMyPostObject = passMyPostObject;
+        
         
     }
     

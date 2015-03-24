@@ -27,6 +27,9 @@
     self.gestureRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:self.gestureRecognizer];
     
+
+    
+    
     
     //Temporary auto login for testing purposes
     /*
@@ -129,7 +132,7 @@
             
             
             
-            [NSTimer scheduledTimerWithTimeInterval:3.0
+            [NSTimer scheduledTimerWithTimeInterval:1.2
                                              target:self
                                            selector:@selector(goToMainPage)
                                            userInfo:nil
@@ -315,6 +318,10 @@
     
 }
 
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller
+                 didFinishWithResult:(MessageComposeResult)result {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 
