@@ -22,7 +22,8 @@
     CALayer* askButtonLayer = [self.askButton layer];
     [askButtonLayer setMasksToBounds:YES];
     [askButtonLayer setCornerRadius:5.0];
-    
+
+    self.noteBox.text = @"Leave a little note!";
     
     //[[self.askButton layer] setBorderWidth:2.0f];
     //[[self.askButton layer] setBorderColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0].CGColor];
@@ -49,6 +50,11 @@
 }
 
 - (IBAction)closeWindow:(id)sender {
+    
+    self.itemInput.text = @"";
+    self.noteBox.text = @"Leave a little note!";
+    self.noteBox.hidden = YES;
+    self.datePicker.hidden = NO;
     
     [self resignFirstResponder];
     [self.tabBarController setSelectedIndex:0];
@@ -103,11 +109,36 @@
     {
         self.noteBox.hidden = YES;
         self.datePicker.hidden = NO;
+        [self.itemInput becomeFirstResponder];
     }
     else
     {
         self.datePicker.hidden = YES;
         self.noteBox.hidden = NO;
+        [self.noteBox becomeFirstResponder];
+    }
+    
+}
+
+- (BOOL) textViewShouldBeginEditing:(UITextView *)textView
+{
+    
+    self.noteBox.text = @"";
+    self.noteBox.textColor = [UIColor blackColor];
+    return YES;
+    
+}
+
+-(void) textViewDidChange:(UITextView *)textView
+{
+    
+    if(self.noteBox.text.length == 0)
+    {
+        
+        self.noteBox.textColor = [UIColor lightGrayColor];
+        self.noteBox.text = @"Leave a little note!";
+        [self.noteBox resignFirstResponder];
+        
     }
     
 }

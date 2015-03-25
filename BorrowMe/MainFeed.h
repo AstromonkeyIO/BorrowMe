@@ -15,5 +15,6 @@
 @property (strong, nonatomic) PFUser* currentUser;
 @property (strong, nonatomic) NSMutableArray* posts;
 @property (strong, nonatomic) UINavigationBar* navBar;
+@property (assign, nonatomic) NSInteger index;
 
 @end

@@ -128,6 +128,7 @@
     post.profilePicture.center = saveCenter;
     post.profilePicture.clipsToBounds = YES;
     
+    post.index = indexPath.row;
     
     PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
     post.item.text = [[self.posts objectAtIndex:indexPath.row] getItem];
@@ -211,6 +212,12 @@
     
 }
 
+- (void) getIndexOfHelpedPost:(NSNotification*) notification {
+    
+    self.index = [notification.userInfo[@"index"] integerValue];
+    
+    
+}
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -222,7 +229,9 @@
             
         RespondToPost* linkedInHelpBorrowerViewController = (RespondToPost *)segue.destinationViewController;
 
-         PostObject* passPostObject = [self.posts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getIndexOfHelpedPost:) name:@"RespondToPost" object:nil];
+        
+         PostObject* passPostObject = [self.posts objectAtIndex:self.index];
         
         linkedInHelpBorrowerViewController.receivedPostObject = passPostObject;
         

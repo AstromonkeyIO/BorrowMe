@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 #import "MainFeed.h"
 
-@interface NewPost : UIViewController
+@interface NewPost : UIViewController <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *itemInput;
 @property (strong, nonatomic) PFUser* currentUser;

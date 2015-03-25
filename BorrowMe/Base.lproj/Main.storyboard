@@ -574,7 +574,7 @@
                                                 <rect key="frame" x="50" y="85" width="220" height="220"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8G-B0-CVY">
-                                                <rect key="frame" x="193" y="324" width="77" height="30"/>
+                                                <rect key="frame" x="229" y="367" width="77" height="30"/>
                                                 <state key="normal" title="Take Photo">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -583,7 +583,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZx-R7-d5A">
-                                                <rect key="frame" x="50" y="304" width="70" height="70"/>
+                                                <rect key="frame" x="0.0" y="368" width="70" height="70"/>
                                                 <state key="normal" backgroundImage="camera-icon.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -609,7 +609,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iM5-4y-tJw">
-                                                <rect key="frame" x="136" y="324" width="46" height="30"/>
+                                                <rect key="frame" x="206" y="344" width="46" height="30"/>
                                                 <state key="normal" title="Button">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -625,6 +625,26 @@
                                                     <action selector="cancelButtonPressed:" destination="EOO-Y9-qHU" eventType="touchUpInside" id="h5u-n0-g6K"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Izt-Gw-V7l">
+                                                <rect key="frame" x="110" y="145" width="100" height="100"/>
+                                                <state key="normal" image="camera-icon.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="itemImageButtonPressed:" destination="EOO-Y9-qHU" eventType="touchUpInside" id="kEl-bp-nad"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihs-B6-qae">
+                                                <rect key="frame" x="50" y="85" width="46" height="37"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                                <state key="normal" title="X">
+                                                    <color key="titleColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="removeItemImageButtonPressed:" destination="EOO-Y9-qHU" eventType="touchUpInside" id="Lkw-nm-OS2"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -637,8 +657,10 @@
                         <outlet property="addMoreDescriptionButton" destination="iM5-4y-tJw" id="vbU-A0-TIC"/>
                         <outlet property="itemDescription" destination="ZEh-BU-doi" id="Qqx-Uf-phc"/>
                         <outlet property="itemImage" destination="WgZ-B6-QAl" id="ZPw-jS-e5f"/>
+                        <outlet property="itemImageButton" destination="Izt-Gw-V7l" id="E6y-sD-KBc"/>
                         <outlet property="mainLayer" destination="iar-1o-xjQ" id="STN-Xk-uan"/>
                         <outlet property="pickPhotoButton" destination="J8G-B0-CVY" id="Gc3-63-4F0"/>
+                        <outlet property="removeItemImageButton" destination="ihs-B6-qae" id="L53-5M-Rvk"/>
                         <outlet property="sendButton" destination="tix-Rz-0FB" id="ghN-VQ-eWZ"/>
                         <outlet property="takePhotoButton" destination="KZx-R7-d5A" id="GCa-Cv-TEn"/>
                     </connections>
@@ -696,7 +718,7 @@
                                             <action selector="switchViewComponent:" destination="MCZ-E1-SWZ" eventType="touchUpInside" id="31h-8i-mkV"/>
                                         </connections>
                                     </button>
-                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Leave a little note!" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Bp3-cu-pXU">
+                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Bp3-cu-pXU">
                                         <rect key="frame" x="43" y="122" width="234" height="151"/>
                                         <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
