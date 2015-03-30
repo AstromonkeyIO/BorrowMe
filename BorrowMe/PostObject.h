@@ -14,6 +14,8 @@
 @property (strong, nonatomic) PFUser* user;
 @property (strong, nonatomic) NSString* item;
 @property (strong, nonatomic) PFObject* post;
+@property (strong, nonatomic) UIImage* userProfileImage;
+@property (strong, nonatomic) NSString* deadline;
 
 - (void) setUserObject:(PFUser *)user;
 - (void) setItemObject:(NSString *)item;

@@ -103,15 +103,89 @@
                 //NSLog(@"these are responses count   !!!!  %lu", (unsigned long)[responses count]);
                 [newMyPost.responses addObjectsFromArray:responses];
                 
+                int responseCounter = 0;
                 for(PFObject* response in responses)
                 {
+                    
+                    if(responseCounter > 4)
+                        break;
                     
                     PFUser* user = (PFUser*)[[[response relationForKey:@"user"] query] getFirstObject];
                     //NSLog(@"response user looppppp   %@", user);
                     //post.profilePicture.image = [UIImage imageWithData: profilePictureData];
                     
                     [newMyPost.lenders addObject:user];
+                    responseCounter++;
 
+                }
+                
+                
+                
+                //time elapsed function
+                [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CST"]];
+                NSDate* nDate = [NSDate date];
+                NSLog(@"date 2 %@", [nDate description]);
+                
+                NSTimeInterval secondsBetween = [[myPost valueForKey:@"deadline"] timeIntervalSinceDate: nDate];
+                
+                if(secondsBetween <= 0)
+                {
+   
+                    newMyPost.deadline = @"expired";
+                    
+                }
+                else
+                {
+                
+                int numberOfWeeksElapsed;
+                int numberOfDaysElapsed;
+                int numberOfHoursElapsed;
+                NSString* timeDifferenceInString;
+                
+            
+                numberOfWeeksElapsed = secondsBetween / 604800;
+                if(numberOfWeeksElapsed >= 1)
+                {
+                    
+                    timeDifferenceInString = [NSString stringWithFormat:@"%dw", numberOfWeeksElapsed];
+                    newMyPost.deadline = timeDifferenceInString;
+                    
+                }
+                else
+                {
+                    
+                    numberOfDaysElapsed = secondsBetween / 86400;
+                    NSLog(@"number of days %d", numberOfDaysElapsed);
+                    if(numberOfDaysElapsed >= 1)
+                    {
+                        
+                        timeDifferenceInString = [NSString stringWithFormat:@"%dd", numberOfDaysElapsed];
+                        newMyPost.deadline = timeDifferenceInString;
+                        
+                    }
+                    else
+                    {
+                        
+                        numberOfHoursElapsed = secondsBetween / 3600;
+                        if(numberOfHoursElapsed >= 1)
+                        {
+                            
+                            timeDifferenceInString = [NSString stringWithFormat:@"%dh", numberOfHoursElapsed];
+                            newMyPost.deadline = timeDifferenceInString;
+                            
+                        }
+                        else
+                        {
+
+                            timeDifferenceInString = [NSString stringWithFormat:@"%fs", secondsBetween];
+                            newMyPost.deadline = timeDifferenceInString;
+
+                        }
+                        
+                        
+                    }
+                    
+                }
                 }
                 
                 [self.myPosts addObject:newMyPost];
@@ -191,7 +265,8 @@
     
     MyPostObject* myPostObject = [self.myPosts objectAtIndex:indexPath.row];
     myPost.item.text = myPostObject.item;
-    
+    myPost.deadline.text = myPostObject.deadline;
+        
     if([myPostObject.lenders count] > 0)
     {
         int lenderIndex = 0;

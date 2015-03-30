@@ -12,6 +12,7 @@
 @interface Response : NSObject
 
 @property (strong, nonatomic) PFUser* user;
+@property (strong, nonatomic) UIImage* userProfile;
 @property (strong, nonatomic) UIImage* itemImage;
 @property (strong, nonatomic) NSData* itemImageData;
 

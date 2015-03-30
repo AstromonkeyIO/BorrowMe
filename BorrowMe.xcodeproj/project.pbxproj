@@ -11,6 +11,8 @@
 		661DB0931A9D32AD00400B86 /* MyPosts.m in Sources */ = {isa = PBXBuildFile; fileRef = 661DB0921A9D32AD00400B86 /* MyPosts.m */; };
 		661FA3FB1A9B10E900D79003 /* RespondToPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 661FA3FA1A9B10E900D79003 /* RespondToPost.m */; };
 		664CAE771A88B0E600E3E929 /* PostObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 664CAE761A88B0E600E3E929 /* PostObject.m */; };
+		6663A8351AC4C90A002C5EE2 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6663A8341AC4C90A002C5EE2 /* UserProfile.m */; };
+		6667C6DE1AC7BAF5000467AC /* camera icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6667C6DD1AC7BAF5000467AC /* camera icon2.png */; };
 		6678BF411A7DB7720060B73A /* LoginAndSignUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 6678BF401A7DB7720060B73A /* LoginAndSignUp.m */; };
 		668AD9DA1AA0597600627437 /* MyPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 668AD9D91AA0597600627437 /* MyPost.m */; };
 		668FC80E1AB110C300AB2BAD /* Response.m in Sources */ = {isa = PBXBuildFile; fileRef = 668FC80D1AB110C300AB2BAD /* Response.m */; };
@@ -70,6 +72,9 @@
 		661FA3FA1A9B10E900D79003 /* RespondToPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespondToPost.m; sourceTree = "<group>"; };
 		664CAE751A88B0E600E3E929 /* PostObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostObject.h; sourceTree = "<group>"; };
 		664CAE761A88B0E600E3E929 /* PostObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostObject.m; sourceTree = "<group>"; };
+		6663A8331AC4C90A002C5EE2 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
+		6663A8341AC4C90A002C5EE2 /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile.m; sourceTree = "<group>"; };
+		6667C6DD1AC7BAF5000467AC /* camera icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera icon2.png"; sourceTree = "<group>"; };
 		6678BF3F1A7DB7720060B73A /* LoginAndSignUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAndSignUp.h; sourceTree = "<group>"; };
 		6678BF401A7DB7720060B73A /* LoginAndSignUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAndSignUp.m; sourceTree = "<group>"; };
 		668AD9D81AA0597600627437 /* MyPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPost.h; sourceTree = "<group>"; };
@@ -193,6 +198,15 @@
 			name = RespondToPost;
 			sourceTree = "<group>";
 		};
+		6663A8321AC4C8C5002C5EE2 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				6663A8331AC4C90A002C5EE2 /* UserProfile.h */,
+				6663A8341AC4C90A002C5EE2 /* UserProfile.m */,
+			);
+			name = UserProfile;
+			sourceTree = "<group>";
+		};
 		6678BF3A1A7DB4440060B73A /* LoginAndSignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +251,7 @@
 		66953AE11A79BCE200AEB78C /* BorrowMe */ = {
 			isa = PBXGroup;
 			children = (
+				6663A8321AC4C8C5002C5EE2 /* UserProfile */,
 				661DB0901A9D315C00400B86 /* MyPosts */,
 				661FA3F51A9B0E8200D79003 /* RespondToPost */,
 				66F42B5C1A96D05600F99A31 /* Resources */,
@@ -295,6 +310,7 @@
 		66F42B5C1A96D05600F99A31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6667C6DD1AC7BAF5000467AC /* camera icon2.png */,
 				66FBE1331AC1310100F2A3E8 /* camera-icon.png */,
 				66F42B5F1A96D21D00F99A31 /* hourglass2.png */,
 				66F42B5D1A96D08E00F99A31 /* hourglass.png */,
@@ -406,6 +422,7 @@
 			files = (
 				66F42B5E1A96D08E00F99A31 /* hourglass.png in Resources */,
 				66953AF11A79BCE200AEB78C /* Main.storyboard in Resources */,
+				6667C6DE1AC7BAF5000467AC /* camera icon2.png in Resources */,
 				66F42B601A96D21D00F99A31 /* hourglass2.png in Resources */,
 				66FBE1341AC1310100F2A3E8 /* camera-icon.png in Resources */,
 				66953AF61A79BCE200AEB78C /* LaunchScreen.xib in Resources */,
@@ -429,6 +446,7 @@
 			files = (
 				66F4C3361A7F1866001B97AA /* MainFeed.m in Sources */,
 				66F4C3391A7F3389001B97AA /* Post.m in Sources */,
+				6663A8351AC4C90A002C5EE2 /* UserProfile.m in Sources */,
 				668FC80E1AB110C300AB2BAD /* Response.m in Sources */,
 				66F4C33D1A7F4749001B97AA /* NewPost.m in Sources */,
 				661FA3FB1A9B10E900D79003 /* RespondToPost.m in Sources */,

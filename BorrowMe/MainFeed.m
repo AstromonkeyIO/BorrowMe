@@ -10,7 +10,13 @@
 #import "Post.h"
 #import "RespondToPost.h"
 
-@implementation MainFeed
+
+
+@implementation MainFeed {
+    
+    NSString* zipCode;
+    
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,22 +41,41 @@
     
     [super viewDidLoad];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    [self.locationManager startUpdatingLocation];
+    
+    /*
+    float latitude = self.locationManager.location.coordinate.latitude;
+    float longitude = self.locationManager.location.coordinate.longitude;
+
+    NSLog(@" before latitidue %f", latitude);
+    NSLog(@" before longitude %f", longitude);
+    */
+    
     self.currentUser = [PFUser currentUser];
     NSLog(@"current user %@", self.currentUser);
     
     self.posts = [[NSMutableArray alloc] init];
-    [self pullFromDatabase];
+    //[self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     self.view.backgroundColor = [UIColor whiteColor];
+    
     
 }
 
 - (void) pullFromDatabase
 {
+    NSLog(@"zipcode !!!!!!   %@", zipCode);
     
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
-    //[query whereKey:@"playerName" equalTo:@"Dan Stemkoski"];
+    [query whereKey:@"zipcode" equalTo:self.currentUser[@"currentZipcode"]];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"User"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
@@ -67,16 +92,89 @@
             for (PFObject *post in posts) {
                 
                 PFUser* user = (PFUser*)[[[post relationForKey:@"user"] query] getFirstObject];
-                NSLog(@"%@", user);
+                //NSLog(@"%@", user);
                 
                 PostObject* postObject = [[PostObject alloc] init];
                 [postObject setUserObject:user];
                 [postObject setItemObject: [post valueForKey:@"item"]];
                 [postObject setPostObject: post];
+                PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
+                NSData* profilePictureData = [profilePictureFile getData];
+                postObject.userProfileImage = [UIImage imageWithData: profilePictureData];
+                
+                
+                //time elapsed function
+                [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CST"]];
+                NSDate* nDate = [NSDate date];
+                NSLog(@"date 2 %@", [nDate description]);
+        
+                NSTimeInterval secondsBetween = [[post valueForKey:@"deadline"] timeIntervalSinceDate: nDate];
+                
+                if(secondsBetween <= 0)
+                {
+                    
+                    postObject.deadline = @"expired";
+                    
+                }
+                else
+                {
+                
+                int numberOfWeeksElapsed;
+                int numberOfDaysElapsed;
+                int numberOfHoursElapsed;
+                NSString* timeDifferenceInString;
+                
+                numberOfWeeksElapsed = secondsBetween / 604800;
+                if(numberOfWeeksElapsed >= 1)
+                {
+                    
+                    timeDifferenceInString = [NSString stringWithFormat:@"%dw", numberOfWeeksElapsed];
+                    postObject.deadline = timeDifferenceInString;
+                    
+                }
+                else
+                {
+                    
+                    numberOfDaysElapsed = secondsBetween / 86400;
+                    NSLog(@"number of days %d", numberOfDaysElapsed);
+                    if(numberOfDaysElapsed >= 1)
+                    {
+                        
+                        timeDifferenceInString = [NSString stringWithFormat:@"%dd", numberOfDaysElapsed];
+                        postObject.deadline = timeDifferenceInString;
+                        
+                    }
+                    else
+                    {
+                        
+                        numberOfHoursElapsed = secondsBetween / 3600;
+                        if(numberOfHoursElapsed >= 1)
+                        {
+
+                            timeDifferenceInString = [NSString stringWithFormat:@"%dh", numberOfHoursElapsed];
+                            postObject.deadline = timeDifferenceInString;
+                            
+                        }
+                        else
+                        {
+                            
+                            timeDifferenceInString = [NSString stringWithFormat:@"%fs", secondsBetween];
+                            postObject.deadline = timeDifferenceInString;
+                            
+                        }
+                        
+                        
+                    }
+                    
+                }
+                
+                }
+                
+                
                 [self.posts addObject:postObject];
                 
             }
-            NSLog(@"posts array %@", self.posts);
+            //NSLog(@"posts array %@", self.posts);
             dispatch_async(dispatch_get_main_queue(), ^ {
                 [self.tableView reloadData];
                 [self.refreshControl endRefreshing];
@@ -117,6 +215,28 @@
 {
     
     Post* post = [tableView dequeueReusableCellWithIdentifier:@"Post" forIndexPath:indexPath];
+    
+    post.index = indexPath.row;
+    
+    PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
+    post.item.text = [[self.posts objectAtIndex:indexPath.row] getItem];
+    
+    PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
+    post.profilePicture.image = postObject.userProfileImage;
+    
+    NSString* buttonTitle = [NSString stringWithFormat:@"%@", [user valueForKey:@"username"]];
+    [post.username setTitle: buttonTitle forState: UIControlStateNormal];
+    
+    post.deadline.text = postObject.deadline;
+    
+    return post;
+
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(Post *)post forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+
     CALayer * postBubbleLayer = [post.postBubble layer];
     [postBubbleLayer setMasksToBounds:YES];
     [postBubbleLayer setCornerRadius:5.0];
@@ -128,39 +248,12 @@
     post.profilePicture.center = saveCenter;
     post.profilePicture.clipsToBounds = YES;
     
-    post.index = indexPath.row;
-    
-    PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
-    post.item.text = [[self.posts objectAtIndex:indexPath.row] getItem];
- 
-    PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
-    NSData* profilePictureData = [profilePictureFile getData];
-    post.profilePicture.image = [UIImage imageWithData: profilePictureData];
-    
-    
-    NSString* buttonTitle = [NSString stringWithFormat:@"%@", [user valueForKey:@"username"]];
-    [post.username setTitle: buttonTitle forState: UIControlStateNormal];
-    
     CALayer* helpButtonLayer = [post.helpButton layer];
     [helpButtonLayer setMasksToBounds:YES];
     [helpButtonLayer setCornerRadius:5.0];
-    /*
-    [[post.helpButton layer] setBorderWidth:2.0f];
-    [[post.helpButton layer] setBorderColor:[UIColor colorWithRed: 102.0/255.0 green: 255.0/255.0 blue:102.0/255.0 alpha: 1.0].CGColor];
-    */
     
-    /*
-    CALayer * helpButtonLayer = [post.helpButton layer];
-    [helpButtonLayer setMasksToBounds:YES];
-    [helpButtonLayer setCornerRadius:10.0];
-    */
     
-    //[[self.askButton layer] setBorderWidth:2.0f];
-    //[[self.askButton layer] setBorderColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0].CGColor];
     
-
-    return post;
-
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -245,5 +338,53 @@
     [self dismissViewControllerAnimated:true completion:nil];
     
 }
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    NSLog(@"%@", [locations lastObject]);
+    float latitude = self.locationManager.location.coordinate.latitude;
+    float longitude = self.locationManager.location.coordinate.longitude;
+    
+    NSLog(@"latitidue %f", latitude);
+    NSLog(@"longitude %f", longitude);
+    
+    CLLocation* currentLocation = [locations objectAtIndex:0];
+    [self.locationManager stopUpdatingLocation];
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (!(error))
+         {
+             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+             NSLog(@"\nCurrent Location Detected\n");
+             NSLog(@"placemark %@",placemark);
+             NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+             
+             //NSString *Address = [[NSString alloc]initWithString:locatedAt];
+             zipCode = [[NSString alloc]initWithString:placemark.postalCode];
+             [self.currentUser setObject:zipCode forKey:@"currentZipcode"];
+             NSLog(@"current zipcode %@",self.currentUser[@"currentZipcode"]);
+             
+             [self pullFromDatabase];
+             
+             NSLog(@"zip code %@",zipCode);
+         }
+         else
+         {
+             NSLog(@"Geocode failed with error %@", error); // Error handling must required
+         }
+     }];
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
+}
+
 
 @end

@@ -22,13 +22,16 @@
     CALayer* askButtonLayer = [self.askButton layer];
     [askButtonLayer setMasksToBounds:YES];
     [askButtonLayer setCornerRadius:5.0];
-
+    
     self.noteBox.text = @"Leave a little note!";
     
     //[[self.askButton layer] setBorderWidth:2.0f];
     //[[self.askButton layer] setBorderColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0].CGColor];
     
     self.currentUser = [PFUser currentUser];
+    
+    NSLog(@"current zipcode in new post%@",self.currentUser[@"currentZipcode"]);
+    
     
     UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];
     [gestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
@@ -64,7 +67,11 @@
 
 - (IBAction)askButtonPressed:(id)sender {
     
-    [self.itemInput resignFirstResponder];
+    [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CST"]];
+    NSDate* currentDate = [NSDate date];
+
+    NSTimeInterval secondsBetween = [self.datePicker.date timeIntervalSinceDate: currentDate];
+    
     
     if(self.itemInput.text.length == 0)
     {
@@ -77,12 +84,25 @@
         [myAlertView show];
         
     }
-    else
+    else if(secondsBetween <= 0)
     {
         
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Oh No!"
+                                                              message:@"Don't set your deadline to the past!"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles: nil];
+        [myAlertView show];
+        
+        
+    }
+    else
+    {
+        [self.itemInput resignFirstResponder];
         PFObject *newPost = [PFObject objectWithClassName:@"Posts"];
         newPost[@"item"] = self.itemInput.text;
         newPost[@"deadline"] = self.datePicker.date;
+        newPost[@"zipcode"]= self.currentUser[@"currentZipcode"];
         PFRelation *relation = [newPost relationForKey:@"user"];
         [relation addObject:self.currentUser];
         [newPost save];
@@ -90,6 +110,7 @@
         PFRelation* userToPostRelation = [self.currentUser relationForKey:@"posts"];
         [userToPostRelation addObject:newPost];
         [self.currentUser save];
+        self.itemInput.text = @"";
         [self.tabBarController setSelectedIndex:0];
         //[self dismissViewControllerAnimated:YES completion:Nil];
         

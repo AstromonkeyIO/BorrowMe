@@ -276,6 +276,7 @@
                                 <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
+                                    <outlet property="deadline" destination="aXf-6M-rnV" id="Uqf-AI-4bd"/>
                                     <outlet property="helpButton" destination="Vz9-w7-5eh" id="ge4-fa-5vE"/>
                                     <outlet property="item" destination="xgk-rb-mDT" id="mFx-r2-Pvk"/>
                                     <outlet property="postBubble" destination="Yre-h0-rU9" id="dvl-Nc-TSf"/>
@@ -309,6 +310,7 @@
                         <segue destination="ZpA-g3-sxc" kind="relationship" relationship="viewControllers" id="2GG-ge-aSO"/>
                         <segue destination="MCZ-E1-SWZ" kind="relationship" relationship="viewControllers" id="uB4-Da-J8e"/>
                         <segue destination="2w0-nI-HgY" kind="relationship" relationship="viewControllers" id="XxJ-G3-Eq3"/>
+                        <segue destination="zMa-5R-l8y" kind="relationship" relationship="viewControllers" id="MoV-wa-OEB"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fdM-Gj-gnt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -356,8 +358,14 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N23-K5-iUT">
-                                            <rect key="frame" x="245" y="50" width="28" height="27"/>
+                                            <rect key="frame" x="245" y="51" width="25" height="27"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                            <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPp-HU-n9K">
+                                            <rect key="frame" x="254" y="38" width="42" height="16"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
                                             <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -365,6 +373,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="addtionalLenders" destination="N23-K5-iUT" id="gFI-j1-eB1"/>
+                                    <outlet property="deadline" destination="LPp-HU-n9K" id="APH-CX-2lY"/>
                                     <outlet property="item" destination="wog-QO-AEa" id="Yuu-up-Q8j"/>
                                     <outlet property="lenderPicture1" destination="0RN-rE-Wja" id="tta-Gy-2hN"/>
                                     <outlet property="lenderPicture2" destination="DdQ-wv-9Pq" id="hpI-JG-U2l"/>
@@ -402,7 +411,49 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjt-bf-csv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1244" y="1000"/>
+            <point key="canvasLocation" x="1372" y="991"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="eon-ea-cgq">
+            <objects>
+                <tableViewController id="zMa-5R-l8y" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="284" sectionHeaderHeight="22" sectionFooterHeight="22" id="UEG-m5-Mct">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="284" id="Rcb-tW-jhx">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rcb-tW-jhx" id="Wps-BB-rBC">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2xB-Iw-a15"/>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZoJ-FU-bZH">
+                                            <rect key="frame" x="130" y="107" width="70" height="70"/>
+                                            <state key="normal" title="Button">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="waw-wz-tKL">
+                                            <rect key="frame" x="0.0" y="8" width="320" height="215"/>
+                                            <state key="normal" title="Button">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="zMa-5R-l8y" id="5fW-Q3-x06"/>
+                            <outlet property="delegate" destination="zMa-5R-l8y" id="03c-o1-Mbj"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="U0m-Wh-vcz"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cWj-q3-6gy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1372" y="1825"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DGa-Hr-1bx">
@@ -418,7 +469,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqj-YI-rP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1737" y="1000"/>
+            <point key="canvasLocation" x="1959" y="992"/>
         </scene>
         <!--My Post Lenders-->
         <scene sceneID="adF-a3-7gq">
@@ -550,7 +601,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UcW-Pb-X0V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2171" y="1000"/>
+            <point key="canvasLocation" x="2511" y="992"/>
         </scene>
         <!--Respond To Post-->
         <scene sceneID="RaG-2K-Ilx">
@@ -571,28 +622,10 @@
                                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WgZ-B6-QAl">
-                                                <rect key="frame" x="50" y="85" width="220" height="220"/>
+                                                <rect key="frame" x="30" y="97" width="260" height="260"/>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8G-B0-CVY">
-                                                <rect key="frame" x="229" y="367" width="77" height="30"/>
-                                                <state key="normal" title="Take Photo">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="pickPicture:" destination="EOO-Y9-qHU" eventType="touchUpInside" id="f8Z-wX-Ljh"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZx-R7-d5A">
-                                                <rect key="frame" x="0.0" y="368" width="70" height="70"/>
-                                                <state key="normal" backgroundImage="camera-icon.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="takePicture:" destination="EOO-Y9-qHU" eventType="touchUpInside" id="6ze-5O-aQi"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tix-Rz-0FB">
-                                                <rect key="frame" x="123" y="389" width="72" height="37"/>
+                                                <rect key="frame" x="117" y="437" width="86" height="46"/>
                                                 <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
                                                 <state key="normal" title="Send">
@@ -609,8 +642,8 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iM5-4y-tJw">
-                                                <rect key="frame" x="206" y="344" width="46" height="30"/>
-                                                <state key="normal" title="Button">
+                                                <rect key="frame" x="119" y="388" width="83" height="30"/>
+                                                <state key="normal" title="Write a note">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
@@ -626,8 +659,8 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Izt-Gw-V7l">
-                                                <rect key="frame" x="110" y="145" width="100" height="100"/>
-                                                <state key="normal" image="camera-icon.png">
+                                                <rect key="frame" x="110" y="140" width="100" height="100"/>
+                                                <state key="normal" image="camera icon2.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -635,10 +668,11 @@
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihs-B6-qae">
-                                                <rect key="frame" x="50" y="85" width="46" height="37"/>
-                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                                <rect key="frame" x="256" y="77" width="50" height="50"/>
+                                                <color key="backgroundColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="25"/>
                                                 <state key="normal" title="X">
-                                                    <color key="titleColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -659,10 +693,8 @@
                         <outlet property="itemImage" destination="WgZ-B6-QAl" id="ZPw-jS-e5f"/>
                         <outlet property="itemImageButton" destination="Izt-Gw-V7l" id="E6y-sD-KBc"/>
                         <outlet property="mainLayer" destination="iar-1o-xjQ" id="STN-Xk-uan"/>
-                        <outlet property="pickPhotoButton" destination="J8G-B0-CVY" id="Gc3-63-4F0"/>
                         <outlet property="removeItemImageButton" destination="ihs-B6-qae" id="L53-5M-Rvk"/>
                         <outlet property="sendButton" destination="tix-Rz-0FB" id="ghN-VQ-eWZ"/>
-                        <outlet property="takePhotoButton" destination="KZx-R7-d5A" id="GCa-Cv-TEn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L1m-Ak-unJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -763,7 +795,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera-icon.png" width="1500" height="1500"/>
+        <image name="camera icon2.png" width="1000" height="1000"/>
         <image name="hourglass2.png" width="80" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

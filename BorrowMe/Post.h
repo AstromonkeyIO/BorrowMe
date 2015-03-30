@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *item;
 @property (weak, nonatomic) IBOutlet UIButton *helpButton;
 @property (assign, nonatomic) NSInteger index;
+@property (weak, nonatomic) IBOutlet UILabel *deadline;
 
 
 @end

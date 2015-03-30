@@ -9,7 +9,30 @@
 #import "Post.h"
 
 @implementation Post
-
+/*
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *) reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        CALayer * postBubbleLayer = [self.postBubble layer];
+        [postBubbleLayer setMasksToBounds:YES];
+        [postBubbleLayer setCornerRadius:5.0];
+        
+        CGPoint saveCenter = self.profilePicture.center;
+        CGRect newFrame = CGRectMake(self.profilePicture.frame.origin.x, self.profilePicture.frame.origin.y, 60, 60);
+        self.profilePicture.frame = newFrame;
+        self.profilePicture.layer.cornerRadius = 60 / 2.0;
+        self.profilePicture.center = saveCenter;
+        self.profilePicture.clipsToBounds = YES;
+        
+        CALayer* helpButtonLayer = [self.helpButton layer];
+        [helpButtonLayer setMasksToBounds:YES];
+        [helpButtonLayer setCornerRadius:5.0];
+        
+    }
+    return self;
+}
+*/
 
 - (IBAction)helpButtonPressed:(id)sender {
 

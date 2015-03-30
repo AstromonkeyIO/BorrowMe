@@ -27,6 +27,14 @@
     CALayer* sendButtonLayer = [self.sendButton layer];
     [sendButtonLayer setMasksToBounds:YES];
     [sendButtonLayer setCornerRadius:5.0];
+ 
+    CGPoint saveCenter = self.removeItemImageButton.center;
+    CGRect newFrame = CGRectMake(self.removeItemImageButton.frame.origin.x, self.removeItemImageButton.frame.origin.y, 50, 50);
+    self.removeItemImageButton.frame = newFrame;
+    self.removeItemImageButton.layer.cornerRadius = 50 / 2.0;
+    self.removeItemImageButton.center = saveCenter;
+    self.removeItemImageButton.clipsToBounds = YES;
+    
     
     [self.itemDescription becomeFirstResponder];
     

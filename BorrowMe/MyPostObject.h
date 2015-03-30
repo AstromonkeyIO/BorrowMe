@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSMutableArray* lenders;
 @property (strong, nonatomic) NSMutableArray* responses;
 @property (strong, nonatomic) PFObject* myPostPFObject;
+@property (strong, nonatomic) NSString* deadline;
 
 - (void) initialize;
 
