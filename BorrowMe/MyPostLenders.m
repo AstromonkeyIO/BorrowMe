@@ -64,6 +64,8 @@
 {
     
     PFQuery* queryResponses = [[self.receivedMyPostObject.myPostPFObject relationForKey:@"responses"] query];
+    [queryResponses orderByDescending:@"createdAt"];
+    
     //NSLog(@"responses %@", queryResponses);
     [queryResponses findObjectsInBackgroundWithBlock:^(NSArray *responses, NSError *error) {
         

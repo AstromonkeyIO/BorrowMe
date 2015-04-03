@@ -33,6 +33,13 @@
     return self;
 }
 */
+- (IBAction)heartButtonPressed:(id)sender {
+    
+    int heartCount = [self.heartCount.text intValue];
+    heartCount++;
+    self.heartCount.text = [NSString stringWithFormat:@"%d", heartCount];
+    
+}
 
 - (IBAction)helpButtonPressed:(id)sender {
 
@@ -50,6 +57,9 @@
      */
     
 }
+
+
+
 
 
 @end

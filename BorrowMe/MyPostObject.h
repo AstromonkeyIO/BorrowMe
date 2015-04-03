@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSMutableArray* responses;
 @property (strong, nonatomic) PFObject* myPostPFObject;
 @property (strong, nonatomic) NSString* deadline;
+@property (strong, nonatomic) NSString* urgency;
 
 - (void) initialize;
 

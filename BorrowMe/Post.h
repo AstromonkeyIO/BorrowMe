@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *helpButton;
 @property (assign, nonatomic) NSInteger index;
 @property (weak, nonatomic) IBOutlet UILabel *deadline;
+@property (weak, nonatomic) IBOutlet UILabel *heartCount;
+@property (weak, nonatomic) IBOutlet UIImageView *heartImage;
 
 
 @end

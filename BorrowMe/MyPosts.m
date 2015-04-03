@@ -71,6 +71,7 @@
   
     PFQuery* queryMyPosts = [[self.currentUser relationForKey:@"posts"] query];
     NSLog(@"%@", queryMyPosts);
+    [queryMyPosts orderByAscending:@"deadline"];
     [queryMyPosts findObjectsInBackgroundWithBlock:^(NSArray *myPosts, NSError *error) {
         
         NSLog(@"%@", error);
@@ -132,6 +133,7 @@
                 {
    
                     newMyPost.deadline = @"expired";
+                    newMyPost.urgency = @"expired";
                     
                 }
                 else
@@ -159,12 +161,19 @@
                     if(numberOfDaysElapsed >= 1)
                     {
                         
+                        if(numberOfDaysElapsed == 1)
+                        {
+                            newMyPost.urgency = @"urgent";
+                        }
+                        
                         timeDifferenceInString = [NSString stringWithFormat:@"%dd", numberOfDaysElapsed];
                         newMyPost.deadline = timeDifferenceInString;
                         
                     }
                     else
                     {
+                        
+                        newMyPost.urgency = @"urgent";
                         
                         numberOfHoursElapsed = secondsBetween / 3600;
                         if(numberOfHoursElapsed >= 1)
@@ -179,6 +188,7 @@
 
                             timeDifferenceInString = [NSString stringWithFormat:@"%fs", secondsBetween];
                             newMyPost.deadline = timeDifferenceInString;
+
 
                         }
                         
@@ -236,7 +246,8 @@
     CALayer * myPostItemLayer = [myPost.item layer];
     [myPostItemLayer setMasksToBounds:YES];
     [myPostItemLayer setCornerRadius:5.0];
-    
+ 
+        
     
     CGPoint saveCenter = myPost.lenderPicture1.center;
     CGRect newFrame = CGRectMake(myPost.lenderPicture1.frame.origin.x, myPost.lenderPicture1.frame.origin.y, 40, 40);
@@ -264,6 +275,20 @@
     //PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
     
     MyPostObject* myPostObject = [self.myPosts objectAtIndex:indexPath.row];
+        
+    if([myPostObject.urgency isEqualToString: @"expired"])
+    {
+        
+        myPost.item.backgroundColor = [UIColor colorWithRed: 153.0/255.0 green: 153.0/255.0 blue:153.0/255.0 alpha: 1.0];
+
+    }
+    else if([myPostObject.urgency isEqualToString: @"urgent"])
+    {
+        
+        myPost.item.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 1.0];
+
+    }
+        
     myPost.item.text = myPostObject.item;
     myPost.deadline.text = myPostObject.deadline;
         
@@ -327,13 +352,28 @@
     {
         
         MyPostNoLenders* myPostNoLenders = [tableView dequeueReusableCellWithIdentifier:@"MyPostNoLenders" forIndexPath:indexPath];
+        
         CALayer * myPostItemLayer = [myPostNoLenders.item layer];
         [myPostItemLayer setMasksToBounds:YES];
         [myPostItemLayer setCornerRadius:5.0];
         
         MyPostObject* myPostObject = [self.myPosts objectAtIndex:indexPath.row];
         myPostNoLenders.item.text = myPostObject.item;
+        myPostNoLenders.deadline.text = myPostObject.deadline;
 
+        if([myPostObject.urgency isEqualToString: @"expired"])
+        {
+            
+            myPostNoLenders.item.backgroundColor = [UIColor colorWithRed: 153.0/255.0 green: 153.0/255.0 blue:153.0/255.0 alpha: 1.0];
+            
+        }
+        else if([myPostObject.urgency isEqualToString: @"urgent"])
+        {
+            
+            myPostNoLenders.item.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 1.0];
+            
+        }
+        
         return myPostNoLenders;
         
     }
@@ -358,7 +398,7 @@
     else if([[[self.myPosts objectAtIndex:indexPath.row] lenders] count] == 0)
     {
         
-        return 45;
+        return 58;
         
     }
     else

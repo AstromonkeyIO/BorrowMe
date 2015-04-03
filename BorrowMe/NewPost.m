@@ -98,6 +98,7 @@
     }
     else
     {
+        
         [self.itemInput resignFirstResponder];
         PFObject *newPost = [PFObject objectWithClassName:@"Posts"];
         newPost[@"item"] = self.itemInput.text;

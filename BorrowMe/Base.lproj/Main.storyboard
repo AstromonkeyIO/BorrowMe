@@ -159,7 +159,6 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="0.92000000000000004" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="o0u-4j-YYM" secondAttribute="bottom" constant="40" id="2y2-if-o70"/>
                                     <constraint firstItem="Md1-U2-iUo" firstAttribute="leading" secondItem="z9E-hq-k9g" secondAttribute="leading" constant="20" id="Mwx-sx-Z9h"/>
@@ -172,6 +171,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="z9E-hq-k9g" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="4ha-Jl-ygb"/>
                             <constraint firstAttribute="bottom" secondItem="z9E-hq-k9g" secondAttribute="bottom" id="VYd-Ni-UhA"/>
@@ -203,7 +203,7 @@
             </objects>
             <point key="canvasLocation" x="410" y="153"/>
         </scene>
-        <!--Item-->
+        <!--Feed-->
         <scene sceneID="QTx-bU-KBI">
             <objects>
                 <tableViewController id="ZpA-g3-sxc" customClass="MainFeed" sceneMemberID="viewController">
@@ -271,12 +271,32 @@
                                             <color key="textColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McH-on-CVR">
+                                            <rect key="frame" x="227" y="16" width="42" height="23"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                            <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="love-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="sZy-9y-wj2">
+                                            <rect key="frame" x="272" y="14" width="30" height="30"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZcX-2r-y0d">
+                                            <rect key="frame" x="227" y="10" width="78" height="37"/>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="heartButtonPressed:" destination="RoY-hm-jSL" eventType="touchUpInside" id="9fz-Ak-5Ne"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="deadline" destination="aXf-6M-rnV" id="Uqf-AI-4bd"/>
+                                    <outlet property="heartCount" destination="McH-on-CVR" id="qcf-0j-bng"/>
+                                    <outlet property="heartImage" destination="sZy-9y-wj2" id="Zi8-CJ-tow"/>
                                     <outlet property="helpButton" destination="Vz9-w7-5eh" id="ge4-fa-5vE"/>
                                     <outlet property="item" destination="xgk-rb-mDT" id="mFx-r2-Pvk"/>
                                     <outlet property="postBubble" destination="Yre-h0-rU9" id="dvl-Nc-TSf"/>
@@ -290,7 +310,7 @@
                             <outlet property="delegate" destination="ZpA-g3-sxc" id="qqh-uO-ZKZ"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="AKv-n8-ZWS"/>
+                    <tabBarItem key="tabBarItem" title="Feed" id="AKv-n8-ZWS"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dry-u1-qac" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -317,7 +337,7 @@
             </objects>
             <point key="canvasLocation" x="824" y="153"/>
         </scene>
-        <!--Item-->
+        <!--My Posts-->
         <scene sceneID="Dlg-Nh-cRh">
             <objects>
                 <tableViewController id="2w0-nI-HgY" customClass="MyPosts" sceneMemberID="viewController">
@@ -382,7 +402,7 @@
                                     <segue destination="Q1U-K5-jo7" kind="modal" identifier="GoToMyPostLenders" id="z3J-9o-yke"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyPostNoLenders" rowHeight="45" id="CCZ-M0-J5D" customClass="MyPostNoLenders">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyPostNoLenders" rowHeight="58" id="CCZ-M0-J5D" customClass="MyPostNoLenders">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CCZ-M0-J5D" id="moh-8c-fbd">
@@ -395,9 +415,16 @@
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jeB-0A-SYl">
+                                            <rect key="frame" x="253" y="36" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
+                                            <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="deadline" destination="jeB-0A-SYl" id="uVZ-FJ-Iu2"/>
                                     <outlet property="item" destination="KYr-gW-fTl" id="FNB-vp-uvl"/>
                                 </connections>
                             </tableViewCell>
@@ -407,41 +434,133 @@
                             <outlet property="delegate" destination="2w0-nI-HgY" id="eim-Ii-7Sx"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="bgj-5M-PxS"/>
+                    <tabBarItem key="tabBarItem" title="My Posts" id="bgj-5M-PxS"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjt-bf-csv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1372" y="991"/>
         </scene>
-        <!--Item-->
+        <!--Me-->
         <scene sceneID="eon-ea-cgq">
             <objects>
-                <tableViewController id="zMa-5R-l8y" sceneMemberID="viewController">
+                <tableViewController id="zMa-5R-l8y" customClass="UserProfile" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="284" sectionHeaderHeight="22" sectionFooterHeight="22" id="UEG-m5-Mct">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="284" id="Rcb-tW-jhx">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="323" id="Rcb-tW-jhx" customClass="UserCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rcb-tW-jhx" id="Wps-BB-rBC">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2xB-Iw-a15"/>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZoJ-FU-bZH">
-                                            <rect key="frame" x="130" y="107" width="70" height="70"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TIJ-EQ-tsp">
+                                            <rect key="frame" x="10" y="25" width="300" height="290"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="waw-wz-tKL">
+                                            <rect key="frame" x="-1" y="-12" width="320" height="215"/>
                                             <state key="normal" title="Button">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="waw-wz-tKL">
-                                            <rect key="frame" x="0.0" y="8" width="320" height="215"/>
-                                            <state key="normal" title="Button">
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UhJ-ub-NUe">
+                                            <rect key="frame" x="194" y="8" width="118" height="30"/>
+                                            <state key="normal" title="Write a Review!">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <segue destination="zkH-Kx-n0e" kind="modal" id="2R3-lG-yqb"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKy-mH-4wX">
+                                            <rect key="frame" x="97" y="184" width="124" height="30"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                            <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZVi-sP-1Dw">
+                                            <rect key="frame" x="138" y="222" width="40" height="40"/>
+                                            <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                            <color key="textColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZoJ-FU-bZH">
+                                            <rect key="frame" x="114" y="86" width="90" height="90"/>
+                                            <state key="normal">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="background" destination="waw-wz-tKL" id="bzF-5F-9fQ"/>
+                                    <outlet property="container" destination="TIJ-EQ-tsp" id="0Bf-TO-Lhg"/>
+                                    <outlet property="rating" destination="ZVi-sP-1Dw" id="oS9-Lj-BTc"/>
+                                    <outlet property="userProfilePictureButton" destination="ZoJ-FU-bZH" id="G3v-sq-Bgn"/>
+                                    <outlet property="username" destination="JKy-mH-4wX" id="8Gb-pr-3mw"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReviewCell" rowHeight="141" id="OHS-9w-54J" customClass="ReviewCell">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OHS-9w-54J" id="nSj-mQ-Axq">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cc1-fK-xOR">
+                                            <rect key="frame" x="10" y="8" width="300" height="126"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Qh-Vm-LSg">
+                                            <rect key="frame" x="29" y="28" width="40" height="40"/>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brM-LH-VLs">
+                                            <rect key="frame" x="21" y="73" width="56" height="21"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
+                                            <state key="normal" title="Button">
+                                                <color key="titleColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDm-6m-aa0">
+                                            <rect key="frame" x="83" y="22" width="45" height="21"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Say something nice" translatesAutoresizingMaskIntoConstraints="NO" id="KwE-JG-6ym">
+                                            <rect key="frame" x="83" y="51" width="217" height="66"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBu-PF-u9h">
+                                            <rect key="frame" x="130" y="22" width="41" height="21"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="container" destination="Cc1-fK-xOR" id="UAC-LG-1EQ"/>
+                                    <outlet property="review" destination="KwE-JG-6ym" id="GfN-pB-abq"/>
+                                    <outlet property="score" destination="JBu-PF-u9h" id="dxP-gk-vEu"/>
+                                    <outlet property="userName" destination="brM-LH-VLs" id="mnI-gP-eOg"/>
+                                    <outlet property="userProfilePicture" destination="3Qh-Vm-LSg" id="iNy-Tg-IoR"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -449,11 +568,73 @@
                             <outlet property="delegate" destination="zMa-5R-l8y" id="03c-o1-Mbj"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="U0m-Wh-vcz"/>
+                    <tabBarItem key="tabBarItem" title="Me" id="U0m-Wh-vcz"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cWj-q3-6gy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1372" y="1825"/>
+            <point key="canvasLocation" x="1372" y="1794"/>
+        </scene>
+        <!--Post Review-->
+        <scene sceneID="gEH-DZ-vTQ">
+            <objects>
+                <viewController id="zkH-Kx-n0e" customClass="PostReview" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CHb-Zd-gyo"/>
+                        <viewControllerLayoutGuide type="bottom" id="Z5G-rZ-HhI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yxi-4q-DW7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O3D-1a-3Xi">
+                                <rect key="frame" x="10" y="53" width="300" height="175"/>
+                                <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="1" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="6Be-aU-s4s">
+                                <rect key="frame" x="8" y="269" width="304" height="31"/>
+                                <connections>
+                                    <action selector="ratingSliderValueChanged:" destination="zkH-Kx-n0e" eventType="valueChanged" id="48V-ze-Vti"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ke9-p8-5uq">
+                                <rect key="frame" x="145" y="236" width="30" height="30"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGz-u5-2EK">
+                                <rect key="frame" x="140" y="307" width="40" height="30"/>
+                                <state key="normal" title="Send!">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="writeReviewButtonPressed:" destination="zkH-Kx-n0e" eventType="touchUpInside" id="uYG-bJ-R29"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3MX-nN-iT6">
+                                <rect key="frame" x="16" y="15" width="46" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissViewButtonPressed:" destination="zkH-Kx-n0e" eventType="touchUpInside" id="eU9-Ui-Uhc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="rateButton" destination="CGz-u5-2EK" id="HPN-I6-Qad"/>
+                        <outlet property="ratingDisplay" destination="ke9-p8-5uq" id="px1-EO-ds0"/>
+                        <outlet property="ratingSlider" destination="6Be-aU-s4s" id="2O0-ys-mrw"/>
+                        <outlet property="review" destination="O3D-1a-3Xi" id="OBF-6j-wTl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y1j-XR-Voa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1885" y="1820"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DGa-Hr-1bx">
@@ -701,7 +882,7 @@
             </objects>
             <point key="canvasLocation" x="1899" y="-482"/>
         </scene>
-        <!--Item-->
+        <!--Post!-->
         <scene sceneID="e0B-rS-5fA">
             <objects>
                 <viewController id="MCZ-E1-SWZ" customClass="NewPost" sceneMemberID="viewController">
@@ -758,12 +939,12 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What do you need to borrow?" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hx6-wH-OWL">
-                                        <rect key="frame" x="14" y="74" width="293" height="30"/>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                        <rect key="frame" x="14" y="61" width="293" height="53"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B7R-EN-A4d">
-                                        <rect key="frame" x="8" y="30" width="37" height="36"/>
+                                        <rect key="frame" x="0.0" y="30" width="40" height="40"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
                                         <state key="normal" title="X">
                                             <color key="titleColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
@@ -778,7 +959,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="M14-qE-C4W"/>
+                    <tabBarItem key="tabBarItem" title="Post!" id="M14-qE-C4W"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
@@ -797,6 +978,7 @@
     <resources>
         <image name="camera icon2.png" width="1000" height="1000"/>
         <image name="hourglass2.png" width="80" height="80"/>
+        <image name="love-icon.png" width="512" height="512"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

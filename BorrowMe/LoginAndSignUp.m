@@ -26,7 +26,7 @@
     self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAllKeyboards)];
     self.gestureRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:self.gestureRecognizer];
-    
+    //self.view.backgroundColor = [UIColor whiteColor];
 
     
     

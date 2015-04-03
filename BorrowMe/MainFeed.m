@@ -140,6 +140,10 @@
                     if(numberOfDaysElapsed >= 1)
                     {
                         
+                        if(numberOfDaysElapsed == 1)
+                        {
+                            postObject.urgent = true;
+                        }
                         timeDifferenceInString = [NSString stringWithFormat:@"%dd", numberOfDaysElapsed];
                         postObject.deadline = timeDifferenceInString;
                         
@@ -147,6 +151,7 @@
                     else
                     {
                         
+                        postObject.urgent = true;
                         numberOfHoursElapsed = secondsBetween / 3600;
                         if(numberOfHoursElapsed >= 1)
                         {
@@ -160,6 +165,7 @@
                             
                             timeDifferenceInString = [NSString stringWithFormat:@"%fs", secondsBetween];
                             postObject.deadline = timeDifferenceInString;
+
                             
                         }
                         
@@ -214,6 +220,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    
+    
     Post* post = [tableView dequeueReusableCellWithIdentifier:@"Post" forIndexPath:indexPath];
     
     post.index = indexPath.row;
@@ -223,6 +231,15 @@
     
     PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
     post.profilePicture.image = postObject.userProfileImage;
+    
+    if(postObject.urgent == true)
+    {
+        
+        //post.deadline.textColor = [UIColor colorWithRed: 255.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 0.9];
+        //[post.helpButton setTitle:@"Help Now!" forState:UIControlStateNormal];
+        //post.helpButton.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 0.9];
+        
+    }
     
     NSString* buttonTitle = [NSString stringWithFormat:@"%@", [user valueForKey:@"username"]];
     [post.username setTitle: buttonTitle forState: UIControlStateNormal];
@@ -235,8 +252,8 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(Post *)post forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
 
+    
     CALayer * postBubbleLayer = [post.postBubble layer];
     [postBubbleLayer setMasksToBounds:YES];
     [postBubbleLayer setCornerRadius:5.0];
@@ -363,8 +380,10 @@
              
              //NSString *Address = [[NSString alloc]initWithString:locatedAt];
              zipCode = [[NSString alloc]initWithString:placemark.postalCode];
+             zipCode = @"90007";
              [self.currentUser setObject:zipCode forKey:@"currentZipcode"];
              NSLog(@"current zipcode %@",self.currentUser[@"currentZipcode"]);
+             
              
              [self pullFromDatabase];
              

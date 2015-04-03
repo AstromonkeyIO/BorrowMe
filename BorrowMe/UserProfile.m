@@ -7,6 +7,10 @@
 //
 
 #import "UserProfile.h"
+#import "UserCell.h"
+#import "UserObject.h"
+#import "ReviewObject.h"
+#import "ReviewCell.h"
 
 @implementation UserProfile
 
@@ -20,13 +24,11 @@
     return self;
 }
 
-/*
+
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    self.currentUser = [PFUser currentUser];
-    
-  self.navBar.backgroundColor = [UIColor whiteColor];
+    [super viewWillAppear:animated];    
+    //self.navBar.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewDidLoad
@@ -38,10 +40,10 @@
     if(self.user == NULL)
     {
         self.user = [PFUser currentUser];
+        NSLog(@"user %@", self.user);
     }
     
-    self.currentUser = [PFUser currentUser];
-    self.myPosts = [[NSMutableArray alloc] init];
+    
     [self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
@@ -52,65 +54,101 @@
 - (void) pullFromDatabase
 {
     
-    NSLog(@"I'm in pull from db");
+    self.reviews = [[NSMutableArray alloc] init];
     
-    PFQuery* queryMyPosts = [[self.currentUser relationForKey:@"posts"] query];
-    NSLog(@"%@", queryMyPosts);
-    [queryMyPosts findObjectsInBackgroundWithBlock:^(NSArray *myPosts, NSError *error) {
-        
-        NSLog(@"%@", error);
-        
-        if (!error) {
+    UserObject* userObject = [[UserObject alloc] init];
+    userObject.user = self.user;
+    PFFile* profilePictureFile = [self.user valueForKey:@"profilePicture"];
+    NSData* profilePictureData = [profilePictureFile getData];
+    userObject.userProfile = [UIImage imageWithData: profilePictureData];
+    userObject.username = [self.user valueForKey:@"username"];
+    userObject.averageRating = @"";
+    
+    [self.reviews addObject:userObject];
+    
+    NSMutableArray* tempReviews = [[NSMutableArray alloc] init];
+    
+    __block float totalRating = 0;
+    NSLog(@"userr   %@", self.user);
+    PFQuery* queryReviews = [[self.user relationForKey:@"reviews"] query];
+    [queryReviews orderByDescending:@"createdAt"];
+    //NSLog(@"queryReviews   %@", queryReviews);
+    [queryReviews findObjectsInBackgroundWithBlock:^(NSArray *reviews, NSError *error) {
+
+        if (!error)
+        {
             
-            NSLog(@"my Posts %@", myPosts);
-            if([myPosts count] > 0)
+            
+            NSLog(@"my Posts %@", reviews);
+            /*
+            if([reviews count] > 0)
             {
                 
-                [self.myPosts removeAllObjects];
+                [self.reviews removeAllObjects];
                 
             }
+             */
+
+            NSLog(@"reviewss  %@", self.reviews);
             
+            [self.reviews removeAllObjects];
             
-            for (PFObject *myPost in myPosts) {
+            for (PFObject *review in reviews)
+            {
                 
+                ReviewObject* reviewObject = [[ReviewObject alloc] init];
                 
-                MyPostObject* newMyPost = [[MyPostObject alloc] init];
-                [newMyPost initialize];
+                PFUser* user = (PFUser*)[[[review relationForKey:@"user"] query] getFirstObject];
                 
-                PFUser* user = (PFUser*)[[[myPost relationForKey:@"user"] query] getFirstObject];
+                reviewObject.user = user;
+                reviewObject.username = user.username;
+                PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
+                NSData* profilePictureData = [profilePictureFile getData];
+                reviewObject.userProfile = [UIImage imageWithData: profilePictureData];
                 
-                newMyPost.myPostPFObject = myPost;
+                reviewObject.reviewPFObject = review;
+                reviewObject.rating = [review valueForKey:@"rating"];
+                reviewObject.review = [review valueForKey:@"review"];
+                float reviewRating = [reviewObject.rating floatValue];
+                totalRating += reviewRating;
+
+                //[self.reviews addObject:reviewObject];
+                [tempReviews addObject:reviewObject];
                 
-                newMyPost.item = [myPost valueForKey:@"item"];
-                
-                NSArray* responses = [[[myPost relationForKey:@"responses"] query] findObjects];
-                
-                //NSLog(@"these are responses count   !!!!  %lu", (unsigned long)[responses count]);
-                [newMyPost.responses addObjectsFromArray:responses];
-                
-                for(PFObject* response in responses)
-                {
-                    
-                    PFUser* user = (PFUser*)[[[response relationForKey:@"user"] query] getFirstObject];
-                    //NSLog(@"response user looppppp   %@", user);
-                    //post.profilePicture.image = [UIImage imageWithData: profilePictureData];
-                    
-                    [newMyPost.lenders addObject:user];
-                    
-                }
-                
-                [self.myPosts addObject:newMyPost];
                 
             }
+          
+            NSLog(@"totalRating %f", totalRating);
+            NSLog(@"reviews count %d", [reviews count]);
+            float averageRating = totalRating/[reviews count];
+            int roundedAverageRating = roundf(averageRating);
+            
+            NSLog(@"averageRating %f", averageRating);
+            
+            UserObject* userObject = [[UserObject alloc] init];
+            userObject.user = self.user;
+            PFFile* profilePictureFile = [self.user valueForKey:@"profilePicture"];
+            NSData* profilePictureData = [profilePictureFile getData];
+            userObject.userProfile = [UIImage imageWithData: profilePictureData];
+            userObject.username = [self.user valueForKey:@"username"];
+            userObject.averageRating = [NSString stringWithFormat:@"%d", roundedAverageRating];
+            
+            [self.reviews addObject:userObject];
+            
+            [self.reviews addObjectsFromArray:tempReviews];
+            
+            
             
             dispatch_async(dispatch_get_main_queue(), ^ {
                 [self.tableView reloadData];
+                NSLog(@"reviewss  %@", self.reviews);
                 [self.refreshControl endRefreshing];
             });
             
         }
         
     }];
+    
     
 }
 
@@ -132,7 +170,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return [self.myPosts count];
+    return [self.reviews count];
     
 }
 
@@ -140,167 +178,119 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if([[[self.myPosts objectAtIndex:indexPath.row] lenders] count] > 0)
+    if(indexPath.row == 0)
     {
         
-        MyPost* myPost = [tableView dequeueReusableCellWithIdentifier:@"MyPost" forIndexPath:indexPath];
-        CALayer * myPostItemLayer = [myPost.item layer];
-        [myPostItemLayer setMasksToBounds:YES];
-        [myPostItemLayer setCornerRadius:5.0];
+        NSLog(@"user cell created !!");
+        UserCell* userCell = [tableView dequeueReusableCellWithIdentifier:@"UserCell" forIndexPath:indexPath];
+        UserObject* userObject = [self.reviews objectAtIndex:indexPath.row];
+        
+
         
         
-        CGPoint saveCenter = myPost.lenderPicture1.center;
-        CGRect newFrame = CGRectMake(myPost.lenderPicture1.frame.origin.x, myPost.lenderPicture1.frame.origin.y, 40, 40);
-        
-        myPost.lenderPicture1.frame = newFrame;
-        myPost.lenderPicture1.layer.cornerRadius = 40 / 2.0;
-        myPost.lenderPicture1.center = saveCenter;
-        myPost.lenderPicture1.clipsToBounds = YES;
-        
-        myPost.lenderPicture2.frame = newFrame;
-        myPost.lenderPicture2.layer.cornerRadius = 40 / 2.0;
-        myPost.lenderPicture2.center = saveCenter;
-        myPost.lenderPicture2.clipsToBounds = YES;
-        
-        myPost.lenderPicture3.frame = newFrame;
-        myPost.lenderPicture3.layer.cornerRadius = 40 / 2.0;
-        myPost.lenderPicture3.center = saveCenter;
-        myPost.lenderPicture3.clipsToBounds = YES;
-        
-        myPost.lenderPicture4.frame = newFrame;
-        myPost.lenderPicture4.layer.cornerRadius = 40 / 2.0;
-        myPost.lenderPicture4.center = saveCenter;
-        myPost.lenderPicture4.clipsToBounds = YES;
-        
-        //PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
-        
-        MyPostObject* myPostObject = [self.myPosts objectAtIndex:indexPath.row];
-        myPost.item.text = myPostObject.item;
-        
-        if([myPostObject.lenders count] > 0)
-        {
-            int lenderIndex = 0;
-            
-            do {
-                
-                
-                NSLog(@"I'm in the lender loop");
-                if([myPostObject.lenders objectAtIndex:0] && lenderIndex == 0)
-                {
-                    PFFile* profilePictureFile = [[myPostObject.lenders objectAtIndex:0] valueForKey:@"profilePicture"];
-                    NSData* profilePictureData = [profilePictureFile getData];
-                    myPost.lenderPicture1.image = [UIImage imageWithData: profilePictureData];
-                }
-                else if([myPostObject.lenders objectAtIndex:1] && lenderIndex == 1)
-                {
-                    PFFile* profilePictureFile = [[myPostObject.lenders objectAtIndex:1] valueForKey:@"profilePicture"];
-                    NSData* profilePictureData = [profilePictureFile getData];
-                    myPost.lenderPicture2.image = [UIImage imageWithData: profilePictureData];
-                }
-                else if([myPostObject.lenders objectAtIndex:2] && lenderIndex == 2)
-                {
-                    PFFile* profilePictureFile = [[myPostObject.lenders objectAtIndex:2] valueForKey:@"profilePicture"];
-                    NSData* profilePictureData = [profilePictureFile getData];
-                    myPost.lenderPicture3.image = [UIImage imageWithData: profilePictureData];
-                }
-                else if([myPostObject.lenders objectAtIndex:3] && lenderIndex == 3)
-                {
-                    PFFile* profilePictureFile = [[myPostObject.lenders objectAtIndex:3] valueForKey:@"profilePicture"];
-                    NSData* profilePictureData = [profilePictureFile getData];
-                    myPost.lenderPicture4.image = [UIImage imageWithData: profilePictureData];
-                }
-                
-                lenderIndex++;
-                
-            }while(lenderIndex < [myPostObject.lenders count]);
-            
-            NSInteger remainingLenders = [myPostObject.lenders count] - (lenderIndex + 1);
-            
-            if(remainingLenders >= 1)
-            {
-                myPost.addtionalLenders.text = [NSString stringWithFormat:@"+%ld", (long)remainingLenders];
-            }
-            else
-            {
-                myPost.addtionalLenders.hidden = YES;
-            }
-            
-            
-        }
+        CGPoint saveCenter = userCell.userProfilePictureButton.center;
+        CGRect newFrame = CGRectMake(userCell.userProfilePictureButton.frame.origin.x, userCell.userProfilePictureButton.frame.origin.y, 90, 90);
+        userCell.userProfilePictureButton.frame = newFrame;
+        userCell.userProfilePictureButton.layer.cornerRadius = 90 / 2.0;
+        userCell.userProfilePictureButton.center = saveCenter;
+        userCell.userProfilePictureButton.clipsToBounds = YES;
         
         
-        return myPost;
+        
+        CALayer* ratingLayer = [userCell.rating layer];
+        [ratingLayer setMasksToBounds:YES];
+        [ratingLayer setCornerRadius:5.0];
         
         
+        CALayer* backgroundViewLayer = [userCell.container layer];
+        [backgroundViewLayer setMasksToBounds:YES];
+        [backgroundViewLayer setCornerRadius:10.0];
+        /*
+        userCell.backgroundView.layer.masksToBounds = NO;
+        userCell.backgroundView.layer.cornerRadius = 8; // if you like rounded corners
+        userCell.backgroundView.layer.shadowOffset = CGSizeMake(-15, 20);
+        userCell.backgroundView.layer.shadowRadius = 5;
+        userCell.backgroundView.layer.shadowOpacity = 0.5;
+        */
+        
+        [userCell.userProfilePictureButton setBackgroundImage:userObject.userProfile forState:UIControlStateNormal];
+        userCell.username.text = userObject.username;
+        userCell.rating.text = userObject.averageRating;
+        
+        return userCell;
+
     }
-    else if([[[self.myPosts objectAtIndex:indexPath.row] lenders] count] == 0)
+    else //if([self.reviews objectAtIndex:indexPath.row] != 0)
     {
         
-        MyPostNoLenders* myPostNoLenders = [tableView dequeueReusableCellWithIdentifier:@"MyPostNoLenders" forIndexPath:indexPath];
-        CALayer * myPostItemLayer = [myPostNoLenders.item layer];
-        [myPostItemLayer setMasksToBounds:YES];
-        [myPostItemLayer setCornerRadius:5.0];
+        NSLog(@"review cell created !!");
+        ReviewCell* reviewCell = [tableView dequeueReusableCellWithIdentifier:@"ReviewCell" forIndexPath:indexPath];
+        ReviewObject* reviewObject = [self.reviews objectAtIndex:indexPath.row];
+        [reviewCell.userProfilePicture setBackgroundImage:reviewObject.userProfile forState:UIControlStateNormal];
+        [reviewCell.userName setTitle:reviewObject.username forState:UIControlStateNormal];
+        reviewCell.review.text = reviewObject.review;
+        reviewCell.score.text = reviewObject.rating;
         
-        MyPostObject* myPostObject = [self.myPosts objectAtIndex:indexPath.row];
-        myPostNoLenders.item.text = myPostObject.item;
         
-        return myPostNoLenders;
+        return reviewCell;
         
     }
+    /*
     else
     {
-        
         return NULL;
-        
     }
+    */
     
 }
+
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(ReviewCell *) reviewCell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row != 0)
+    {
+ 
+ 
+        CGPoint saveCenter = reviewCell.userProfilePicture.center;
+        CGRect newFrame = CGRectMake(reviewCell.userProfilePicture.frame.origin.x, reviewCell.userProfilePicture.frame.origin.y, 40, 40);
+        reviewCell.userProfilePicture.frame = newFrame;
+        reviewCell.userProfilePicture.layer.cornerRadius = 40 / 2.0;
+        reviewCell.userProfilePicture.center = saveCenter;
+        reviewCell.userProfilePicture.clipsToBounds = YES;
+        
+        
+        CALayer* backgroundViewLayer = [reviewCell.container layer];
+        [backgroundViewLayer setMasksToBounds:YES];
+        [backgroundViewLayer  setCornerRadius:5.0];
+        
+    }
+
+    /*
+    CALayer* helpButtonLayer = [post.helpButton layer];
+    [helpButtonLayer setMasksToBounds:YES];
+    [helpButtonLayer setCornerRadius:5.0];
+    */
+
+ 
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if([[[self.myPosts objectAtIndex:indexPath.row] lenders] count] > 0)
+    if(indexPath.row == 0)
     {
         
-        return 92;
-        
-    }
-    else if([[[self.myPosts objectAtIndex:indexPath.row] lenders] count] == 0)
-    {
-        
-        return 45;
+        return 323;
         
     }
     else
     {
-        
-        return 0;
-        
-    }
-    
-}
 
-- (void)setEditing:(BOOL)editing animated:(BOOL)animated
-{
-    
-    self.tableView.allowsMultipleSelectionDuringEditing = editing;
-    [super setEditing:editing animated:animated];
-    
-}
-
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return YES if you want the specified item to be editable.
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [[[self.myPosts objectAtIndex:indexPath.row ] myPostPFObject] deleteInBackground];
-        [self.myPosts removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        return 141;
         
     }
+    
 }
 
 #pragma mark - Navigation
@@ -308,19 +298,16 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+   
+    /*
     if([segue.identifier isEqualToString:@"GoToMyPostLenders"])
     {
         
-        MyPostObject* passMyPostObject = [self.myPosts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
-        MyPostLenders* tableView = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
-        
-        // MyPostLenders* tableView = (MyPostLenders*)[self.navigationController.viewControllers objectAtIndex:0];
-        tableView.receivedMyPostObject = passMyPostObject;
-        
+
         
     }
+    */
     
 }
-*/
+
 @end
