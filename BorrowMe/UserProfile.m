@@ -11,6 +11,7 @@
 #import "UserObject.h"
 #import "ReviewObject.h"
 #import "ReviewCell.h"
+#import "LoadingCell.h"
 
 @implementation UserProfile
 
@@ -47,6 +48,8 @@
     [self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
+    self.view.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0];
+    
     
 }
 
@@ -65,6 +68,10 @@
     userObject.averageRating = @"";
     
     [self.reviews addObject:userObject];
+    ReviewObject* loadingCell = [[ReviewObject alloc] init];
+    [self.reviews addObject:loadingCell];
+    
+    NSLog(@"inside reviews array %@", self.reviews);
     
     NSMutableArray* tempReviews = [[NSMutableArray alloc] init];
     
@@ -78,20 +85,9 @@
         if (!error)
         {
             
-            
-            NSLog(@"my Posts %@", reviews);
-            /*
-            if([reviews count] > 0)
-            {
-                
-                [self.reviews removeAllObjects];
-                
-            }
-             */
-
-            NSLog(@"reviewss  %@", self.reviews);
-            
+            //if([reviews count] > 0) {
             [self.reviews removeAllObjects];
+            //}
             
             for (PFObject *review in reviews)
             {
@@ -223,9 +219,18 @@
     else //if([self.reviews objectAtIndex:indexPath.row] != 0)
     {
         
+        ReviewObject* reviewObject = [self.reviews objectAtIndex:indexPath.row];
+        if(reviewObject.reviewPFObject == NULL)
+        {
+            LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
+            
+            return loadingCell;
+            
+        }
+        
         NSLog(@"review cell created !!");
         ReviewCell* reviewCell = [tableView dequeueReusableCellWithIdentifier:@"ReviewCell" forIndexPath:indexPath];
-        ReviewObject* reviewObject = [self.reviews objectAtIndex:indexPath.row];
+        //ReviewObject* reviewObject = [self.reviews objectAtIndex:indexPath.row];
         [reviewCell.userProfilePicture setBackgroundImage:reviewObject.userProfile forState:UIControlStateNormal];
         [reviewCell.userName setTitle:reviewObject.username forState:UIControlStateNormal];
         reviewCell.review.text = reviewObject.review;
@@ -247,9 +252,11 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ReviewCell *) reviewCell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row != 0)
+    
+    /*
+    ReviewObject* reviewObject = [self.reviews objectAtIndex:indexPath.row];
+    if(indexPath.row != 0 && reviewObject.reviewPFObject)
     {
- 
  
         CGPoint saveCenter = reviewCell.userProfilePicture.center;
         CGRect newFrame = CGRectMake(reviewCell.userProfilePicture.frame.origin.x, reviewCell.userProfilePicture.frame.origin.y, 40, 40);
@@ -264,6 +271,7 @@
         [backgroundViewLayer  setCornerRadius:5.0];
         
     }
+    */
 
     /*
     CALayer* helpButtonLayer = [post.helpButton layer];

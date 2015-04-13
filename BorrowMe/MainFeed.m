@@ -9,6 +9,7 @@
 #import "MainFeed.h"
 #import "Post.h"
 #import "RespondToPost.h"
+#import "LoadingCell.h"
 
 
 
@@ -62,6 +63,9 @@
     NSLog(@"current user %@", self.currentUser);
     
     self.posts = [[NSMutableArray alloc] init];
+    PostObject* postObject = [[PostObject alloc] init];
+    [self.posts addObject: postObject];
+    
     //[self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
@@ -220,7 +224,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
+    if(postObject.user == NULL)
+    {
     
+        
+        LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
+        
+        return loadingCell;
+        
+    }
+    else
+    {
     
     Post* post = [tableView dequeueReusableCellWithIdentifier:@"Post" forIndexPath:indexPath];
     
@@ -241,18 +256,24 @@
         
     }
     
+    post.postId = [postObject.post valueForKey:@"id"];
+    
     NSString* buttonTitle = [NSString stringWithFormat:@"%@", [user valueForKey:@"username"]];
     [post.username setTitle: buttonTitle forState: UIControlStateNormal];
     
     post.deadline.text = postObject.deadline;
     
     return post;
+    }
 
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(Post *)post forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
+    PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
+    if(postObject.user != NULL)
+    {
     
     CALayer * postBubbleLayer = [post.postBubble layer];
     [postBubbleLayer setMasksToBounds:YES];
@@ -269,13 +290,28 @@
     [helpButtonLayer setMasksToBounds:YES];
     [helpButtonLayer setCornerRadius:5.0];
     
+    }
+    
     
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
+    if(postObject.user == NULL)
+    {
+        
+        return 568;
+    
+    }
+    else
+    {
+        
         return 160;
+        
+    }
+
 }
 
 

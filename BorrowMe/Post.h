@@ -10,6 +10,7 @@
 
 @interface Post : UITableViewCell
 
+
 @property (weak, nonatomic) IBOutlet UILabel *postBubble;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UIButton *username;
@@ -20,6 +21,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *deadline;
 @property (weak, nonatomic) IBOutlet UILabel *heartCount;
 @property (weak, nonatomic) IBOutlet UIImageView *heartImage;
-
+@property (strong, nonatomic) NSString* postId;
 
 @end

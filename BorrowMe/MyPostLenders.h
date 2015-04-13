@@ -15,6 +15,7 @@
 @property (strong, nonatomic) PFUser* currentUser;
 @property (strong, nonatomic) MyPostObject* receivedMyPostObject;
 @property (strong, nonatomic) NSMutableArray* responses;
+@property (strong, nonatomic) PFUser* viewUser;
 
 
 @end

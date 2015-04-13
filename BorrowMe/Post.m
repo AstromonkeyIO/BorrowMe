@@ -9,6 +9,7 @@
 #import "Post.h"
 
 @implementation Post
+
 /*
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *) reuseIdentifier
 {
@@ -33,11 +34,17 @@
     return self;
 }
 */
+
 - (IBAction)heartButtonPressed:(id)sender {
+   
+    if(self.postId == self.postId)
+    {
     
     int heartCount = [self.heartCount.text intValue];
     heartCount++;
     self.heartCount.text = [NSString stringWithFormat:@"%d", heartCount];
+    
+    }
     
 }
 

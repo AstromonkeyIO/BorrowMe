@@ -50,6 +50,8 @@
 		66B07F751AAE8E86000F4B21 /* MyPostLenders.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B07F741AAE8E86000F4B21 /* MyPostLenders.m */; };
 		66B07F781AAE94F0000F4B21 /* MyPostItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B07F771AAE94F0000F4B21 /* MyPostItem.m */; };
 		66B07F7B1AAE96D3000F4B21 /* MyPostLender.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B07F7A1AAE96D3000F4B21 /* MyPostLender.m */; };
+		66EB230F1ADB40C5004CDE69 /* 24.gif in Resources */ = {isa = PBXBuildFile; fileRef = 66EB230E1ADB40C5004CDE69 /* 24.gif */; };
+		66EB23121ADB42EF004CDE69 /* LoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EB23111ADB42EF004CDE69 /* LoadingCell.m */; };
 		66F42B5E1A96D08E00F99A31 /* hourglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 66F42B5D1A96D08E00F99A31 /* hourglass.png */; };
 		66F42B601A96D21D00F99A31 /* hourglass2.png in Resources */ = {isa = PBXBuildFile; fileRef = 66F42B5F1A96D21D00F99A31 /* hourglass2.png */; };
 		66F4C3361A7F1866001B97AA /* MainFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F4C3351A7F1866001B97AA /* MainFeed.m */; };
@@ -135,6 +137,9 @@
 		66B07F771AAE94F0000F4B21 /* MyPostItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostItem.m; sourceTree = "<group>"; };
 		66B07F791AAE96D3000F4B21 /* MyPostLender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPostLender.h; sourceTree = "<group>"; };
 		66B07F7A1AAE96D3000F4B21 /* MyPostLender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostLender.m; sourceTree = "<group>"; };
+		66EB230E1ADB40C5004CDE69 /* 24.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 24.gif; sourceTree = "<group>"; };
+		66EB23101ADB42EF004CDE69 /* LoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingCell.h; sourceTree = "<group>"; };
+		66EB23111ADB42EF004CDE69 /* LoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingCell.m; sourceTree = "<group>"; };
 		66F42B5D1A96D08E00F99A31 /* hourglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass.png; sourceTree = "<group>"; };
 		66F42B5F1A96D21D00F99A31 /* hourglass2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass2.png; sourceTree = "<group>"; };
 		66F4C3341A7F1865001B97AA /* MainFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainFeed.h; sourceTree = "<group>"; };
@@ -218,6 +223,8 @@
 		6663A8321AC4C8C5002C5EE2 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
+				66EB23101ADB42EF004CDE69 /* LoadingCell.h */,
+				66EB23111ADB42EF004CDE69 /* LoadingCell.m */,
 				6663A8331AC4C90A002C5EE2 /* UserProfile.h */,
 				6663A8341AC4C90A002C5EE2 /* UserProfile.m */,
 				6667C6E21AC92A32000467AC /* ReviewObject.h */,
@@ -345,6 +352,7 @@
 		66F42B5C1A96D05600F99A31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				66EB230E1ADB40C5004CDE69 /* 24.gif */,
 				66F7116F1ACE7DE90006C389 /* love-icon.png */,
 				6667C6DD1AC7BAF5000467AC /* camera icon2.png */,
 				66FBE1331AC1310100F2A3E8 /* camera-icon.png */,
@@ -463,6 +471,7 @@
 				66F711701ACE7DEA0006C389 /* love-icon.png in Resources */,
 				66FBE1341AC1310100F2A3E8 /* camera-icon.png in Resources */,
 				66953AF61A79BCE200AEB78C /* LaunchScreen.xib in Resources */,
+				66EB230F1ADB40C5004CDE69 /* 24.gif in Resources */,
 				66953AF31A79BCE200AEB78C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -503,6 +512,7 @@
 				66B07F7B1AAE96D3000F4B21 /* MyPostLender.m in Sources */,
 				6667C6ED1AC92F34000467AC /* UserObject.m in Sources */,
 				6667C6EA1AC92A6C000467AC /* UserCell.m in Sources */,
+				66EB23121ADB42EF004CDE69 /* LoadingCell.m in Sources */,
 				6667C6E41AC92A32000467AC /* ReviewObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

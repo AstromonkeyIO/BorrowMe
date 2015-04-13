@@ -10,6 +10,7 @@
 #import "MyPostLender.h"
 #import "MyPostItem.h"
 #import "Response.h"
+#import "UserProfile.h"
 #import <MessageUI/MessageUI.h>
 
 @implementation MyPostLenders
@@ -55,6 +56,9 @@
     */
      
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showTextDialog:) name:@"RespondToLender" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(directToUserProfile:) name:@"DisplayUserProfile" object:nil];
+    
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     
@@ -232,7 +236,7 @@
     return YES;
 }
 
-- (void) showTextDialog: (NSNotification*) notification {
+- (void)showTextDialog: (NSNotification*) notification {
     
     NSInteger index = [notification.userInfo[@"index"] integerValue];
     
@@ -253,6 +257,17 @@
         controller.messageComposeDelegate = self;
         [self presentModalViewController:controller animated:YES];
     }
+    
+    
+}
+
+- (void)directToUserProfile: (NSNotification*) notification {
+
+    NSInteger index = [notification.userInfo[@"index"] integerValue];
+    Response* response = [self.responses objectAtIndex:index];
+    self.viewUser = response.user;
+    
+    [self performSegueWithIdentifier:@"View-User-Profile" sender:self];
     
     
 }
@@ -354,23 +369,23 @@
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-/*
+
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
  {
  
- if([segue.identifier isEqualToString:@"RespondToPostSegue"])
- {
+     if([segue.identifier isEqualToString:@"View-User-Profile"])
+     {
  
- RespondToPost* linkedInHelpBorrowerViewController = (RespondToPost *)segue.destinationViewController;
+         UserProfile* linkedInUserProfileTableViewController = (UserProfile *)segue.destinationViewController;
+         PFUser* passUser = self.viewUser;
+         linkedInUserProfileTableViewController.user = passUser;
+     
+         NSLog(@"I'm in the prepare for segue!");
  
- PostObject* passPostObject = [self.posts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
- 
- linkedInHelpBorrowerViewController.receivedPostObject = passPostObject;
+     }
  
  }
- 
- }
- */
+
 - (IBAction)backButtonPressed:(id)sender {
     
     
