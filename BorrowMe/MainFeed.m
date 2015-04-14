@@ -19,15 +19,15 @@
     
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-        
-    }
-    return self;
-}
+//- (id)initWithStyle:(UITableViewStyle)style
+//{
+//    self = [super initWithStyle:style];
+//    if (self) {
+//        // Custom initialization
+//        
+//    }
+//    return self;
+//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -228,8 +228,19 @@
     if(postObject.user == NULL)
     {
     
-        
         LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
+        CABasicAnimation *rotation;
+        rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        rotation.fromValue = [NSNumber numberWithFloat:0];
+        rotation.toValue = [NSNumber numberWithFloat:(2 * M_PI)];
+        rotation.duration = 0.8f; // Speed
+        rotation.repeatCount = HUGE_VALF; // Repeat forever. Can be a finite number.
+        [loadingCell.loadingImage.layer removeAllAnimations];
+        [loadingCell.loadingImage.layer addAnimation:rotation forKey:@"Spin"];
+        
+        CALayer * loadingBoxLayer = [loadingCell.loadingBox layer];
+        [loadingBoxLayer setMasksToBounds:YES];
+        [loadingBoxLayer setCornerRadius:10.0];
         
         return loadingCell;
         

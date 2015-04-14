@@ -323,12 +323,16 @@
                                             <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="24.gif" translatesAutoresizingMaskIntoConstraints="NO" id="VrV-2H-lQL">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="495.GIF" translatesAutoresizingMaskIntoConstraints="NO" id="VrV-2H-lQL">
                                             <rect key="frame" x="145" y="243" width="30" height="30"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="loadingBox" destination="XTQ-Wl-igh" id="yhE-6G-MJm"/>
+                                    <outlet property="loadingImage" destination="VrV-2H-lQL" id="R0a-Wa-9pa"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -371,13 +375,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="ur2-uf-Qgc">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <items>
-                                <navigationItem id="Zdo-AB-2t4"/>
-                            </items>
-                        </navigationBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyPost" rowHeight="92" id="vSx-U7-6VM" customClass="MyPost">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -452,6 +449,36 @@
                                 <connections>
                                     <outlet property="deadline" destination="jeB-0A-SYl" id="uVZ-FJ-Iu2"/>
                                     <outlet property="item" destination="KYr-gW-fTl" id="FNB-vp-uvl"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoadingCell" rowHeight="568" id="kKV-ZQ-Bds" customClass="LoadingCell">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kKV-ZQ-Bds" id="p1Z-nc-7YD">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgl-Ob-3Z7">
+                                            <rect key="frame" x="60" y="184" width="200" height="200"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Getting my posts..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57c-mx-PkG">
+                                            <rect key="frame" x="100" y="288" width="120" height="30"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="13"/>
+                                            <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="495.GIF" translatesAutoresizingMaskIntoConstraints="NO" id="1gW-YR-VTR">
+                                            <rect key="frame" x="145" y="250" width="30" height="30"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="loadingBox" destination="Xgl-Ob-3Z7" id="FjA-dw-mYt"/>
+                                    <outlet property="loadingImage" destination="1gW-YR-VTR" id="8MD-Oa-GWB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -862,6 +889,9 @@
                                                 <state key="normal" title="Write a note">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="notePhotoSwitchButton:" destination="EOO-Y9-qHU" eventType="touchUpInside" id="jOz-rd-10N"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYl-Yd-zRC">
                                                 <rect key="frame" x="0.0" y="15" width="46" height="30"/>
@@ -895,6 +925,12 @@
                                                     <action selector="removeItemImageButtonPressed:" destination="EOO-Y9-qHU" eventType="touchUpInside" id="Lkw-nm-OS2"/>
                                                 </connections>
                                             </button>
+                                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tih-KY-dsH">
+                                                <rect key="frame" x="30" y="97" width="260" height="210"/>
+                                                <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -909,6 +945,7 @@
                         <outlet property="itemImage" destination="WgZ-B6-QAl" id="ZPw-jS-e5f"/>
                         <outlet property="itemImageButton" destination="Izt-Gw-V7l" id="E6y-sD-KBc"/>
                         <outlet property="mainLayer" destination="iar-1o-xjQ" id="STN-Xk-uan"/>
+                        <outlet property="note" destination="tih-KY-dsH" id="sHT-cx-XUf"/>
                         <outlet property="removeItemImageButton" destination="ihs-B6-qae" id="L53-5M-Rvk"/>
                         <outlet property="sendButton" destination="tix-Rz-0FB" id="ghN-VQ-eWZ"/>
                     </connections>
@@ -968,10 +1005,12 @@
                                     </button>
                                     <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Bp3-cu-pXU">
                                         <rect key="frame" x="43" y="122" width="234" height="151"/>
-                                        <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="MCZ-E1-SWZ" id="cvu-Tx-To2"/>
+                                        </connections>
                                     </textView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What do you need to borrow?" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hx6-wH-OWL">
                                         <rect key="frame" x="14" y="61" width="293" height="53"/>
@@ -989,6 +1028,23 @@
                                             <action selector="closeWindow:" destination="MCZ-E1-SWZ" eventType="touchUpInside" id="4oP-w6-muC"/>
                                         </connections>
                                     </button>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idi-lN-bxa">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
+                                        <color key="backgroundColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="0.5" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOP-Jd-Gs0">
+                                        <rect key="frame" x="110" y="131" width="100" height="100"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="495.GIF" translatesAutoresizingMaskIntoConstraints="NO" id="B5z-HP-FfZ">
+                                        <rect key="frame" x="140" y="161" width="40" height="40"/>
+                                    </imageView>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -1002,6 +1058,9 @@
                         <outlet property="backgroundBubble" destination="YMW-IH-rMM" id="bHm-Ie-zS4"/>
                         <outlet property="datePicker" destination="SUa-ah-mQk" id="Sae-41-i7q"/>
                         <outlet property="itemInput" destination="Hx6-wH-OWL" id="9bd-IZ-gbd"/>
+                        <outlet property="loadingBackground" destination="Idi-lN-bxa" id="eb8-tj-Oyl"/>
+                        <outlet property="loadingBox" destination="eOP-Jd-Gs0" id="R9C-ae-5f0"/>
+                        <outlet property="loadingImage" destination="B5z-HP-FfZ" id="kuf-3X-4TS"/>
                         <outlet property="noteBox" destination="Bp3-cu-pXU" id="ILe-1Y-v8c"/>
                     </connections>
                 </viewController>
@@ -1128,7 +1187,7 @@
                                     <outlet property="userProfilePicture" destination="Ajo-2Q-tgR" id="YDm-i2-Vgk"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoadingCell" rowHeight="141" id="4Cz-nm-kbK">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoadingCell" rowHeight="141" id="4Cz-nm-kbK" customClass="LoadingCell">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Cz-nm-kbK" id="JvN-4e-Gmw">
@@ -1141,18 +1200,22 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="24.gif" translatesAutoresizingMaskIntoConstraints="NO" id="qdb-ah-oBy">
-                                            <rect key="frame" x="140" y="30" width="40" height="40"/>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Getting Reviews..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXc-Ot-f8P">
                                             <rect key="frame" x="85" y="83" width="151" height="21"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
                                             <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="24.gif" translatesAutoresizingMaskIntoConstraints="NO" id="qdb-ah-oBy">
+                                            <rect key="frame" x="145" y="45" width="30" height="30"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.40000000000000002" green="0.80000000000000004" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="loadingBox" destination="bEU-tt-A7U" id="V2U-w0-ofi"/>
+                                    <outlet property="loadingImage" destination="qdb-ah-oBy" id="abb-kM-pKX"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1169,6 +1232,7 @@
     </scenes>
     <resources>
         <image name="24.gif" width="32" height="32"/>
+        <image name="495.GIF" width="128" height="128"/>
         <image name="camera icon2.png" width="1000" height="1000"/>
         <image name="hourglass2.png" width="80" height="80"/>
         <image name="love-icon.png" width="512" height="512"/>

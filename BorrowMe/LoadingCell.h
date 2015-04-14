@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface LoadingCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *loadingBox;
+@property (weak, nonatomic) IBOutlet UIImageView *loadingImage;
+
+
 
 @end

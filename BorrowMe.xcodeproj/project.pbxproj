@@ -50,6 +50,7 @@
 		66B07F751AAE8E86000F4B21 /* MyPostLenders.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B07F741AAE8E86000F4B21 /* MyPostLenders.m */; };
 		66B07F781AAE94F0000F4B21 /* MyPostItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B07F771AAE94F0000F4B21 /* MyPostItem.m */; };
 		66B07F7B1AAE96D3000F4B21 /* MyPostLender.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B07F7A1AAE96D3000F4B21 /* MyPostLender.m */; };
+		66DBB8C11ADCC8D0005919FF /* 495.GIF in Resources */ = {isa = PBXBuildFile; fileRef = 66DBB8C01ADCC8D0005919FF /* 495.GIF */; };
 		66EB230F1ADB40C5004CDE69 /* 24.gif in Resources */ = {isa = PBXBuildFile; fileRef = 66EB230E1ADB40C5004CDE69 /* 24.gif */; };
 		66EB23121ADB42EF004CDE69 /* LoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EB23111ADB42EF004CDE69 /* LoadingCell.m */; };
 		66F42B5E1A96D08E00F99A31 /* hourglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 66F42B5D1A96D08E00F99A31 /* hourglass.png */; };
@@ -137,6 +138,7 @@
 		66B07F771AAE94F0000F4B21 /* MyPostItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostItem.m; sourceTree = "<group>"; };
 		66B07F791AAE96D3000F4B21 /* MyPostLender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPostLender.h; sourceTree = "<group>"; };
 		66B07F7A1AAE96D3000F4B21 /* MyPostLender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostLender.m; sourceTree = "<group>"; };
+		66DBB8C01ADCC8D0005919FF /* 495.GIF */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 495.GIF; sourceTree = "<group>"; };
 		66EB230E1ADB40C5004CDE69 /* 24.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 24.gif; sourceTree = "<group>"; };
 		66EB23101ADB42EF004CDE69 /* LoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingCell.h; sourceTree = "<group>"; };
 		66EB23111ADB42EF004CDE69 /* LoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingCell.m; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 		66F42B5C1A96D05600F99A31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				66DBB8C01ADCC8D0005919FF /* 495.GIF */,
 				66EB230E1ADB40C5004CDE69 /* 24.gif */,
 				66F7116F1ACE7DE90006C389 /* love-icon.png */,
 				6667C6DD1AC7BAF5000467AC /* camera icon2.png */,
@@ -471,6 +474,7 @@
 				66F711701ACE7DEA0006C389 /* love-icon.png in Resources */,
 				66FBE1341AC1310100F2A3E8 /* camera-icon.png in Resources */,
 				66953AF61A79BCE200AEB78C /* LaunchScreen.xib in Resources */,
+				66DBB8C11ADCC8D0005919FF /* 495.GIF in Resources */,
 				66EB230F1ADB40C5004CDE69 /* 24.gif in Resources */,
 				66953AF31A79BCE200AEB78C /* Images.xcassets in Resources */,
 			);

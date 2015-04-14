@@ -25,4 +25,5 @@
 @property (strong, nonatomic) UIImage* selectedItemImage;
 @property (weak, nonatomic) IBOutlet UIButton *removeItemImageButton;
 @property (nonatomic) UIImagePickerController *imagePickerController;
+@property (weak, nonatomic) IBOutlet UITextView *note;
 @end

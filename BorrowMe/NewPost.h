@@ -20,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *backgroundBubble;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UITextView *noteBox;
+@property (weak, nonatomic) IBOutlet UILabel *loadingBackground;
+@property (weak, nonatomic) IBOutlet UILabel *loadingBox;
+@property (weak, nonatomic) IBOutlet UIImageView *loadingImage;
 
 
 @end

@@ -12,6 +12,7 @@
 #import "MyPostNoLenders.h"
 #import "MyPostLenders.h"
 #import "PostObject.h"
+#import "LoadingCell.h"
 
 @implementation MyPosts
 
@@ -69,6 +70,9 @@
   
     NSLog(@"I'm in pull from db");
   
+    MyPostObject* loadingCell = [[MyPostObject alloc] init];
+    [self.myPosts addObject:loadingCell];
+    
     PFQuery* queryMyPosts = [[self.currentUser relationForKey:@"posts"] query];
     NSLog(@"%@", queryMyPosts);
     [queryMyPosts orderByAscending:@"deadline"];
@@ -239,6 +243,28 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    MyPostObject* myPostObject = [self.myPosts objectAtIndex:indexPath.row];
+    if(myPostObject.myPostPFObject == NULL)
+    {
+        LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
+        
+        CABasicAnimation *rotation;
+        rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        rotation.fromValue = [NSNumber numberWithFloat:0];
+        rotation.toValue = [NSNumber numberWithFloat:(2 * M_PI)];
+        rotation.duration = 0.8f; // Speed
+        rotation.repeatCount = HUGE_VALF; // Repeat forever. Can be a finite number.
+        [loadingCell.loadingImage.layer removeAllAnimations];
+        [loadingCell.loadingImage.layer addAnimation:rotation forKey:@"Spin"];
+        
+        CALayer* loadingBoxLayer = [loadingCell.loadingBox layer];
+        [loadingBoxLayer setMasksToBounds:YES];
+        [loadingBoxLayer setCornerRadius:5.0];
+        
+        return loadingCell;
+        
+    }
+    
     if([[[self.myPosts objectAtIndex:indexPath.row] lenders] count] > 0)
     {
     
@@ -388,6 +414,15 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
+    MyPostObject* myPostObject = [self.myPosts objectAtIndex:indexPath.row];
+    if(myPostObject.myPostPFObject == NULL)
+    {
+        
+        return 568;
+        
+    }
     
     if([[[self.myPosts objectAtIndex:indexPath.row] lenders] count] > 0)
     {

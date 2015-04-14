@@ -23,6 +23,14 @@
     [askButtonLayer setMasksToBounds:YES];
     [askButtonLayer setCornerRadius:5.0];
     
+    CALayer* noteBoxLayer = [self.noteBox layer];
+    [noteBoxLayer setMasksToBounds:YES];
+    [noteBoxLayer setCornerRadius:10.0];
+    
+    CALayer* loadingBoxLayer = [self.loadingBox layer];
+    [loadingBoxLayer setMasksToBounds:YES];
+    [loadingBoxLayer setCornerRadius:10.0];
+    
     self.noteBox.text = @"Leave a little note!";
     
     //[[self.askButton layer] setBorderWidth:2.0f];
@@ -66,12 +74,14 @@
 }
 
 - (IBAction)askButtonPressed:(id)sender {
+
     
     [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CST"]];
     NSDate* currentDate = [NSDate date];
 
     NSTimeInterval secondsBetween = [self.datePicker.date timeIntervalSinceDate: currentDate];
-    
+    NSLog(@"currentDate %@", currentDate);
+    NSLog(@"secondsBetween %f", secondsBetween);
     
     if(self.itemInput.text.length == 0)
     {
@@ -99,20 +109,90 @@
     else
     {
         
-        [self.itemInput resignFirstResponder];
+        self.loadingBackground.hidden = NO;
+        self.loadingBox.hidden = NO;
+        self.loadingImage.hidden = NO;
+        
+        CABasicAnimation *rotation;
+        rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        rotation.fromValue = [NSNumber numberWithFloat:0];
+        rotation.toValue = [NSNumber numberWithFloat:(2 * M_PI)];
+        rotation.duration = 0.8f; // Speed
+        rotation.repeatCount = HUGE_VALF; // Repeat forever. Can be a finite number.
+        [self.loadingImage.layer removeAllAnimations];
+        [self.loadingImage.layer addAnimation:rotation forKey:@"Spin"];
+        
+        
+        
+        //[self.itemInput resignFirstResponder];
         PFObject *newPost = [PFObject objectWithClassName:@"Posts"];
         newPost[@"item"] = self.itemInput.text;
+        if(![self.noteBox.text isEqualToString:@"Leave a little note!"] && self.noteBox.text.length != 0) {
+            newPost[@"note"] = self.noteBox.text;
+            
+        }
         newPost[@"deadline"] = self.datePicker.date;
         newPost[@"zipcode"]= self.currentUser[@"currentZipcode"];
         PFRelation *relation = [newPost relationForKey:@"user"];
         [relation addObject:self.currentUser];
-        [newPost save];
-
-        PFRelation* userToPostRelation = [self.currentUser relationForKey:@"posts"];
-        [userToPostRelation addObject:newPost];
-        [self.currentUser save];
-        self.itemInput.text = @"";
-        [self.tabBarController setSelectedIndex:0];
+        //[newPost save];
+        [newPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+         {
+             
+             if (succeeded)
+             {
+                 
+                 PFRelation* userToPostRelation = [self.currentUser relationForKey:@"posts"];
+                 [userToPostRelation addObject:newPost];
+                 //[self.currentUser save];
+                 [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+                 {
+                      if (succeeded)
+                      {
+                          
+                          self.itemInput.text = @"";
+                          self.loadingBackground.hidden = YES;
+                          self.loadingBox.hidden = YES;
+                          self.loadingImage.hidden = YES;
+                          [self.tabBarController setSelectedIndex:0];
+                          
+                      }
+                      else
+                      {
+                          self.itemInput.text = @"";
+                          self.loadingBackground.hidden = YES;
+                          self.loadingBox.hidden = YES;
+                          self.loadingImage.hidden = YES;
+                          
+                          UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Oh No!"
+                                                                                message:@"Something went wrong!"
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"OK"
+                                                                      otherButtonTitles: nil];
+                          [myAlertView show];
+                          
+                      }
+                  }];
+                 
+             }
+             else
+             {
+                 
+                 self.itemInput.text = @"";
+                 self.loadingBackground.hidden = YES;
+                 self.loadingBox.hidden = YES;
+                 self.loadingImage.hidden = YES;
+                 
+                 UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Oh No!"
+                                                                       message:@"Something went wrong!"
+                                                                      delegate:nil
+                                                             cancelButtonTitle:@"OK"
+                                                             otherButtonTitles: nil];
+                 [myAlertView show];
+                 
+             }
+             
+         }];
         //[self dismissViewControllerAnimated:YES completion:Nil];
         
     }
@@ -137,7 +217,7 @@
     {
         self.datePicker.hidden = YES;
         self.noteBox.hidden = NO;
-        [self.noteBox becomeFirstResponder];
+        //[self.noteBox becomeFirstResponder];
     }
     
 }
@@ -160,6 +240,7 @@
         self.noteBox.textColor = [UIColor lightGrayColor];
         self.noteBox.text = @"Leave a little note!";
         [self.noteBox resignFirstResponder];
+        [self.itemInput becomeFirstResponder];
         
     }
     

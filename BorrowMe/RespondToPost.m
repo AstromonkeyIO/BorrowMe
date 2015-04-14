@@ -213,6 +213,45 @@
     
 }
 
+- (IBAction)notePhotoSwitchButton:(id)sender {
+    
+    if(self.note.hidden == YES)
+    {
+        
+        self.itemImage.hidden = YES;
+        if(self.itemImage.image != NULL)
+        {
+            self.removeItemImageButton.hidden = YES;
+        }
+        self.itemImageButton.hidden = YES;
+
+        self.note.hidden = NO;
+        
+    }
+    else
+    {
+        self.note.hidden = YES;
+        if(self.itemImage.image != NULL)
+        {
+            
+            self.itemImage.hidden = NO;
+            self.removeItemImageButton.hidden = NO;
+            
+        }
+        else
+        {
+            
+            self.itemImageButton.hidden = NO;
+            
+        }
+        
+        
+    }
+    
+    
+}
+
+
 - (void) dismissAllKeyboards {
     
     [self.view endEditing:YES];
