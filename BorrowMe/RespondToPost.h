@@ -26,4 +26,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *removeItemImageButton;
 @property (nonatomic) UIImagePickerController *imagePickerController;
 @property (weak, nonatomic) IBOutlet UITextView *note;
+@property (weak, nonatomic) IBOutlet UILabel *loadingBackground;
+@property (weak, nonatomic) IBOutlet UILabel *loadingBox;
+@property (weak, nonatomic) IBOutlet UIImageView *loadingImage;
+
+
+
 @end

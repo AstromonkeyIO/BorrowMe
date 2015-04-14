@@ -27,6 +27,15 @@
     CALayer* sendButtonLayer = [self.sendButton layer];
     [sendButtonLayer setMasksToBounds:YES];
     [sendButtonLayer setCornerRadius:5.0];
+    
+    CALayer* noteLayer = [self.note layer];
+    [noteLayer setMasksToBounds:YES];
+    [noteLayer setCornerRadius:10.0];
+    
+    CALayer* loadingBoxLayer = [self.loadingBox layer];
+    [loadingBoxLayer setMasksToBounds:YES];
+    [loadingBoxLayer setCornerRadius:10.0];
+    
  
     CGPoint saveCenter = self.removeItemImageButton.center;
     CGRect newFrame = CGRectMake(self.removeItemImageButton.frame.origin.x, self.removeItemImageButton.frame.origin.y, 50, 50);
@@ -74,7 +83,7 @@
 - (IBAction)removeItemImageButtonPressed:(id)sender {
     
     self.removeItemImageButton.hidden = YES;
-    //self.itemImage.image = NULL;
+    self.itemImage.image = NULL;
     self.itemImage.hidden = YES;
     self.itemImageButton.hidden = NO;
     
@@ -149,10 +158,31 @@
     }
     else
     {
+        
+        
+        self.loadingBackground.hidden = NO;
+        self.loadingBox.hidden = NO;
+        self.loadingImage.hidden = NO;
+        
+        CABasicAnimation *rotation;
+        rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        rotation.fromValue = [NSNumber numberWithFloat:0];
+        rotation.toValue = [NSNumber numberWithFloat:(2 * M_PI)];
+        rotation.duration = 0.8f; // Speed
+        rotation.repeatCount = HUGE_VALF; // Repeat forever. Can be a finite number.
+        [self.loadingImage.layer removeAllAnimations];
+        [self.loadingImage.layer addAnimation:rotation forKey:@"Spin"];
+        
         PFObject* newResponse = [PFObject objectWithClassName:@"Responses"];
         NSData *imageData = UIImageJPEGRepresentation(self.itemImage.image, 0.1);
         PFFile* imageInPFFile = [PFFile fileWithName:@"test.png" data:imageData];
         newResponse[@"itemImage"] = imageInPFFile;
+        if(self.note.text.length != 0 || ![self.note.text isEqualToString:@"Leave a little note!"])
+        {
+        
+            newResponse[@"description"] = self.note.text;
+            
+        }
         /*
         PFRelation * newResponseToUserrelation = [newResponse relationForKey:@"user"];
         [newResponseToUserrelation addObject: [PFUser currentUser]];
@@ -173,11 +203,21 @@
                 {
                     if (succeeded)
                     {
+                        
+                        self.loadingBackground.hidden = YES;
+                        self.loadingBox.hidden = YES;
+                        self.loadingImage.hidden = YES;
+                        
                         self.itemDescription.text = @"";
                         [self dismissViewControllerAnimated:YES completion:Nil];
                     }
                     else
                     {
+                        
+                        self.loadingBackground.hidden = YES;
+                        self.loadingBox.hidden = YES;
+                        self.loadingImage.hidden = YES;
+                        
                         UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Oh No!"
                                                                               message:@"Something went wrong!"
                                                                              delegate:nil
@@ -191,6 +231,10 @@
             }
             else
             {
+                
+                self.loadingBackground.hidden = YES;
+                self.loadingBox.hidden = YES;
+                self.loadingImage.hidden = YES;
                 
                 UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Oh No!"
                                                                       message:@"Something went wrong!"
