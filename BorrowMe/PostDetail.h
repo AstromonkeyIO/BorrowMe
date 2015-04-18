@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import <CoreLocation/CoreLocation.h>
 #import "Post.h"
 #import "PostObject.h"
 #import "RespondToPost.h"
@@ -19,5 +20,6 @@
 @property (strong, nonatomic) NSMutableArray* postDetails;
 @property (strong, nonatomic) PFUser* currentUser;
 @property (assign, nonatomic) NSInteger index;
+@property (strong, nonatomic) CLLocation* currentLocation;
 
 @end

@@ -414,7 +414,7 @@
         
         PostObject* selectedPostObject = [self.posts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         postDetail.receivedPostObject = selectedPostObject;
-        
+        postDetail.currentLocation = self.currentLocation;
         
     }
 
@@ -433,14 +433,18 @@
     float latitude = self.locationManager.location.coordinate.latitude;
     float longitude = self.locationManager.location.coordinate.longitude;
     
+    
+    NSString* latitudeString = [NSString stringWithFormat:@"%fw", latitude];
+    NSString* longitudeString = [NSString stringWithFormat:@"%fw", longitude];
+
     NSLog(@"latitidue %f", latitude);
     NSLog(@"longitude %f", longitude);
     
-    CLLocation* currentLocation = [locations objectAtIndex:0];
+    self.currentLocation = [locations objectAtIndex:0];
     [self.locationManager stopUpdatingLocation];
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
-    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
+    [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
      {
          if (!(error))
          {
@@ -453,6 +457,8 @@
              zipCode = [[NSString alloc]initWithString:placemark.postalCode];
              zipCode = @"90007";
              [self.currentUser setObject:zipCode forKey:@"currentZipcode"];
+             [self.currentUser setObject:latitudeString forKey:@"latitude"];
+             [self.currentUser setObject:longitudeString forKey:@"longitude"];
              NSLog(@"current zipcode %@",self.currentUser[@"currentZipcode"]);
              
              

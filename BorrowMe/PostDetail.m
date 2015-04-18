@@ -40,6 +40,7 @@
     PostObject* aboutPost = [[PostObject alloc] init];
     aboutPost.type = @"postDetail";
     
+    
     [self.postDetails addObject:aboutPost];
     
     NSLog(@"received my post object %@", self.receivedPostObject);
@@ -170,6 +171,7 @@
     }
     else
     {
+        
         AboutPost* aboutPost = [tableView dequeueReusableCellWithIdentifier:@"AboutPost" forIndexPath:indexPath];
 
         [aboutPost setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -182,6 +184,84 @@
         
         [aboutPost.note.layer setMasksToBounds:YES];
         [aboutPost.note.layer setCornerRadius:10.0];
+        
+        
+        PFObject* receivedPost= self.receivedPostObject.post;
+        NSTimeInterval lastDiff = [receivedPost[@"deadline"] timeIntervalSinceNow];
+        NSTimeInterval todaysDiff = [receivedPost[@"returnDate"] timeIntervalSinceNow];
+        NSTimeInterval dateDiff = todaysDiff - lastDiff;
+
+        int numberOfWeeksElapsed = dateDiff / 604800;
+        int numberOfDaysElapsed = dateDiff / 86400;
+        int numberOfHoursElapsed = dateDiff / 3600;
+        int numberOfMinutesElapsed = dateDiff / 60;
+        
+        if(numberOfWeeksElapsed > 0)
+        {
+            
+            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%d weeks", numberOfWeeksElapsed];
+            
+        }
+        
+        if(numberOfDaysElapsed > 0)
+        {
+            
+            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%d days", numberOfDaysElapsed];
+                
+        }
+        else if(numberOfHoursElapsed > 0)
+        {
+            
+            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%d hours", numberOfHoursElapsed];
+            
+        }
+        else if(numberOfMinutesElapsed > 0)
+        {
+            
+            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%d minutes", numberOfMinutesElapsed];
+            
+        }
+        else
+        {
+            
+            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%f seconds", dateDiff];
+            
+        }
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"MM/dd/yyyy EEEE hh:mm a";
+        
+        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+        [dateFormatter setTimeZone:gmt];
+        NSString *deadline = [dateFormatter stringFromDate:receivedPost[@"deadline"]];
+        NSString *returnDate = [dateFormatter stringFromDate:receivedPost[@"returnDate"]];
+        
+        
+        
+        aboutPost.borrowDate.text = [NSString stringWithFormat:@"%@ until", deadline];
+        aboutPost.returnDate.text = returnDate;
+        aboutPost.postLatitude = receivedPost[@"latitude"];
+        aboutPost.postLongitude = receivedPost[@"longitude"];
+        
+        float postLatitudeInFloat = [receivedPost[@"latitude"] floatValue];
+        float postLongitudeInFloat = [receivedPost[@"longitude"] floatValue];
+        
+        CLLocation *postLocation = [[CLLocation alloc] initWithLatitude:postLatitudeInFloat longitude:postLongitudeInFloat];
+        CLLocationDistance postDistanceFromCurrentLocationInMeters = [postLocation distanceFromLocation:self.currentLocation];
+        if(postDistanceFromCurrentLocationInMeters >= 1609.344)
+        {
+           
+            float postDistanceFromCurrentLocationInMiles = postDistanceFromCurrentLocationInMeters/1609.344;
+            aboutPost.postDistance.text = [NSString stringWithFormat:@"%.2f miles", postDistanceFromCurrentLocationInMiles];
+            
+            
+        }
+        else
+        {
+            
+            aboutPost.postDistance.text = [NSString stringWithFormat:@"%.2f meters", postDistanceFromCurrentLocationInMeters];
+            
+        }
         
         return aboutPost;
         
@@ -233,7 +313,7 @@
     else
     {
         
-        return 400;
+        return 365;
         
     }
     

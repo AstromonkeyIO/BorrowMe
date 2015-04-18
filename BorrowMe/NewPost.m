@@ -192,7 +192,6 @@
         [self.loadingImage.layer addAnimation:rotation forKey:@"Spin"];
         
         
-        
         //[self.itemInput resignFirstResponder];
         PFObject *newPost = [PFObject objectWithClassName:@"Posts"];
         newPost[@"item"] = self.itemInput.text;
@@ -200,8 +199,14 @@
             newPost[@"note"] = self.noteBox.text;
             
         }
-        newPost[@"deadline"] = self.datePicker.date;
+        
         newPost[@"zipcode"]= self.currentUser[@"currentZipcode"];
+        newPost[@"latitude"] = self.currentUser[@"latitude"];
+        newPost[@"longitude"] = self.currentUser[@"longitude"];
+        
+        newPost[@"deadline"] = self.datePicker.date;
+        newPost[@"returnDate"] = self.returnDatePicker.date;
+
         PFRelation *relation = [newPost relationForKey:@"user"];
         [relation addObject:self.currentUser];
         //[newPost save];

@@ -61,6 +61,8 @@
 		66F24A991AE2173A00DEC153 /* PostDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F24A981AE2173A00DEC153 /* PostDetail.m */; };
 		66F24A9C1AE22C9100DEC153 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66F24A9A1AE22C9100DEC153 /* Main.storyboard */; };
 		66F24A9F1AE22F5E00DEC153 /* AboutPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F24A9E1AE22F5E00DEC153 /* AboutPost.m */; };
+		66F24AA11AE2F4CF00DEC153 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66F24AA01AE2F4CF00DEC153 /* MapKit.framework */; };
+		66F24AA31AE2FB8D00DEC153 /* distanceIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 66F24AA21AE2FB8D00DEC153 /* distanceIcon.png */; };
 		66F42B5E1A96D08E00F99A31 /* hourglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 66F42B5D1A96D08E00F99A31 /* hourglass.png */; };
 		66F42B601A96D21D00F99A31 /* hourglass2.png in Resources */ = {isa = PBXBuildFile; fileRef = 66F42B5F1A96D21D00F99A31 /* hourglass2.png */; };
 		66F4C3361A7F1866001B97AA /* MainFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F4C3351A7F1866001B97AA /* MainFeed.m */; };
@@ -160,6 +162,8 @@
 		66F24A9B1AE22C9100DEC153 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		66F24A9D1AE22F5E00DEC153 /* AboutPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutPost.h; sourceTree = "<group>"; };
 		66F24A9E1AE22F5E00DEC153 /* AboutPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutPost.m; sourceTree = "<group>"; };
+		66F24AA01AE2F4CF00DEC153 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		66F24AA21AE2FB8D00DEC153 /* distanceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distanceIcon.png; sourceTree = "<group>"; };
 		66F42B5D1A96D08E00F99A31 /* hourglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass.png; sourceTree = "<group>"; };
 		66F42B5F1A96D21D00F99A31 /* hourglass2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass2.png; sourceTree = "<group>"; };
 		66F4C3341A7F1865001B97AA /* MainFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainFeed.h; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66F24AA11AE2F4CF00DEC153 /* MapKit.framework in Frameworks */,
 				66953B2F1A79BE7400AEB78C /* libsqlite3.dylib in Frameworks */,
 				66953B2D1A79BE4700AEB78C /* libz.dylib in Frameworks */,
 				66953B2B1A79BE3500AEB78C /* SystemConfiguration.framework in Frameworks */,
@@ -280,6 +285,7 @@
 		66953AD61A79BCE200AEB78C = {
 			isa = PBXGroup;
 			children = (
+				66F24AA01AE2F4CF00DEC153 /* MapKit.framework */,
 				66953B2E1A79BE7400AEB78C /* libsqlite3.dylib */,
 				66953B2C1A79BE4700AEB78C /* libz.dylib */,
 				66953B2A1A79BE3500AEB78C /* SystemConfiguration.framework */,
@@ -384,6 +390,7 @@
 		66F42B5C1A96D05600F99A31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				66F24AA21AE2FB8D00DEC153 /* distanceIcon.png */,
 				6624FD321AE081A7004EA647 /* clockIcon.png */,
 				6624FD2E1AE07C67004EA647 /* 1429244562_699044-icon-55-document-text-128.png */,
 				6624FD2C1AE07BDE004EA647 /* noteIcon.png */,
@@ -506,6 +513,7 @@
 				66F42B5E1A96D08E00F99A31 /* hourglass.png in Resources */,
 				6624FD2D1AE07BDF004EA647 /* noteIcon.png in Resources */,
 				6667C6DE1AC7BAF5000467AC /* camera icon2.png in Resources */,
+				66F24AA31AE2FB8D00DEC153 /* distanceIcon.png in Resources */,
 				66F42B601A96D21D00F99A31 /* hourglass2.png in Resources */,
 				6624FD331AE081A7004EA647 /* clockIcon.png in Resources */,
 				66F711701ACE7DEA0006C389 /* love-icon.png in Resources */,

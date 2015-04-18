@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSMutableArray* posts;
 @property (strong, nonatomic) UINavigationBar* navBar;
 @property (assign, nonatomic) NSInteger index;
+@property (strong, nonatomic) CLLocation* currentLocation;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
