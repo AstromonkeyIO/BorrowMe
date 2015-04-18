@@ -17,6 +17,7 @@
 @property (strong, nonatomic) UIImage* userProfileImage;
 @property (strong, nonatomic) NSString* deadline;
 @property (assign, nonatomic) bool urgent;
+@property (strong, nonatomic) NSString* type;
 
 - (void) setUserObject:(PFUser *)user;
 - (void) setItemObject:(NSString *)item;

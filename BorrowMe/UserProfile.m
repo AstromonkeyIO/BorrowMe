@@ -48,7 +48,8 @@
     [self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
-    self.view.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0];
+    self.view.backgroundColor = [UIColor whiteColor];
+    //self.view.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0];
     
     
 }
@@ -179,6 +180,9 @@
         
         NSLog(@"user cell created !!");
         UserCell* userCell = [tableView dequeueReusableCellWithIdentifier:@"UserCell" forIndexPath:indexPath];
+        
+        [userCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+
         UserObject* userObject = [self.reviews objectAtIndex:indexPath.row];
         
 
@@ -201,6 +205,9 @@
         CALayer* backgroundViewLayer = [userCell.container layer];
         [backgroundViewLayer setMasksToBounds:YES];
         [backgroundViewLayer setCornerRadius:10.0];
+        
+        
+        
         /*
         userCell.backgroundView.layer.masksToBounds = NO;
         userCell.backgroundView.layer.cornerRadius = 8; // if you like rounded corners
@@ -213,6 +220,43 @@
         userCell.username.text = userObject.username;
         userCell.rating.text = userObject.averageRating;
         
+        if([userCell.rating.text isEqualToString:@""])
+        {
+            
+            //userCell.rating.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 0.5];
+            
+            userCell.rating.hidden = YES;
+            
+            
+        }
+        else
+        {
+            
+            userCell.rating.hidden = NO;
+            
+            int ratingInInt = [userCell.rating.text intValue];
+            if(ratingInInt <= 2)
+            {
+                
+                userCell.rating.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 0.0/255.0 blue:0.0/255.0 alpha: 0.5];
+
+            }
+            else if(ratingInInt == 3)
+            {
+
+                userCell.rating.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0];
+                
+                
+            }
+            else {
+                
+                 userCell.rating.backgroundColor = [UIColor colorWithRed: 0.0/255.0 green: 255.0/255.0 blue:0.0/255.0 alpha: 0.5];
+                
+            }
+            
+        
+        }
+        
         return userCell;
 
     }
@@ -222,6 +266,7 @@
         ReviewObject* reviewObject = [self.reviews objectAtIndex:indexPath.row];
         if(reviewObject.reviewPFObject == NULL)
         {
+            
             LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
             
             CABasicAnimation *rotation;
@@ -235,7 +280,7 @@
             
             CALayer* loadingBoxLayer = [loadingCell.loadingBox layer];
             [loadingBoxLayer setMasksToBounds:YES];
-            [loadingBoxLayer setCornerRadius:5.0];
+            [loadingBoxLayer setCornerRadius:10.0];
             
             return loadingCell;
             
@@ -248,6 +293,28 @@
         [reviewCell.userName setTitle:reviewObject.username forState:UIControlStateNormal];
         reviewCell.review.text = reviewObject.review;
         reviewCell.score.text = reviewObject.rating;
+        
+        
+        int ratingInInt = [reviewCell.score.text intValue];
+        if(ratingInInt <= 2)
+        {
+            
+            reviewCell.score.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 0.0/255.0 blue:0.0/255.0 alpha: 0.5];
+            
+        }
+        else if(ratingInInt == 3)
+        {
+            
+            reviewCell.score.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0];
+            
+            
+        }
+        else {
+            
+            reviewCell.score.backgroundColor = [UIColor colorWithRed: 0.0/255.0 green: 255.0/255.0 blue:0.0/255.0 alpha: 0.5];
+            
+        }
+        
         
         
         return reviewCell;
@@ -266,10 +333,11 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ReviewCell *) reviewCell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    /*
     ReviewObject* reviewObject = [self.reviews objectAtIndex:indexPath.row];
-    if(indexPath.row != 0 && reviewObject.reviewPFObject)
+
+    if(indexPath.row != 0 && reviewObject.reviewPFObject != NULL)
     {
+        
  
         CGPoint saveCenter = reviewCell.userProfilePicture.center;
         CGRect newFrame = CGRectMake(reviewCell.userProfilePicture.frame.origin.x, reviewCell.userProfilePicture.frame.origin.y, 40, 40);
@@ -278,26 +346,26 @@
         reviewCell.userProfilePicture.center = saveCenter;
         reviewCell.userProfilePicture.clipsToBounds = YES;
         
-        
         CALayer* backgroundViewLayer = [reviewCell.container layer];
         [backgroundViewLayer setMasksToBounds:YES];
         [backgroundViewLayer  setCornerRadius:5.0];
         
+        CALayer* scoreLayer = [reviewCell.score layer];
+        [scoreLayer setMasksToBounds:YES];
+        [scoreLayer  setCornerRadius:5.0];
+        
+        [reviewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+
+        
     }
-    */
-
-    /*
-    CALayer* helpButtonLayer = [post.helpButton layer];
-    [helpButtonLayer setMasksToBounds:YES];
-    [helpButtonLayer setCornerRadius:5.0];
-    */
-
  
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    ReviewObject* reviewObject = [self.reviews objectAtIndex:indexPath.row];
     
     if(indexPath.row == 0)
     {
@@ -307,12 +375,33 @@
     }
     else
     {
+        if(reviewObject.reviewPFObject == NULL)
+        {
+            
+            return 300;
+            
+        }
+        else
+        {
 
-        return 141;
+            return 141;
+            
+        }
         
     }
     
 }
+
+- (IBAction)backButtonPressed:(id)sender
+{
+
+    [self dismissViewControllerAnimated:true completion:nil];
+    
+}
+
+
+
+
 
 #pragma mark - Navigation
 

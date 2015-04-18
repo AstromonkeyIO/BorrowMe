@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface Post : UITableViewCell
 
@@ -22,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *heartCount;
 @property (weak, nonatomic) IBOutlet UIImageView *heartImage;
 @property (strong, nonatomic) NSString* postId;
+@property (strong, nonatomic) PFObject* postPFObject;
 
 @end

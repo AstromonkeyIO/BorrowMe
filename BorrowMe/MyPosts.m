@@ -53,9 +53,11 @@
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
+    /*
     UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
     [gestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
     [self.view addGestureRecognizer:gestureRecognizer];
+    */
     
 }
 
@@ -82,6 +84,7 @@
         
         if (!error) {
             
+            self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
             NSLog(@"my Posts %@", myPosts);
             if([myPosts count] > 0)
             {

@@ -44,7 +44,7 @@
 - (IBAction)userProfileButtonPressed:(id)sender
 {
     
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DisplayUserProfile" object:nil userInfo:@{@"index" : @(self.index)}];    
     
 }
 

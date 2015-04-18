@@ -40,9 +40,71 @@
     if(self.postId == self.postId)
     {
     
-    int heartCount = [self.heartCount.text intValue];
-    heartCount++;
-    self.heartCount.text = [NSString stringWithFormat:@"%d", heartCount];
+        //int heartCount = [self.heartCount.text intValue];
+        //heartCount++;
+        //self.heartCount.text = [NSString stringWithFormat:@"%d", heartCount];
+        
+        bool alreadyLiked = NO;
+        PFUser* currentUser = [PFUser currentUser];
+        
+        NSLog(@" yooo before %@",currentUser[@"likedPosts"]);
+        
+        for(int i = 0; i < [currentUser[@"likedPosts"] count]; i++) {
+            
+            if([[currentUser[@"likedPosts"] objectAtIndex:i] isEqualToString:[self.postPFObject valueForKey:@"objectId"]])
+            {
+                NSLog(@"found");
+                
+                alreadyLiked = true;
+                break;
+                
+            }
+            
+        }
+        
+        if(!alreadyLiked)
+        {
+            NSLog(@"not liked");
+        
+            NSNumber* likes = self.postPFObject[@"likes"];
+            int likesInInt = [likes intValue];
+            likesInInt++;
+            self.heartCount.text = [NSString stringWithFormat:@"%d", likesInInt];
+       
+            likes = [NSNumber numberWithInt:likesInInt];
+            self.postPFObject[@"likes"] = likes;
+
+            NSLog(@"pfpost object %@", [self.postPFObject valueForKey:@"objectId"]);
+            [currentUser[@"likedPosts"] addObject:[self.postPFObject valueForKey:@"objectId"]];
+            NSLog(@"yo 1 %@", currentUser[@"likedPosts"]);
+            //[currentUser saveInBackground];
+            
+            
+            [self.postPFObject saveInBackground];
+            
+        }
+        else {
+            
+            NSLog(@"already liked");
+            
+            NSNumber* likes = self.postPFObject[@"likes"];
+            int likesInInt = [likes intValue];
+            likesInInt--;
+            self.heartCount.text = [NSString stringWithFormat:@"%d", likesInInt];
+            
+            likes = [NSNumber numberWithInt:likesInInt];
+            self.postPFObject[@"likes"] = likes;
+            [currentUser[@"likedPosts"] removeObject:[self.postPFObject valueForKey:@"objectId"]];
+            NSLog(@"yo 2 %@", currentUser[@"likedPosts"]);
+            //[currentUser saveInBackground];
+            
+            [self.postPFObject saveInBackground];
+            
+            
+        }
+        
+        
+        
     
     }
     

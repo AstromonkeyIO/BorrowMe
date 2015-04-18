@@ -11,6 +11,7 @@
 #import "MyPostItem.h"
 #import "Response.h"
 #import "UserProfile.h"
+#import "LoadingCell.h"
 #import <MessageUI/MessageUI.h>
 
 @implementation MyPostLenders
@@ -45,6 +46,10 @@
     NSLog(@"received my post object %@", self.receivedMyPostObject);
     
     //[self.responses addObject:self.receivedMyPostObject.item];
+    
+    Response* loadingCell = [[Response alloc] init];
+    [self.responses addObject:loadingCell];
+    
     [self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
@@ -77,6 +82,7 @@
         
         if (!error) {
             
+            [self.responses removeAllObjects];
             
             for (PFObject *response in responses) {
                 
@@ -171,10 +177,35 @@
     }
     else {
  */
+        Response* response = [self.responses objectAtIndex:indexPath.row];
+    
+        if(response.user == NULL)
+        {
+            
+            LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
+            CABasicAnimation *rotation;
+            rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+            rotation.fromValue = [NSNumber numberWithFloat:0];
+            rotation.toValue = [NSNumber numberWithFloat:(2 * M_PI)];
+            rotation.duration = 0.8f; // Speed
+            rotation.repeatCount = HUGE_VALF; // Repeat forever. Can be a finite number.
+            [loadingCell.loadingImage.layer removeAllAnimations];
+            [loadingCell.loadingImage.layer addAnimation:rotation forKey:@"Spin"];
+            
+            CALayer * loadingBoxLayer = [loadingCell.loadingBox layer];
+            [loadingBoxLayer setMasksToBounds:YES];
+            [loadingBoxLayer setCornerRadius:10.0];
+            
+            return loadingCell;
+            
+        }
+        else
+        {
+    
         MyPostLender* myPostLender = [tableView dequeueReusableCellWithIdentifier:@"MyPostLender" forIndexPath:indexPath];
         myPostLender.selectionStyle = UITableViewCellSelectionStyleNone;
 
-        Response* response = [self.responses objectAtIndex:indexPath.row];
+
     
         myPostLender.profileImage.image = response.userProfile;
         myPostLender.itemImage.image = response.itemImage;
@@ -190,11 +221,18 @@
     
         return myPostLender;
     
+        }
     
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(MyPostLender *)myPostLender forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+
+    Response* response = [self.responses objectAtIndex:indexPath.row];
+    
+    if(response.user != NULL)
+    {
     
     CALayer * borderLayer = [myPostLender.border layer];
     [borderLayer setMasksToBounds:YES];
@@ -212,12 +250,27 @@
     myPostLender.userProfileButton.center = saveCenter;
     myPostLender.userProfileButton.clipsToBounds = YES;
     
+    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-   return 440;
+    Response* response = [self.responses objectAtIndex:indexPath.row];
+    
+    if(response.user == NULL)
+    {
+        
+        return 568;
+    
+    }
+    else
+    {
+    
+        return 440;
+        
+    }
     
 }
 
@@ -231,12 +284,15 @@
 }
 
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     // Return YES if you want the specified item to be editable.
     return YES;
+    
 }
 
-- (void)showTextDialog: (NSNotification*) notification {
+- (void)showTextDialog: (NSNotification*) notification
+{
     
     NSInteger index = [notification.userInfo[@"index"] integerValue];
     
@@ -261,14 +317,14 @@
     
 }
 
-- (void)directToUserProfile: (NSNotification*) notification {
+- (void)directToUserProfile: (NSNotification*) notification
+{
 
     NSInteger index = [notification.userInfo[@"index"] integerValue];
     Response* response = [self.responses objectAtIndex:index];
     self.viewUser = response.user;
     
     [self performSegueWithIdentifier:@"View-User-Profile" sender:self];
-    
     
 }
 
@@ -376,9 +432,17 @@
      if([segue.identifier isEqualToString:@"View-User-Profile"])
      {
  
+
+         UserProfile* tableView = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
+         PFUser* passUser = self.viewUser;
+         // MyPostLenders* tableView = (MyPostLenders*)[self.navigationController.viewControllers objectAtIndex:0];
+         tableView.user = passUser;
+         
+         /*
          UserProfile* linkedInUserProfileTableViewController = (UserProfile *)segue.destinationViewController;
          PFUser* passUser = self.viewUser;
          linkedInUserProfileTableViewController.user = passUser;
+        */
      
          NSLog(@"I'm in the prepare for segue!");
  

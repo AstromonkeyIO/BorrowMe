@@ -10,6 +10,7 @@
 #import "Post.h"
 #import "RespondToPost.h"
 #import "LoadingCell.h"
+#import "PostDetail.h"
 
 
 
@@ -42,7 +43,7 @@
     
     [super viewDidLoad];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    
+    //self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
@@ -71,6 +72,13 @@
     self.refreshControl = refreshControl;
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.navigationItem.title = @"Navers";
+    //_scoreLabel.backgroundColor = [UIColor redColor];
+    //_scoreLabel.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:(36.0)];
+    
+    //self.hidesBottomBarWhenPushed = YES;
+    
+    //self.view.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 0.5];
     
 }
 
@@ -102,10 +110,10 @@
                 [postObject setUserObject:user];
                 [postObject setItemObject: [post valueForKey:@"item"]];
                 [postObject setPostObject: post];
+                
                 PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
                 NSData* profilePictureData = [profilePictureFile getData];
                 postObject.userProfileImage = [UIImage imageWithData: profilePictureData];
-                
                 
                 //time elapsed function
                 [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CST"]];
@@ -258,23 +266,29 @@
     PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
     post.profilePicture.image = postObject.userProfileImage;
     
-    if(postObject.urgent == true)
-    {
+    post.postPFObject = postObject.post;
         
-        //post.deadline.textColor = [UIColor colorWithRed: 255.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 0.9];
-        //[post.helpButton setTitle:@"Help Now!" forState:UIControlStateNormal];
-        //post.helpButton.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 0.9];
-        
-    }
     
     post.postId = [postObject.post valueForKey:@"id"];
     
     NSString* buttonTitle = [NSString stringWithFormat:@"%@", [user valueForKey:@"username"]];
     [post.username setTitle: buttonTitle forState: UIControlStateNormal];
-    
+    if([postObject.post valueForKey:@"likes"] == NULL)
+    {
+        
+        post.heartCount.text = @"0";
+        
+    }
+    else
+    {
+        
+        post.heartCount.text = [NSString stringWithFormat:@"%@", [postObject.post valueForKey:@"likes"]];
+        
+    }
     post.deadline.text = postObject.deadline;
     
     return post;
+        
     }
 
 }
@@ -393,6 +407,16 @@
         linkedInHelpBorrowerViewController.receivedPostObject = passPostObject;
         
     }
+    else if([segue.identifier isEqualToString:@"GoToPostDetail"])
+    {
+        
+        PostDetail* postDetail = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
+        
+        PostObject* selectedPostObject = [self.posts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        postDetail.receivedPostObject = selectedPostObject;
+        
+        
+    }
 
 }
 
@@ -451,6 +475,60 @@
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
 }
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    
+    CGPoint targetPoint = *targetContentOffset;
+    CGPoint currentPoint = scrollView.contentOffset;
+    
+    if (currentPoint.y > 0 && targetPoint.y > currentPoint.y) {
+        //NSLog(@"up");
+//        NSLog(@"current point %f", currentPoint.y);
+//        if(currentPoint.y > 0)
+//        {
+        
+            //if(.navigationController.navigationBar.hidden == NO)
+                [self.navigationController.navigationBar setHidden:YES];
+            //if(self.tabBarController.tabBar.hidden == NO)
+                [self.tabBarController.tabBar setHidden:YES];
+            
+//        }
+
+    }
+    else {
+        //NSLog(@"down");
+//        if(self.navigationController.navigationBar.hidden == YES)
+//        {
+//            NSLog(@"checkpoint1");
+            [self.navigationController.navigationBar setHidden:NO];
+//        }
+//        if(self.tabBarController.tabBar.hidden == YES)
+//        {
+//            NSLog(@"checkpoint2");
+            [self.tabBarController.tabBar setHidden:NO];
+//        }
+
+    }
+    
+}
+
+
+/*
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    
+    NSLog(@"scroll begin");
+
+    
+}
+
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    
+    NSLog(@"scroll end");
+
+    
+    
+}
+*/
 
 
 @end
