@@ -179,7 +179,7 @@
         [aboutPost.container.layer setMasksToBounds:YES];
         [aboutPost.container.layer setCornerRadius:5.0];
         
-        [aboutPost.aboutPostSelector setTitle:@"About Post"forSegmentAtIndex:0];
+        [aboutPost.aboutPostSelector setTitle:@"Time"forSegmentAtIndex:0];
         [aboutPost.aboutPostSelector setTitle:@"Map"forSegmentAtIndex:1];
         
         [aboutPost.note.layer setMasksToBounds:YES];
@@ -199,32 +199,32 @@
         if(numberOfWeeksElapsed > 0)
         {
             
-            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%d weeks", numberOfWeeksElapsed];
+            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%.0d weeks", numberOfWeeksElapsed];
             
         }
         
         if(numberOfDaysElapsed > 0)
         {
             
-            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%d days", numberOfDaysElapsed];
+            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%.0d days", numberOfDaysElapsed];
                 
         }
         else if(numberOfHoursElapsed > 0)
         {
             
-            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%d hours", numberOfHoursElapsed];
+            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%.0d hours", numberOfHoursElapsed];
             
         }
         else if(numberOfMinutesElapsed > 0)
         {
             
-            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%d minutes", numberOfMinutesElapsed];
+            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%.0d minutes", numberOfMinutesElapsed];
             
         }
         else
         {
             
-            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%f seconds", dateDiff];
+            aboutPost.borrowDuration.text = [NSString stringWithFormat:@"%.0f seconds", dateDiff];
             
         }
         

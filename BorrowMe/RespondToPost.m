@@ -8,6 +8,8 @@
 
 #import "RespondToPost.h"
 
+#define RADIANS(degrees) ((degrees * M_PI) / 180.0)
+
 @implementation RespondToPost
 
 - (void)viewDidAppear:(BOOL)animated
@@ -44,6 +46,12 @@
     self.removeItemImageButton.center = saveCenter;
     self.removeItemImageButton.clipsToBounds = YES;
     
+    CGPoint saveCenter2 = self.cameraButtonContainer.center;
+    CGRect newFrame2 = CGRectMake(self.cameraButtonContainer.frame.origin.x, self.cameraButtonContainer.frame.origin.y, 120, 120);
+    self.cameraButtonContainer.frame = newFrame2;
+    self.cameraButtonContainer.layer.cornerRadius = 120 / 2.0;
+    self.cameraButtonContainer.center = saveCenter2;
+    self.cameraButtonContainer.clipsToBounds = YES;
     
     [self.itemDescription becomeFirstResponder];
     
@@ -51,6 +59,7 @@
     self.gestureRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:self.gestureRecognizer];
     
+    [self.costInput setDelegate:self];
     
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -83,10 +92,37 @@
 - (IBAction)removeItemImageButtonPressed:(id)sender {
     
     self.removeItemImageButton.hidden = YES;
-    self.itemImage.image = NULL;
-    self.itemImage.hidden = YES;
-    self.itemImageButton.hidden = NO;
+    self.costInput.hidden = YES;
+    CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-10.0));
+    CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(10.0));
     
+    self.itemImage.transform = leftWobble;  // starting point
+    //self.costInput.transform = leftWobble;
+    [UIView animateWithDuration:0.3 delay:0.05 options:(/*UIViewAnimationOptionRepeat | */UIViewAnimationOptionAutoreverse) animations:^{
+        self.itemImage.transform = rightWobble;
+        //self.costInput.transform = rightWobble;
+    }completion:^(BOOL finished){
+        
+        self.itemImage.hidden = YES;
+        NSLog(@"stop wobble");
+        CGAffineTransform stopWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(0.0));
+        self.itemImage.transform = stopWobble;
+        //self.costInput.transform = stopWobble;
+        [self.itemImage.layer removeAllAnimations];
+        //[self.costInput.layer removeAllAnimations];
+        //[UIView animateWithDuration:0.05 animations:^(void) {
+            //self.itemImage.alpha = 0;
+            //self.costInput.alpha = 0;
+            self.cameraButtonContainer.hidden = YES;
+            self.itemImage.image = NULL;
+
+            self.costInput.text = @"";
+            self.itemImageButton.hidden = NO;
+            self.cameraButtonContainer.hidden = NO;
+        //}];
+
+        
+    }];
     
 }
 
@@ -116,14 +152,14 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    //self.selectedItemImage = info[UIImagePickerControllerEditedImage];
     UIImage* selectedItemImage = info[UIImagePickerControllerEditedImage];
     self.itemImage.image = selectedItemImage;
     self.itemImage.hidden = NO;
     self.itemImageButton.hidden = YES;
+    self.cameraButtonContainer.hidden = YES;
     self.removeItemImageButton.hidden = NO;
-    //[self.itemImageButton setBackgroundImage:self.selectedItemImage forState:UIControlStateNormal];
-    
+    self.costInput.hidden = NO;
+    [self.costInput becomeFirstResponder];
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
 }
@@ -177,6 +213,7 @@
         NSData *imageData = UIImageJPEGRepresentation(self.itemImage.image, 0.1);
         PFFile* imageInPFFile = [PFFile fileWithName:@"test.png" data:imageData];
         newResponse[@"itemImage"] = imageInPFFile;
+        newResponse[@"cost"] = self.costInput.text;
         if(self.note.text.length != 0 || ![self.note.text isEqualToString:@"Leave a little note!"])
         {
         
@@ -268,24 +305,29 @@
             self.removeItemImageButton.hidden = YES;
         }
         self.itemImageButton.hidden = YES;
-
+        self.cameraButtonContainer.hidden = YES;
+        self.costInput.hidden = YES;
         self.note.hidden = NO;
+        [self.note becomeFirstResponder];
         
     }
     else
     {
         self.note.hidden = YES;
+        [self.note resignFirstResponder];
         if(self.itemImage.image != NULL)
         {
             
             self.itemImage.hidden = NO;
             self.removeItemImageButton.hidden = NO;
+            self.costInput.hidden = NO;
             
         }
         else
         {
             
             self.itemImageButton.hidden = NO;
+            self.cameraButtonContainer.hidden = NO;
             
         }
         
@@ -295,6 +337,11 @@
     
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.costInput resignFirstResponder];
+    return YES;
+}
 
 - (void) dismissAllKeyboards {
     

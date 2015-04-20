@@ -7,6 +7,7 @@
 //
 
 #import "Post.h"
+#define RADIANS(degrees) ((degrees * M_PI) / 180.0)
 
 @implementation Post
 
@@ -44,6 +45,54 @@
         //heartCount++;
         //self.heartCount.text = [NSString stringWithFormat:@"%d", heartCount];
         
+        /*
+        CABasicAnimation *shake = [CABasicAnimation animationWithKeyPath:@"position"];
+        [shake setDuration:0.1];
+        [shake setRepeatCount:2];
+        [shake setAutoreverses:YES];
+        [shake setFromValue:[NSValue valueWithCGPoint:
+                             CGPointMake(self.heartImage.center.x - 5,self.heartImage.center.y)]];
+        [shake setToValue:[NSValue valueWithCGPoint:
+                           CGPointMake(self.heartImage.center.x + 5, self.heartImage.center.y)]];
+        [self.heartImage.layer addAnimation:shake forKey:@"position"];
+        */
+        
+        /*
+        CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-10.0));
+        CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(10.0));
+        
+        self.heartImage.transform = leftWobble;  // starting point
+        
+        [UIView beginAnimations:@"wobble" context:(__bridge void *)(self.heartImage)];
+        [UIView setAnimationRepeatAutoreverses:YES]; // important
+        [UIView setAnimationRepeatCount:10];
+        [UIView setAnimationDuration:0.03];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(wobbleEnded:finished:context:)];
+        
+        self.heartImage.transform = rightWobble; // end here & auto-reverse
+        
+        [UIView commitAnimations];
+        */
+        
+        CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-12.0));
+        CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(12.0));
+        
+        self.heartImage.transform = leftWobble;  // starting point
+        [UIView animateWithDuration:0.1 delay:0 options:(/*UIViewAnimationOptionRepeat | */UIViewAnimationOptionAutoreverse) animations:^{
+            self.heartImage.transform = rightWobble;
+        }completion:^(BOOL finished){
+            
+            NSLog(@"stop wobble");
+            CGAffineTransform stopWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(0.0));
+            self.heartImage.transform = stopWobble;
+            [self.heartImage.layer removeAllAnimations];
+            //self.heartImage.transform = CGAffineTransformIdentity;
+            
+            //[self.heartImage.layer removeAllAnimations];
+            
+        }];
+        
         bool alreadyLiked = NO;
         PFUser* currentUser = [PFUser currentUser];
         
@@ -54,7 +103,10 @@
             if([[currentUser[@"likedPosts"] objectAtIndex:i] isEqualToString:[self.postPFObject valueForKey:@"objectId"]])
             {
                 NSLog(@"found");
-                
+                /*
+                CGAffineTransform stopWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(0.0));
+                self.heartImage.transform = stopWobble;
+                */
                 alreadyLiked = true;
                 break;
                 
@@ -125,6 +177,14 @@
                                     repeats:NO];
      */
     
+}
+
+- (void) wobbleEnded:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    if ([finished boolValue]) {
+        UIView* item = (UIView *)CFBridgingRelease(context);
+        item.transform = CGAffineTransformIdentity;
+    }
 }
 
 

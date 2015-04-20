@@ -268,6 +268,7 @@
         {
             
             LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
+            loadingCell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             CABasicAnimation *rotation;
             rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
@@ -288,6 +289,8 @@
         
         NSLog(@"review cell created !!");
         ReviewCell* reviewCell = [tableView dequeueReusableCellWithIdentifier:@"ReviewCell" forIndexPath:indexPath];
+        reviewCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         //ReviewObject* reviewObject = [self.reviews objectAtIndex:indexPath.row];
         [reviewCell.userProfilePicture setBackgroundImage:reviewObject.userProfile forState:UIControlStateNormal];
         [reviewCell.userName setTitle:reviewObject.username forState:UIControlStateNormal];

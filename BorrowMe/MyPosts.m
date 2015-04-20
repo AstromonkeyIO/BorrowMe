@@ -250,6 +250,7 @@
     if(myPostObject.myPostPFObject == NULL)
     {
         LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
+        loadingCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         CABasicAnimation *rotation;
         rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
@@ -381,7 +382,8 @@
     {
         
         MyPostNoLenders* myPostNoLenders = [tableView dequeueReusableCellWithIdentifier:@"MyPostNoLenders" forIndexPath:indexPath];
-        
+        myPostNoLenders.selectionStyle = UITableViewCellSelectionStyleNone;
+
         CALayer * myPostItemLayer = [myPostNoLenders.item layer];
         [myPostItemLayer setMasksToBounds:YES];
         [myPostItemLayer setCornerRadius:5.0];

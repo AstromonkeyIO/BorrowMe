@@ -19,5 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *messageButton;
 @property (weak, nonatomic) IBOutlet UIButton *usernameButton;
 @property (weak, nonatomic) IBOutlet UIButton *userProfileButton;
+@property (weak, nonatomic) IBOutlet UILabel *messageButtonContainer;
+@property (weak, nonatomic) IBOutlet UILabel *xButtonContainer;
 
 @end

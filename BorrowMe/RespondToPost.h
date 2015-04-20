@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import <QuartzCore/QuartzCore.h>
 #import "PostObject.h"
+
 
 @interface RespondToPost : UIViewController  <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) PostObject* receivedPostObject;
+@property (weak, nonatomic) IBOutlet UILabel *cameraButtonContainer;
 @property (weak, nonatomic) IBOutlet UITextField *itemDescription;
 @property (weak, nonatomic) IBOutlet UIButton *itemImageButton;
 @property (weak, nonatomic) IBOutlet UIImageView *itemImage;
@@ -29,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *loadingBackground;
 @property (weak, nonatomic) IBOutlet UILabel *loadingBox;
 @property (weak, nonatomic) IBOutlet UIImageView *loadingImage;
+@property (weak, nonatomic) IBOutlet UITextField *costInput;
 
 
 

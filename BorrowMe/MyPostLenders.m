@@ -183,6 +183,8 @@
         {
             
             LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
+            loadingCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
             CABasicAnimation *rotation;
             rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
             rotation.fromValue = [NSNumber numberWithFloat:0];
@@ -249,6 +251,23 @@
     myPostLender.userProfileButton.layer.cornerRadius = 50 / 2.0;
     myPostLender.userProfileButton.center = saveCenter;
     myPostLender.userProfileButton.clipsToBounds = YES;
+        
+        CGPoint saveCenter2 = myPostLender.messageButtonContainer.center;
+        CGRect newFrame2 = CGRectMake(myPostLender.messageButtonContainer.frame.origin.x, myPostLender.messageButtonContainer.frame.origin.y, 100, 100);
+        
+        myPostLender.messageButtonContainer.frame = newFrame2;
+        myPostLender.messageButtonContainer.layer.cornerRadius = 100 / 2.0;
+        myPostLender.messageButtonContainer.center = saveCenter2;
+        myPostLender.messageButtonContainer.clipsToBounds = YES;
+        
+        CGPoint saveCenter3 = myPostLender.xButtonContainer.center;
+        CGRect newFrame3 = CGRectMake(myPostLender.xButtonContainer.frame.origin.x, myPostLender.xButtonContainer.frame.origin.y, 100, 100);
+        
+        myPostLender.xButtonContainer.frame = newFrame3;
+        myPostLender.xButtonContainer.layer.cornerRadius = 100 / 2.0;
+        myPostLender.xButtonContainer.center = saveCenter3;
+        myPostLender.xButtonContainer.clipsToBounds = YES;
+        
     
     }
     
@@ -268,7 +287,7 @@
     else
     {
     
-        return 440;
+        return 470;
         
     }
     

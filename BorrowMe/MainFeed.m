@@ -237,6 +237,8 @@
     {
     
         LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
+        loadingCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         CABasicAnimation *rotation;
         rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
         rotation.fromValue = [NSNumber numberWithFloat:0];
