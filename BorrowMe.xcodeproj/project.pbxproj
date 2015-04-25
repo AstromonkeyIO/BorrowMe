@@ -33,6 +33,7 @@
 		6667C6E71AC92A5B000467AC /* ReviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667C6E61AC92A5B000467AC /* ReviewCell.m */; };
 		6667C6EA1AC92A6C000467AC /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667C6E91AC92A6C000467AC /* UserCell.m */; };
 		6667C6ED1AC92F34000467AC /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667C6EC1AC92F34000467AC /* UserObject.m */; };
+		667601521AEB2DEE00963621 /* hourglassIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 667601511AEB2DED00963621 /* hourglassIcon.png */; };
 		6678BF411A7DB7720060B73A /* LoginAndSignUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 6678BF401A7DB7720060B73A /* LoginAndSignUp.m */; };
 		6680E0871ACA811F0067257E /* PostReview.m in Sources */ = {isa = PBXBuildFile; fileRef = 6680E0861ACA811E0067257E /* PostReview.m */; };
 		668AD9DA1AA0597600627437 /* MyPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 668AD9D91AA0597600627437 /* MyPost.m */; };
@@ -131,6 +132,7 @@
 		6667C6E91AC92A6C000467AC /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
 		6667C6EB1AC92F34000467AC /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserObject.h; sourceTree = "<group>"; };
 		6667C6EC1AC92F34000467AC /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserObject.m; sourceTree = "<group>"; };
+		667601511AEB2DED00963621 /* hourglassIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglassIcon.png; sourceTree = "<group>"; };
 		6678BF3F1A7DB7720060B73A /* LoginAndSignUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAndSignUp.h; sourceTree = "<group>"; };
 		6678BF401A7DB7720060B73A /* LoginAndSignUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAndSignUp.m; sourceTree = "<group>"; };
 		6680E0851ACA811E0067257E /* PostReview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostReview.h; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 		66F42B5C1A96D05600F99A31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				667601511AEB2DED00963621 /* hourglassIcon.png */,
 				6662DEBA1AE4EBF800917B65 /* xButtonIconNew.png */,
 				6662DEB81AE4EABA00917B65 /* messageIconNew.png */,
 				6662DEB61AE4E8E600917B65 /* xIxon.svg */,
@@ -567,6 +570,7 @@
 				66953AF61A79BCE200AEB78C /* LaunchScreen.xib in Resources */,
 				66A9AEE91ADF395800785DEE /* newsfeedIcon.png in Resources */,
 				6692704C1ADE21E700C39F27 /* gear.gif in Resources */,
+				667601521AEB2DEE00963621 /* hourglassIcon.png in Resources */,
 				6662DEA91AE469A200917B65 /* cameraIcon2.png in Resources */,
 				6662DEAF1AE4CF9E00917B65 /* menuIcon.png in Resources */,
 				66DBB8C11ADCC8D0005919FF /* 495.GIF in Resources */,

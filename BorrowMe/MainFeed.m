@@ -72,7 +72,7 @@
     self.refreshControl = refreshControl;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationItem.title = @"Navers";
+    //self.navigationItem.title = @"Navers";
     //_scoreLabel.backgroundColor = [UIColor redColor];
     //_scoreLabel.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:(36.0)];
     
@@ -115,17 +115,58 @@
                 NSData* profilePictureData = [profilePictureFile getData];
                 postObject.userProfileImage = [UIImage imageWithData: profilePictureData];
                 
-                //time elapsed function
-                [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CST"]];
-                NSDate* nDate = [NSDate date];
-                NSLog(@"date 2 %@", [nDate description]);
-        
-                NSTimeInterval secondsBetween = [[post valueForKey:@"deadline"] timeIntervalSinceDate: nDate];
+                
+                NSLog(@"post deadline %@,   %@", post[@"deadline"], post[@"item"]);
+                /*
+                NSTimeZone* nowTimeZone = [NSTimeZone systemTimeZone];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                //[dateFormatter setDateFormat:@"MM/dd EEEE hh:mm a"];
+                [dateFormatter setTimeZone:nowTimeZone];
+                NSString* borrowDateInString = [dateFormatter stringFromDate:post[@"deadline"]];
+                NSDate* borrowDate = [dateFormatter dateFromString:borrowDateInString];
+                NSLog(@"borrowdatein string %@", borrowDateInString);
+                NSLog(@"borrowdate  %@", borrowDate);
+                */
+                
+                
+                
+                NSDate* currentDate = [NSDate date];
+                //NSLog(@"current date = %@", currentDate);
+                NSTimeZone* currentTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+                NSTimeZone* nowTimeZone = [NSTimeZone systemTimeZone];
+  
+                NSInteger currentGMTOffset = [currentTimeZone secondsFromGMTForDate:currentDate];
+                NSInteger nowGMTOffset = [nowTimeZone secondsFromGMTForDate:currentDate];
+                NSTimeInterval interval = nowGMTOffset - currentGMTOffset;
+                currentDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:currentDate];
+                
+                NSInteger currentGMTOffset2 = [currentTimeZone secondsFromGMTForDate:post[@"deadline"]];
+                NSInteger nowGMTOffset2 = [nowTimeZone secondsFromGMTForDate:post[@"deadline"]];
+                NSTimeInterval interval2 = nowGMTOffset2 - currentGMTOffset2;
+                NSDate* borrowDate = [[NSDate alloc] initWithTimeInterval:interval2 sinceDate:post[@"deadline"]];
+                
+                
+                
+                NSLog(@"current date after = %@", currentDate);
+                
+                NSLog(@"current borrow  date fter = %@", borrowDate);
+                
+                NSLog(@"borrow date before %@", post[@"deadline"]);
+                
+ 
+                
+                //NSDate* borrowDate;
+                
+                NSTimeInterval secondsBetween = [borrowDate timeIntervalSinceDate:currentDate];
+                NSLog(@"seconds difference %f", secondsBetween);
+                //NSTimeInterval secondsBetween = [[post valueForKey:@"deadline"] timeIntervalSinceDate: n];
+                
                 
                 if(secondsBetween <= 0)
                 {
                     
-                    postObject.deadline = @"expired";
+                    postObject.deadline = @"ex";
                     
                 }
                 else
@@ -134,6 +175,7 @@
                 int numberOfWeeksElapsed;
                 int numberOfDaysElapsed;
                 int numberOfHoursElapsed;
+                    int numberofMinutesElapsed;
                 NSString* timeDifferenceInString;
                 
                 numberOfWeeksElapsed = secondsBetween / 604800;
@@ -174,10 +216,20 @@
                         }
                         else
                         {
-                            
+                            numberofMinutesElapsed = secondsBetween / 60;
+                            if(numberofMinutesElapsed >= 1)
+                            {
+                                timeDifferenceInString = [NSString stringWithFormat:@"%dm", numberofMinutesElapsed];
+                                //postObject.deadline = timeDifferenceInString;
+                                postObject.deadline = timeDifferenceInString;
+                                
+                            }
+                            else
+                            {
                             timeDifferenceInString = [NSString stringWithFormat:@"%fs", secondsBetween];
-                            postObject.deadline = timeDifferenceInString;
-
+                            //postObject.deadline = timeDifferenceInString;
+                            postObject.deadline = @"Now";
+                            }
                             
                         }
                         

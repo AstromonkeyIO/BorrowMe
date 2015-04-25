@@ -32,7 +32,7 @@
     
     
     //Temporary auto login for testing purposes
-    /*
+    
     [PFUser logInWithUsernameInBackground:@"a" password:@"a" block:^(PFUser *user,NSError *error) {
         
         if (user)
@@ -41,7 +41,7 @@
         }
         
     }];
-     */
+     
     
     
     

@@ -51,7 +51,7 @@
 
     
     //self.datePicker.timeZone = [NSTimeZone localTimeZone];
-    self.returnDatePicker.timeZone = [NSTimeZone localTimeZone];
+    //self.returnDatePicker.timeZone = [NSTimeZone localTimeZone];
     
 
     //self.noteBox.text = @"Leave a little note!";
@@ -67,6 +67,10 @@
     self.gestureRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:self.gestureRecognizer];
     
+    NSTimeZone* nowTimeZone = [NSTimeZone systemTimeZone];
+    [self.returnDatePicker setTimeZone:nowTimeZone];
+    [self.datePicker setTimeZone:nowTimeZone];
+
     
     UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];
     [gestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
@@ -109,48 +113,46 @@
 
 - (IBAction)askButtonPressed:(id)sender {
 
+    
+    NSLog(@"nsdate noww!!!!!!!!! %@", self.datePicker.date);
+    
     NSDate* currentDate = [NSDate date];
+    NSLog(@"current date = %@", currentDate);
     NSTimeZone* currentTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    //NSTimeZone* currentTimeZone = [NSTimeZone systemTimeZone];
     NSTimeZone* nowTimeZone = [NSTimeZone systemTimeZone];
+    
+
+    //[self.returnDatePicker setTimeZone:nowTimeZone];
+    //[self.datePicker setTimeZone:nowTimeZone];
+    NSLog(@"second date %@", self.datePicker.date);
     
     NSInteger currentGMTOffset = [currentTimeZone secondsFromGMTForDate:currentDate];
     NSInteger nowGMTOffset = [nowTimeZone secondsFromGMTForDate:currentDate];
-    
     NSTimeInterval interval = nowGMTOffset - currentGMTOffset;
     NSDate* nowDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:currentDate];
     
-    /*
-    NSTimeZone* currentTimeZone2 = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-    NSTimeZone* nowTimeZone2 = [NSTimeZone systemTimeZone];
+    NSInteger currentGMTOffset3 = [currentTimeZone secondsFromGMTForDate:self.returnDatePicker.date];
+    NSInteger nowGMTOffset3 = [nowTimeZone secondsFromGMTForDate:self.returnDatePicker.date];
+    NSTimeInterval interval3 = nowGMTOffset3 - currentGMTOffset3;
+    NSDate* returnDate = [[NSDate alloc] initWithTimeInterval:interval3 sinceDate:self.returnDatePicker.date];
     
-    NSInteger currentGMTOffset2 = [currentTimeZone2 secondsFromGMTForDate:self.datePicker.date];
-    NSInteger nowGMTOffset2 = [nowTimeZone2 secondsFromGMTForDate:self.datePicker.date];
-    
+    NSInteger currentGMTOffset2 = [currentTimeZone secondsFromGMTForDate:self.datePicker.date];
+    NSInteger nowGMTOffset2 = [nowTimeZone secondsFromGMTForDate:self.datePicker.date];
     NSTimeInterval interval2 = nowGMTOffset2 - currentGMTOffset2;
-    NSDate* nowDate2 = [[NSDate alloc] initWithTimeInterval:interval2 sinceDate:self.datePicker.date];
-    */
+    NSDate* borrowDate = [[NSDate alloc] initWithTimeInterval:interval2 sinceDate:self.datePicker.date];
 
+    NSLog(@"borrow date %@", borrowDate);
+    NSLog(@"return date %@", returnDate);
+    NSLog(@"currentDate %@", nowDate);
     
-    //[dateFormatter release], dateFormatter = nil;
-   
-    
-    /*
-    NSInteger currentGMTOffsetCopy = [currentTimeZone secondsFromGMTForDate:self.datePicker.date];
-    NSInteger nowGMTOffsetCopy = [nowTimeZone secondsFromGMTForDate:self.datePicker.date];
-    
-    NSTimeInterval intervalDatePicker = nowGMTOffsetCopy - currentGMTOffsetCopy;
-    NSDate* datePickerDate = [[NSDate alloc] initWithTimeInterval:intervalDatePicker sinceDate:self.datePicker.date];
-    */
+    NSTimeInterval secondsBetweenBorrowDateAndReturnDate = [self.returnDatePicker.date timeIntervalSinceDate: self.datePicker.date];
     
     
-
-    NSLog(@"nowDate %@", nowDate);
-    //NSLog(@"nowDate2 %@", nowDate2);
-    //NSLog(@"datepicker date %@", self.datePicker.date);
+    NSTimeInterval secondsBetween = [borrowDate timeIntervalSinceDate:nowDate];
     
-    NSTimeInterval secondsBetween = [self.datePicker.date timeIntervalSinceDate: nowDate];
-
-    NSLog(@"secondsBetween %f", secondsBetween);
+    NSLog(@"secondsBetween current %f", secondsBetween);
+    NSLog(@"secondsBetween borrow and return %f", secondsBetweenBorrowDateAndReturnDate);
     
     if(self.itemInput.text.length == 0)
     {
@@ -163,11 +165,22 @@
         [myAlertView show];
         
     }
-    else if(secondsBetween <= 0)
+    else if(self.datePicker.date.timeIntervalSinceNow < 0)
     {
         
         UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Oh No!"
                                                               message:@"Don't set your deadline to the past!"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles: nil];
+        [myAlertView show];
+        
+    }
+    else if(secondsBetweenBorrowDateAndReturnDate < 0)
+    {
+
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Oh No!"
+                                                              message:@"Please set the right time frame!"
                                                              delegate:nil
                                                     cancelButtonTitle:@"OK"
                                                     otherButtonTitles: nil];
@@ -203,6 +216,9 @@
         newPost[@"zipcode"]= self.currentUser[@"currentZipcode"];
         newPost[@"latitude"] = self.currentUser[@"latitude"];
         newPost[@"longitude"] = self.currentUser[@"longitude"];
+        
+        NSLog(@"nsdate lateerrrrrr!!!!!!!!! %@", self.datePicker.date);
+        
         
         newPost[@"deadline"] = self.datePicker.date;
         newPost[@"returnDate"] = self.returnDatePicker.date;

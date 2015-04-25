@@ -164,6 +164,7 @@
             post.heartCount.text = [NSString stringWithFormat:@"%@", [postObject.post valueForKey:@"likes"]];
             
         }
+        
         post.deadline.text = postObject.deadline;
         
         return post;
@@ -187,10 +188,8 @@
         
         
         PFObject* receivedPost= self.receivedPostObject.post;
-        NSTimeInterval lastDiff = [receivedPost[@"deadline"] timeIntervalSinceNow];
-        NSTimeInterval todaysDiff = [receivedPost[@"returnDate"] timeIntervalSinceNow];
-        NSTimeInterval dateDiff = todaysDiff - lastDiff;
-
+        NSTimeInterval dateDiff = [receivedPost[@"returnDate"] timeIntervalSinceDate: receivedPost[@"deadline"]];
+        
         int numberOfWeeksElapsed = dateDiff / 604800;
         int numberOfDaysElapsed = dateDiff / 86400;
         int numberOfHoursElapsed = dateDiff / 3600;
@@ -228,18 +227,33 @@
             
         }
         
+        NSLog(@"deadline %@", receivedPost[@"deadline"]);
+        
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"MM/dd/yyyy EEEE hh:mm a";
+        NSTimeZone* nowTimeZone = [NSTimeZone systemTimeZone];
+        //[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [dateFormatter setDateFormat:@"MM/dd EEEE hh:mm a"];
+        [dateFormatter setTimeZone:nowTimeZone];
+        NSString* borrowDateInString = [dateFormatter stringFromDate:receivedPost[@"deadline"]];
+        NSString* returnDateInString = [dateFormatter stringFromDate:receivedPost[@"returnDate"]];
         
-        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-        [dateFormatter setTimeZone:gmt];
-        NSString *deadline = [dateFormatter stringFromDate:receivedPost[@"deadline"]];
-        NSString *returnDate = [dateFormatter stringFromDate:receivedPost[@"returnDate"]];
+        aboutPost.borrowDate.text = [NSString stringWithFormat:@"%@ until", borrowDateInString];
+        aboutPost.returnDate.text = returnDateInString;
         
+        NSLog(@"note  %@", receivedPost[@"note"]);
+        if(!receivedPost[@"note"])
+        {
+            
+            aboutPost.note.text = @"No notes...";
+            
+        }
+        else
+        {
+            
+            aboutPost.note.text = receivedPost[@"note"];
+            
+        }
         
-        
-        aboutPost.borrowDate.text = [NSString stringWithFormat:@"%@ until", deadline];
-        aboutPost.returnDate.text = returnDate;
         aboutPost.postLatitude = receivedPost[@"latitude"];
         aboutPost.postLongitude = receivedPost[@"longitude"];
         

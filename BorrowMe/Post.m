@@ -75,11 +75,27 @@
         [UIView commitAnimations];
         */
         
-        CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-12.0));
-        CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(12.0));
+        CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-14.0));
+        CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(14.0));
         
+        
+        [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.heartImage.transform = CGAffineTransformMakeScale(1.3,1.3);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+                self.heartImage.transform = CGAffineTransformMakeScale(1,1);
+            } completion:^(BOOL finished) {
+                
+            }];
+            //[UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAutoreverse animations:^{
+                //self.heartImage.transform = CGAffineTransformMakeScale(1,1);
+            //} completion:^(BOOL finished) {
+            
+            //}];
+        }];
+        /*
         self.heartImage.transform = leftWobble;  // starting point
-        [UIView animateWithDuration:0.1 delay:0 options:(/*UIViewAnimationOptionRepeat | */UIViewAnimationOptionAutoreverse) animations:^{
+        [UIView animateWithDuration:0.1 delay:0 options:(UIViewAnimationOptionAutoreverse) animations:^{
             self.heartImage.transform = rightWobble;
         }completion:^(BOOL finished){
             
@@ -92,6 +108,7 @@
             //[self.heartImage.layer removeAllAnimations];
             
         }];
+        */
         
         bool alreadyLiked = NO;
         PFUser* currentUser = [PFUser currentUser];
