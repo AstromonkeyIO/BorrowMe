@@ -307,8 +307,8 @@
                                                 <action selector="heartButtonPressed:" destination="RoY-hm-jSL" eventType="touchUpInside" id="9fz-Ak-5Ne"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hourglass.png" translatesAutoresizingMaskIntoConstraints="NO" id="b6l-6X-JKN">
-                                            <rect key="frame" x="253" y="123" width="12" height="12"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hourglassIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="b6l-6X-JKN">
+                                            <rect key="frame" x="255" y="122" width="10" height="14"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
@@ -543,7 +543,7 @@
                                             <rect key="frame" x="43" y="65" width="20" height="20"/>
                                         </imageView>
                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWF-Gr-azv">
-                                            <rect key="frame" x="71" y="60" width="118" height="32"/>
+                                            <rect key="frame" x="71" y="62" width="206" height="32"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
                                             <color key="textColor" red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -586,7 +586,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ven-9d-80H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2792" y="-495"/>
+            <point key="canvasLocation" x="2792" y="-497"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="fDm-bq-icj">
@@ -642,15 +642,15 @@
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N23-K5-iUT">
-                                            <rect key="frame" x="245" y="51" width="25" height="27"/>
-                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                            <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPp-HU-n9K">
                                             <rect key="frame" x="254" y="38" width="42" height="16"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
+                                            <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N23-K5-iUT">
+                                            <rect key="frame" x="238" y="65" width="30" height="20"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                             <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -733,7 +733,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjt-bf-csv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1270" y="958"/>
+            <point key="canvasLocation" x="1270" y="957"/>
         </scene>
         <!--Me-->
         <scene sceneID="eon-ea-cgq">
@@ -1227,15 +1227,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Izt-Gw-V7l">
-                                                <rect key="frame" x="120" y="150" width="80" height="80"/>
-                                                <state key="normal" image="cameraIcon2.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="itemImageButtonPressed:" destination="EOO-Y9-qHU" eventType="touchUpInside" id="kEl-bp-nad"/>
-                                                </connections>
-                                            </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eBE-uF-SLV">
                                                 <rect key="frame" x="110" y="215" width="100" height="100"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1265,6 +1256,18 @@
                                                 <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                             </textField>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cameraIcon2.png" translatesAutoresizingMaskIntoConstraints="NO" id="2FV-LZ-L6s">
+                                                <rect key="frame" x="130" y="160" width="60" height="60"/>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Izt-Gw-V7l">
+                                                <rect key="frame" x="100" y="130" width="120" height="120"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="itemImageButtonPressed:" destination="EOO-Y9-qHU" eventType="touchUpInside" id="kEl-bp-nad"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -1276,6 +1279,7 @@
                     <connections>
                         <outlet property="addMoreDescriptionButton" destination="iM5-4y-tJw" id="vbU-A0-TIC"/>
                         <outlet property="cameraButtonContainer" destination="vIu-ax-cAC" id="FlB-mS-njy"/>
+                        <outlet property="cameraIcon" destination="2FV-LZ-L6s" id="3ws-Pk-6Gz"/>
                         <outlet property="costInput" destination="L28-cc-jaJ" id="PA2-HG-KIf"/>
                         <outlet property="itemDescription" destination="ZEh-BU-doi" id="Qqx-Uf-phc"/>
                         <outlet property="itemImage" destination="WgZ-B6-QAl" id="ZPw-jS-e5f"/>
@@ -1463,48 +1467,47 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYw-VC-lIE">
-                                            <rect key="frame" x="10" y="25" width="300" height="290"/>
+                                            <rect key="frame" x="10" y="16" width="300" height="299"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8AJ-HY-SUf">
-                                            <rect key="frame" x="-1" y="-12" width="320" height="215"/>
-                                            <state key="normal" title="Button">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sJ-YK-sNb">
-                                            <rect key="frame" x="194" y="8" width="118" height="30"/>
-                                            <state key="normal" title="Write a Review!">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vg8-mI-Ykv">
-                                            <rect key="frame" x="97" y="184" width="124" height="30"/>
+                                            <rect key="frame" x="97" y="175" width="124" height="30"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
                                             <color key="textColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFL-gN-IOT">
-                                            <rect key="frame" x="138" y="222" width="40" height="40"/>
+                                            <rect key="frame" x="138" y="213" width="40" height="40"/>
                                             <color key="backgroundColor" red="0.40000000000000002" green="0.80000000000000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                             <color key="textColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGd-uz-Oym">
-                                            <rect key="frame" x="114" y="86" width="90" height="90"/>
+                                            <rect key="frame" x="114" y="77" width="90" height="90"/>
                                             <state key="normal">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZcR-rz-sZe">
+                                            <rect key="frame" x="109" y="268" width="100" height="30"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                            <state key="normal" title="Review!">
+                                                <color key="titleColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="writeReviewButtonPressed:" destination="OGb-9V-PGV" eventType="touchUpInside" id="Jjw-B5-TGd"/>
+                                                <segue destination="Aet-KS-ZxF" kind="modal" id="C3o-rR-9RS"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <outlet property="background" destination="8AJ-HY-SUf" id="MOQ-8u-sT2"/>
                                     <outlet property="container" destination="TYw-VC-lIE" id="eG4-7m-d60"/>
                                     <outlet property="rating" destination="sFL-gN-IOT" id="pY9-kS-dTO"/>
                                     <outlet property="userProfilePictureButton" destination="MGd-uz-Oym" id="Zpn-VA-rxy"/>
@@ -1609,7 +1612,119 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ygB-30-kkS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3642" y="992"/>
+            <point key="canvasLocation" x="3734" y="992"/>
+        </scene>
+        <!--Post Review-->
+        <scene sceneID="zI4-cd-Vny">
+            <objects>
+                <viewController id="Aet-KS-ZxF" customClass="PostReview" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="r5b-ae-RV7"/>
+                        <viewControllerLayoutGuide type="bottom" id="hSL-Up-OXO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ysb-zT-fPu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLC-PH-npL">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVa-v4-FWJ">
+                                <rect key="frame" x="52" y="273" width="217" height="41"/>
+                                <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="19"/>
+                                <state key="normal" title="Rate!">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="writeReviewButtonPressed:" destination="Aet-KS-ZxF" eventType="touchUpInside" id="tns-6q-EGh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="amh-UW-ACw">
+                                <rect key="frame" x="44" y="211" width="40" height="40"/>
+                                <state key="normal" title="Button" image="heartIcon.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="heartButton1Pressed:" destination="Aet-KS-ZxF" eventType="touchUpInside" id="IU6-qq-tei"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-Jb-WEA">
+                                <rect key="frame" x="92" y="211" width="40" height="40"/>
+                                <state key="normal" title="Button" image="heartIcon.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="heartButton2Pressed:" destination="Aet-KS-ZxF" eventType="touchUpInside" id="r6a-aN-c1s"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i70-he-1ta">
+                                <rect key="frame" x="140" y="211" width="40" height="40"/>
+                                <state key="normal" title="Button" image="heartIcon.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="heartButton3Pressed:" destination="Aet-KS-ZxF" eventType="touchUpInside" id="ejC-GG-47U"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPu-FI-yB6">
+                                <rect key="frame" x="188" y="211" width="40" height="40"/>
+                                <state key="normal" title="Button" image="heartIcon.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="heartButton4Pressed:" destination="Aet-KS-ZxF" eventType="touchUpInside" id="MXC-Yk-lDd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MBF-X6-HJq">
+                                <rect key="frame" x="236" y="211" width="40" height="40"/>
+                                <state key="normal" title="Button" image="heartIcon.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="heartButton5Pressed:" destination="Aet-KS-ZxF" eventType="touchUpInside" id="lWI-R2-BXP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6YA-vz-Q9p">
+                                <rect key="frame" x="0.0" y="32" width="46" height="40"/>
+                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="20"/>
+                                <state key="normal" title="X">
+                                    <color key="titleColor" red="0.29803922772407532" green="0.29803922772407532" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissViewButtonPressed:" destination="Aet-KS-ZxF" eventType="touchUpInside" id="KgV-fm-MRG"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZYa-xV-akA">
+                                <rect key="frame" x="27" y="80" width="266" height="121"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="m0r-Lb-yPb"/>
+                    <connections>
+                        <outlet property="container" destination="KLC-PH-npL" id="aqp-V7-oPz"/>
+                        <outlet property="heartButton1" destination="amh-UW-ACw" id="8Sx-gk-Rq5"/>
+                        <outlet property="heartButton2" destination="Gdw-Jb-WEA" id="dNv-cc-VQh"/>
+                        <outlet property="heartButton3" destination="i70-he-1ta" id="7Cq-wT-wyT"/>
+                        <outlet property="heartButton4" destination="EPu-FI-yB6" id="Y0O-zB-GRt"/>
+                        <outlet property="heartButton5" destination="MBF-X6-HJq" id="L3p-XW-1kq"/>
+                        <outlet property="rateButton" destination="SVa-v4-FWJ" id="vTS-ON-wdN"/>
+                        <outlet property="review" destination="ZYa-xV-akA" id="5t1-oN-sA5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MAM-a7-2M1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4127" y="992"/>
         </scene>
     </scenes>
     <resources>
@@ -1619,6 +1734,7 @@
         <image name="distanceIcon.png" width="32" height="32"/>
         <image name="heartIcon.png" width="128" height="128"/>
         <image name="hourglass.png" width="256" height="256"/>
+        <image name="hourglassIcon.png" width="34" height="45"/>
         <image name="menuIcon3.png" width="32" height="32"/>
         <image name="messageIcon.png" width="64" height="64"/>
         <image name="noteIcon.png" width="128" height="128"/>

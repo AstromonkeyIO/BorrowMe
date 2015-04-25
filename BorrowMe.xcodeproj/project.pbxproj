@@ -34,6 +34,7 @@
 		6667C6EA1AC92A6C000467AC /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667C6E91AC92A6C000467AC /* UserCell.m */; };
 		6667C6ED1AC92F34000467AC /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667C6EC1AC92F34000467AC /* UserObject.m */; };
 		667601521AEB2DEE00963621 /* hourglassIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 667601511AEB2DED00963621 /* hourglassIcon.png */; };
+		667601541AEB6CEB00963621 /* heartIconPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 667601531AEB6CEB00963621 /* heartIconPurple.png */; };
 		6678BF411A7DB7720060B73A /* LoginAndSignUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 6678BF401A7DB7720060B73A /* LoginAndSignUp.m */; };
 		6680E0871ACA811F0067257E /* PostReview.m in Sources */ = {isa = PBXBuildFile; fileRef = 6680E0861ACA811E0067257E /* PostReview.m */; };
 		668AD9DA1AA0597600627437 /* MyPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 668AD9D91AA0597600627437 /* MyPost.m */; };
@@ -133,6 +134,7 @@
 		6667C6EB1AC92F34000467AC /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserObject.h; sourceTree = "<group>"; };
 		6667C6EC1AC92F34000467AC /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserObject.m; sourceTree = "<group>"; };
 		667601511AEB2DED00963621 /* hourglassIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglassIcon.png; sourceTree = "<group>"; };
+		667601531AEB6CEB00963621 /* heartIconPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heartIconPurple.png; sourceTree = "<group>"; };
 		6678BF3F1A7DB7720060B73A /* LoginAndSignUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAndSignUp.h; sourceTree = "<group>"; };
 		6678BF401A7DB7720060B73A /* LoginAndSignUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAndSignUp.m; sourceTree = "<group>"; };
 		6680E0851ACA811E0067257E /* PostReview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostReview.h; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 		66F42B5C1A96D05600F99A31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				667601531AEB6CEB00963621 /* heartIconPurple.png */,
 				667601511AEB2DED00963621 /* hourglassIcon.png */,
 				6662DEBA1AE4EBF800917B65 /* xButtonIconNew.png */,
 				6662DEB81AE4EABA00917B65 /* messageIconNew.png */,
@@ -579,6 +582,7 @@
 				6624FD2F1AE07C67004EA647 /* 1429244562_699044-icon-55-document-text-128.png in Resources */,
 				6662DEB11AE4D00400917B65 /* menuIcon2.png in Resources */,
 				666720271ADDD316004D59A6 /* backbutton.png in Resources */,
+				667601541AEB6CEB00963621 /* heartIconPurple.png in Resources */,
 				6662DEA71AE4648F00917B65 /* cameraIcon.png in Resources */,
 				6662DEB71AE4E8E700917B65 /* xIxon.svg in Resources */,
 				66EB230F1ADB40C5004CDE69 /* 24.gif in Resources */,

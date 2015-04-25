@@ -46,6 +46,7 @@
 {
     
     [super viewDidLoad];
+    self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.currentUser = [PFUser currentUser];
     self.myPosts = [[NSMutableArray alloc] init];
@@ -84,7 +85,7 @@
         
         if (!error) {
             
-            self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+
             NSLog(@"my Posts %@", myPosts);
             if([myPosts count] > 0)
             {
@@ -111,9 +112,11 @@
                 //NSLog(@"these are responses count   !!!!  %lu", (unsigned long)[responses count]);
                 [newMyPost.responses addObjectsFromArray:responses];
                 
-                int responseCounter = 0;
-                for(PFObject* response in responses)
+                if([responses count] != 0)
                 {
+                    int responseCounter = 0;
+                    for(PFObject* response in responses)
+                    {
                     
                     if(responseCounter > 4)
                         break;
@@ -121,20 +124,51 @@
                     PFUser* user = (PFUser*)[[[response relationForKey:@"user"] query] getFirstObject];
                     //NSLog(@"response user looppppp   %@", user);
                     //post.profilePicture.image = [UIImage imageWithData: profilePictureData];
-                    
                     [newMyPost.lenders addObject:user];
+                    PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
+                    NSData* profilePictureData = [profilePictureFile getData];
+                    if(responseCounter == 0)
+                    newMyPost.lender1Picture = [UIImage imageWithData: profilePictureData];
+                    else if(responseCounter == 1)
+                    newMyPost.lender2Picture = [UIImage imageWithData: profilePictureData];
+                    if(responseCounter == 2)
+                        newMyPost.lender3Picture = [UIImage imageWithData: profilePictureData];
+                    else if(responseCounter == 3)
+                        newMyPost.lender4Picture = [UIImage imageWithData: profilePictureData];
+                    
                     responseCounter++;
 
+                    }
+                    
+                    int additionalLendersCount = [responses count] - responseCounter;
+                    newMyPost.additionalLendersCount = [NSString stringWithFormat:@"%d", additionalLendersCount];
+                
                 }
                 
                 
+                NSDate* currentDate = [NSDate date];
+                //NSLog(@"current date = %@", currentDate);
+                NSTimeZone* currentTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+                NSTimeZone* nowTimeZone = [NSTimeZone systemTimeZone];
                 
-                //time elapsed function
-                [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CST"]];
-                NSDate* nDate = [NSDate date];
-                NSLog(@"date 2 %@", [nDate description]);
+                NSInteger currentGMTOffset = [currentTimeZone secondsFromGMTForDate:currentDate];
+                NSInteger nowGMTOffset = [nowTimeZone secondsFromGMTForDate:currentDate];
+                NSTimeInterval interval = nowGMTOffset - currentGMTOffset;
+                currentDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:currentDate];
                 
-                NSTimeInterval secondsBetween = [[myPost valueForKey:@"deadline"] timeIntervalSinceDate: nDate];
+                NSInteger currentGMTOffset2 = [currentTimeZone secondsFromGMTForDate:myPost[@"deadline"]];
+                NSInteger nowGMTOffset2 = [nowTimeZone secondsFromGMTForDate:myPost[@"deadline"]];
+                NSTimeInterval interval2 = nowGMTOffset2 - currentGMTOffset2;
+                NSDate* borrowDate = [[NSDate alloc] initWithTimeInterval:interval2 sinceDate:myPost[@"deadline"]];
+                
+                
+                NSLog(@"current date after = %@", currentDate);
+                
+                NSLog(@"current borrow  date fter = %@", borrowDate);
+                //NSDate* borrowDate;
+                
+                NSTimeInterval secondsBetween = [borrowDate timeIntervalSinceDate:currentDate];
+                NSLog(@"seconds difference %f", secondsBetween);
                 
                 if(secondsBetween <= 0)
                 {
@@ -149,6 +183,8 @@
                 int numberOfWeeksElapsed;
                 int numberOfDaysElapsed;
                 int numberOfHoursElapsed;
+                int numberOfMinutesElapsed;
+                    
                 NSString* timeDifferenceInString;
                 
             
@@ -158,6 +194,7 @@
                     
                     timeDifferenceInString = [NSString stringWithFormat:@"%dw", numberOfWeeksElapsed];
                     newMyPost.deadline = timeDifferenceInString;
+                    newMyPost.urgency = @"not urgent";
                     
                 }
                 else
@@ -173,6 +210,7 @@
                             newMyPost.urgency = @"urgent";
                         }
                         
+                        newMyPost.urgency = @"not urgent";
                         timeDifferenceInString = [NSString stringWithFormat:@"%dd", numberOfDaysElapsed];
                         newMyPost.deadline = timeDifferenceInString;
                         
@@ -192,9 +230,17 @@
                         }
                         else
                         {
+                            numberOfMinutesElapsed = secondsBetween / 60;
+                            if(numberOfMinutesElapsed >= 1)
+                            {
+                                timeDifferenceInString = [NSString stringWithFormat:@"%dm", numberOfMinutesElapsed];
+                                //postObject.deadline = timeDifferenceInString;
+                                newMyPost.deadline = timeDifferenceInString;
+                                
+                            }
 
-                            timeDifferenceInString = [NSString stringWithFormat:@"%fs", secondsBetween];
-                            newMyPost.deadline = timeDifferenceInString;
+                            //timeDifferenceInString = [NSString stringWithFormat:@"%fs", secondsBetween];
+                            newMyPost.deadline = @"Now";
 
 
                         }
@@ -242,6 +288,54 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(MyPost *)myPost forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if([[[self.myPosts objectAtIndex:indexPath.row] lenders] count] > 0)
+    {
+        
+        CALayer * myPostItemLayer = [myPost.item layer];
+        [myPostItemLayer setMasksToBounds:YES];
+        [myPostItemLayer setCornerRadius:5.0];
+        
+        CGPoint saveCenter = myPost.lenderPicture1.center;
+        CGRect newFrame = CGRectMake(myPost.lenderPicture1.frame.origin.x, myPost.lenderPicture1.frame.origin.y, 40, 40);
+        
+        myPost.lenderPicture1.frame = newFrame;
+        myPost.lenderPicture1.layer.cornerRadius = 40 / 2.0;
+        myPost.lenderPicture1.center = saveCenter;
+        myPost.lenderPicture1.clipsToBounds = YES;
+        
+        CGPoint saveCenter2 = myPost.lenderPicture2.center;
+        CGRect newFrame2 = CGRectMake(myPost.lenderPicture2.frame.origin.x, myPost.lenderPicture2.frame.origin.y, 40, 40);
+
+        myPost.lenderPicture2.frame = newFrame2;
+        myPost.lenderPicture2.layer.cornerRadius = 40 / 2.0;
+        myPost.lenderPicture2.center = saveCenter2;
+        myPost.lenderPicture2.clipsToBounds = YES;
+        
+        CGPoint saveCenter3 = myPost.lenderPicture3.center;
+        CGRect newFrame3 = CGRectMake(myPost.lenderPicture3.frame.origin.x, myPost.lenderPicture3.frame.origin.y, 40, 40);
+        
+        myPost.lenderPicture3.frame = newFrame3;
+        myPost.lenderPicture3.layer.cornerRadius = 40 / 2.0;
+        myPost.lenderPicture3.center = saveCenter3;
+        myPost.lenderPicture3.clipsToBounds = YES;
+    
+        CGPoint saveCenter4 = myPost.lenderPicture4.center;
+        CGRect newFrame4 = CGRectMake(myPost.lenderPicture4.frame.origin.x, myPost.lenderPicture4.frame.origin.y, 40, 40);
+        
+        myPost.lenderPicture4.frame = newFrame4;
+        myPost.lenderPicture4.layer.cornerRadius = 40 / 2.0;
+        myPost.lenderPicture4.center = saveCenter4;
+        myPost.lenderPicture4.clipsToBounds = YES;
+        
+    }
+    
+    
+    
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -273,37 +367,6 @@
     {
     
     MyPost* myPost = [tableView dequeueReusableCellWithIdentifier:@"MyPost" forIndexPath:indexPath];
-    CALayer * myPostItemLayer = [myPost.item layer];
-    [myPostItemLayer setMasksToBounds:YES];
-    [myPostItemLayer setCornerRadius:5.0];
- 
-        
-    
-    CGPoint saveCenter = myPost.lenderPicture1.center;
-    CGRect newFrame = CGRectMake(myPost.lenderPicture1.frame.origin.x, myPost.lenderPicture1.frame.origin.y, 40, 40);
-    
-    myPost.lenderPicture1.frame = newFrame;
-    myPost.lenderPicture1.layer.cornerRadius = 40 / 2.0;
-    myPost.lenderPicture1.center = saveCenter;
-    myPost.lenderPicture1.clipsToBounds = YES;
-    
-    myPost.lenderPicture2.frame = newFrame;
-    myPost.lenderPicture2.layer.cornerRadius = 40 / 2.0;
-    myPost.lenderPicture2.center = saveCenter;
-    myPost.lenderPicture2.clipsToBounds = YES;
-    
-    myPost.lenderPicture3.frame = newFrame;
-    myPost.lenderPicture3.layer.cornerRadius = 40 / 2.0;
-    myPost.lenderPicture3.center = saveCenter;
-    myPost.lenderPicture3.clipsToBounds = YES;
-    
-    myPost.lenderPicture4.frame = newFrame;
-    myPost.lenderPicture4.layer.cornerRadius = 40 / 2.0;
-    myPost.lenderPicture4.center = saveCenter;
-    myPost.lenderPicture4.clipsToBounds = YES;
-    
-    //PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
-    
     MyPostObject* myPostObject = [self.myPosts objectAtIndex:indexPath.row];
         
     if([myPostObject.urgency isEqualToString: @"expired"])
@@ -318,61 +381,51 @@
         myPost.item.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 1.0];
 
     }
-        
-    myPost.item.text = myPostObject.item;
-    myPost.deadline.text = myPostObject.deadline;
-        
-    if([myPostObject.lenders count] > 0)
+    else if([myPostObject.urgency isEqualToString: @"not urgent"])
     {
-        int lenderIndex = 0;
         
-        do {
+        //myPost.item.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 1.0];
         
-            
-        NSLog(@"I'm in the lender loop");
-         if([myPostObject.lenders objectAtIndex:0] && lenderIndex == 0)
-         {
-             PFFile* profilePictureFile = [[myPostObject.lenders objectAtIndex:0] valueForKey:@"profilePicture"];
-             NSData* profilePictureData = [profilePictureFile getData];
-             myPost.lenderPicture1.image = [UIImage imageWithData: profilePictureData];
-         }
-         else if([myPostObject.lenders objectAtIndex:1] && lenderIndex == 1)
-         {
-            PFFile* profilePictureFile = [[myPostObject.lenders objectAtIndex:1] valueForKey:@"profilePicture"];
-            NSData* profilePictureData = [profilePictureFile getData];
-            myPost.lenderPicture2.image = [UIImage imageWithData: profilePictureData];
-         }
-         else if([myPostObject.lenders objectAtIndex:2] && lenderIndex == 2)
-         {
-             PFFile* profilePictureFile = [[myPostObject.lenders objectAtIndex:2] valueForKey:@"profilePicture"];
-             NSData* profilePictureData = [profilePictureFile getData];
-             myPost.lenderPicture3.image = [UIImage imageWithData: profilePictureData];
-         }
-         else if([myPostObject.lenders objectAtIndex:3] && lenderIndex == 3)
-         {
-             PFFile* profilePictureFile = [[myPostObject.lenders objectAtIndex:3] valueForKey:@"profilePicture"];
-             NSData* profilePictureData = [profilePictureFile getData];
-             myPost.lenderPicture4.image = [UIImage imageWithData: profilePictureData];
-         }
-            
-        lenderIndex++;
-
-        }while(lenderIndex < [myPostObject.lenders count]);
+    }
+        
+        myPost.item.text = myPostObject.item;
+        myPost.deadline.text = myPostObject.deadline;
+        
+        
+        NSLog(@"lender 1! %@", myPostObject.lender1Picture);
+        NSLog(@"lender 2! %@", myPostObject.lender2Picture);
+        NSLog(@"lender 3! %@", myPostObject.lender3Picture);
+        NSLog(@"lender 4! %@", myPostObject.lender4Picture);
     
-        NSInteger remainingLenders = [myPostObject.lenders count] - (lenderIndex + 1);
-        
-        if(remainingLenders >= 1)
+        if(myPostObject.lender1Picture)
         {
-            myPost.addtionalLenders.text = [NSString stringWithFormat:@"+%ld", (long)remainingLenders];
+            myPost.lenderPicture1.image = myPostObject.lender1Picture;
+        }
+        if(myPostObject.lender2Picture)
+        {
+            myPost.lenderPicture2.image = myPostObject.lender2Picture;
+        }
+        if(myPostObject.lender3Picture)
+        {
+            myPost.lenderPicture3.image = myPostObject.lender3Picture;
+        }
+        if(myPostObject.lender4Picture)
+        {
+            myPost.lenderPicture4.image = myPostObject.lender4Picture;
+        }
+        
+        if(![myPostObject.additionalLendersCount isEqualToString: @""] && ![myPostObject.additionalLendersCount isEqualToString: @"0"] )
+        {
+            myPost.addtionalLenders.hidden = NO;
+            myPost.addtionalLenders.text = [NSString stringWithFormat:@"+%@", myPostObject.additionalLendersCount];
         }
         else
         {
+            
             myPost.addtionalLenders.hidden = YES;
+            
         }
-        
-        
-    }
-    
+
         
     return myPost;
         

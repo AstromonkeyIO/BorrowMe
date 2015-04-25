@@ -33,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *loadingBox;
 @property (weak, nonatomic) IBOutlet UIImageView *loadingImage;
 @property (weak, nonatomic) IBOutlet UITextField *costInput;
+@property (weak, nonatomic) IBOutlet UIImageView *cameraIcon;
 
 
 

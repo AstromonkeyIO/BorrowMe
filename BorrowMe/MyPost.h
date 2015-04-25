@@ -18,4 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *addtionalLenders;
 @property (weak, nonatomic) IBOutlet UILabel *deadline;
 
+
+
+
 @end

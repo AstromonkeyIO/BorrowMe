@@ -260,20 +260,29 @@
         float postLatitudeInFloat = [receivedPost[@"latitude"] floatValue];
         float postLongitudeInFloat = [receivedPost[@"longitude"] floatValue];
         
+        CLLocationCoordinate2D annotationCoord;
+        MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
+        annotationCoord.latitude = postLatitudeInFloat;
+        annotationCoord.longitude = postLongitudeInFloat;
+        
+        annotationPoint.coordinate = annotationCoord;
+        
+        [aboutPost.map addAnnotation:annotationPoint];
+        
         CLLocation *postLocation = [[CLLocation alloc] initWithLatitude:postLatitudeInFloat longitude:postLongitudeInFloat];
         CLLocationDistance postDistanceFromCurrentLocationInMeters = [postLocation distanceFromLocation:self.currentLocation];
         if(postDistanceFromCurrentLocationInMeters >= 1609.344)
         {
            
             float postDistanceFromCurrentLocationInMiles = postDistanceFromCurrentLocationInMeters/1609.344;
-            aboutPost.postDistance.text = [NSString stringWithFormat:@"%.2f miles", postDistanceFromCurrentLocationInMiles];
+            aboutPost.postDistance.text = [NSString stringWithFormat:@"%.2f miles away!", postDistanceFromCurrentLocationInMiles];
             
             
         }
         else
         {
             
-            aboutPost.postDistance.text = [NSString stringWithFormat:@"%.2f meters", postDistanceFromCurrentLocationInMeters];
+            aboutPost.postDistance.text = [NSString stringWithFormat:@"%.2f meters away!", postDistanceFromCurrentLocationInMeters];
             
         }
         

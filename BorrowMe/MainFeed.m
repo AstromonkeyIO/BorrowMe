@@ -117,17 +117,6 @@
                 
                 
                 NSLog(@"post deadline %@,   %@", post[@"deadline"], post[@"item"]);
-                /*
-                NSTimeZone* nowTimeZone = [NSTimeZone systemTimeZone];
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                //[dateFormatter setDateFormat:@"MM/dd EEEE hh:mm a"];
-                [dateFormatter setTimeZone:nowTimeZone];
-                NSString* borrowDateInString = [dateFormatter stringFromDate:post[@"deadline"]];
-                NSDate* borrowDate = [dateFormatter dateFromString:borrowDateInString];
-                NSLog(@"borrowdatein string %@", borrowDateInString);
-                NSLog(@"borrowdate  %@", borrowDate);
-                */
                 
                 
                 
@@ -175,7 +164,7 @@
                 int numberOfWeeksElapsed;
                 int numberOfDaysElapsed;
                 int numberOfHoursElapsed;
-                    int numberofMinutesElapsed;
+                int numberofMinutesElapsed;
                 NSString* timeDifferenceInString;
                 
                 numberOfWeeksElapsed = secondsBetween / 604800;
@@ -237,11 +226,12 @@
                     }
                     
                 }
+                    
+                [self.posts addObject:postObject];
                 
                 }
                 
-                
-                [self.posts addObject:postObject];
+
                 
             }
             //NSLog(@"posts array %@", self.posts);

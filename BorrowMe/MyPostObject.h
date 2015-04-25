@@ -17,6 +17,11 @@
 @property (strong, nonatomic) PFObject* myPostPFObject;
 @property (strong, nonatomic) NSString* deadline;
 @property (strong, nonatomic) NSString* urgency;
+@property (strong, nonatomic) UIImage* lender1Picture;
+@property (strong, nonatomic) UIImage* lender2Picture;
+@property (strong, nonatomic) UIImage* lender3Picture;
+@property (strong, nonatomic) UIImage* lender4Picture;
+@property (strong, nonatomic) NSString* additionalLendersCount;
 
 - (void) initialize;
 

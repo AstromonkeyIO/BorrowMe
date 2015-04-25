@@ -107,19 +107,15 @@
         NSLog(@"stop wobble");
         CGAffineTransform stopWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(0.0));
         self.itemImage.transform = stopWobble;
-        //self.costInput.transform = stopWobble;
         [self.itemImage.layer removeAllAnimations];
-        //[self.costInput.layer removeAllAnimations];
-        //[UIView animateWithDuration:0.05 animations:^(void) {
-            //self.itemImage.alpha = 0;
-            //self.costInput.alpha = 0;
+
             self.cameraButtonContainer.hidden = YES;
             self.itemImage.image = NULL;
 
             self.costInput.text = @"";
             self.itemImageButton.hidden = NO;
             self.cameraButtonContainer.hidden = NO;
-        //}];
+            self.cameraIcon.hidden = NO;
 
         
     }];
@@ -157,6 +153,7 @@
     self.itemImage.hidden = NO;
     self.itemImageButton.hidden = YES;
     self.cameraButtonContainer.hidden = YES;
+    self.cameraIcon.hidden = YES;
     self.removeItemImageButton.hidden = NO;
     self.costInput.hidden = NO;
     [self.costInput becomeFirstResponder];
@@ -306,6 +303,7 @@
         }
         self.itemImageButton.hidden = YES;
         self.cameraButtonContainer.hidden = YES;
+        self.cameraIcon.hidden = YES;
         self.costInput.hidden = YES;
         self.note.hidden = NO;
         [self.note becomeFirstResponder];
@@ -328,7 +326,7 @@
             
             self.itemImageButton.hidden = NO;
             self.cameraButtonContainer.hidden = NO;
-            
+            self.cameraIcon.hidden = NO;
         }
         
         

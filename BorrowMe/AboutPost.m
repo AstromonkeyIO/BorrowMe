@@ -29,7 +29,9 @@
         
         zoomLocation.latitude = [self.postLatitude floatValue];
         zoomLocation.longitude= [self.postLongitude floatValue];
-        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.5*METERS_PER_MILE, 0.5*METERS_PER_MILE);
+        //MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.5*METERS_PER_MILE, 0.5*METERS_PER_MILE);
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 50, 50);
+        
         [self.map setRegion:viewRegion animated:YES];
         
     }
