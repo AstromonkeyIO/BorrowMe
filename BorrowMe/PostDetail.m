@@ -44,7 +44,9 @@
     [self.postDetails addObject:aboutPost];
     
     NSLog(@"received my post object %@", self.receivedPostObject);
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(directToUserProfile:) name:@"DisplayUserProfile" object:nil];
+    
+    
 /*
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -107,6 +109,16 @@
 }
 */
 
+- (void)directToUserProfile: (NSNotification*) notification
+{
+    
+    NSInteger index = [notification.userInfo[@"index"] integerValue];
+    PostObject* postObject = [self.postDetails objectAtIndex:index];
+    self.viewUser = postObject.user;
+    
+    [self performSegueWithIdentifier:@"View-User-Profile" sender:self];
+    
+}
 
 
 - (void)didReceiveMemoryWarning
@@ -379,6 +391,19 @@
         linkedInHelpBorrowerViewController.receivedPostObject = passPostObject;
         
     }
+    else if([segue.identifier isEqualToString:@"View-User-Profile"])
+    {
+        
+        
+        UserProfile* tableView = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
+        PFUser* passUser = self.viewUser;
+        // MyPostLenders* tableView = (MyPostLenders*)[self.navigationController.viewControllers objectAtIndex:0];
+        tableView.user = passUser;
+        
+        NSLog(@"I'm in the prepare for segue!");
+        
+    }
+    
     
 }
 

@@ -121,6 +121,13 @@
     
 }
 
+- (IBAction)usernameButtonPressed:(id)sender {
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DisplayUserProfile" object:nil userInfo:@{@"index" : @(self.index)}];
+    
+}
+
+
 - (void) wobbleEnded:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
     if ([finished boolValue]) {

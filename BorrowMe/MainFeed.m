@@ -11,7 +11,7 @@
 #import "RespondToPost.h"
 #import "LoadingCell.h"
 #import "PostDetail.h"
-
+#import "UserProfile.h"
 
 
 @implementation MainFeed {
@@ -86,6 +86,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletePost:) name:@"DeletePost" object:nil];
     
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(directToUserProfile:) name:@"DisplayUserProfile" object:nil];
+    
+
     //self.navigationItem.title = @"Navers";
     //_scoreLabel.backgroundColor = [UIColor redColor];
     //_scoreLabel.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:(36.0)];
@@ -472,6 +477,18 @@
     
     
 }
+
+- (void)directToUserProfile: (NSNotification*) notification
+{
+    
+    NSInteger index = [notification.userInfo[@"index"] integerValue];
+    PostObject* postObject = [self.posts objectAtIndex:index];
+    self.viewUser = postObject.user;
+    
+    [self performSegueWithIdentifier:@"View-User-Profile" sender:self];
+    
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -500,6 +517,20 @@
         postDetail.currentLocation = self.currentLocation;
         
     }
+    else if([segue.identifier isEqualToString:@"View-User-Profile"])
+    {
+        
+        
+        UserProfile* tableView = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
+        PFUser* passUser = self.viewUser;
+        // MyPostLenders* tableView = (MyPostLenders*)[self.navigationController.viewControllers objectAtIndex:0];
+        tableView.user = passUser;
+        
+        NSLog(@"I'm in the prepare for segue!");
+        
+    }
+    
+    
 
 }
 
