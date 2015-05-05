@@ -187,7 +187,6 @@
         
 
         
-        
         CGPoint saveCenter = userCell.userProfilePictureButton.center;
         CGRect newFrame = CGRectMake(userCell.userProfilePictureButton.frame.origin.x, userCell.userProfilePictureButton.frame.origin.y, 90, 90);
         userCell.userProfilePictureButton.frame = newFrame;
@@ -206,8 +205,7 @@
         [backgroundViewLayer setMasksToBounds:YES];
         [backgroundViewLayer setCornerRadius:10.0];
         
-        
-        
+
         /*
         userCell.backgroundView.layer.masksToBounds = NO;
         userCell.backgroundView.layer.cornerRadius = 8; // if you like rounded corners
@@ -219,12 +217,12 @@
         [userCell.userProfilePictureButton setBackgroundImage:userObject.userProfile forState:UIControlStateNormal];
         userCell.username.text = userObject.username;
         userCell.rating.text = userObject.averageRating;
-        
+        userCell.heartImage.image = [userCell.heartImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [userCell.heartImage setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
         if([userCell.rating.text isEqualToString:@""])
         {
             
             //userCell.rating.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 0.5];
-            
             userCell.rating.hidden = YES;
             
             
@@ -233,24 +231,29 @@
         {
             
             userCell.rating.hidden = NO;
-            
             int ratingInInt = [userCell.rating.text intValue];
             if(ratingInInt <= 2)
             {
                 
-                userCell.rating.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 0.0/255.0 blue:0.0/255.0 alpha: 0.5];
+                userCell.heartImage.image = [userCell.heartImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                [userCell.heartImage setTintColor:[UIColor colorWithRed: 255.0/255.0 green: 0.0/255.0 blue:0.0/255.0 alpha: 0.5]];
+
+                //userCell.rating.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 0.0/255.0 blue:0.0/255.0 alpha: 0.5];
 
             }
             else if(ratingInInt == 3)
             {
+                
 
-                userCell.rating.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0];
+                //userCell.rating.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0];
                 
                 
             }
             else {
                 
-                 userCell.rating.backgroundColor = [UIColor colorWithRed: 0.0/255.0 green: 255.0/255.0 blue:0.0/255.0 alpha: 0.5];
+                userCell.heartImage.image = [userCell.heartImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                [userCell.heartImage setTintColor:[UIColor colorWithRed: 0.0/255.0 green: 255.0/255.0 blue:0.0/255.0 alpha: 0.5]];
+                 //userCell.rating.backgroundColor = [UIColor colorWithRed: 0.0/255.0 green: 255.0/255.0 blue:0.0/255.0 alpha: 0.5];
                 
             }
             
@@ -260,7 +263,7 @@
         return userCell;
 
     }
-    else //if([self.reviews objectAtIndex:indexPath.row] != 0)
+    else
     {
         
         ReviewObject* reviewObject = [self.reviews objectAtIndex:indexPath.row];
@@ -294,27 +297,84 @@
         //ReviewObject* reviewObject = [self.reviews objectAtIndex:indexPath.row];
         [reviewCell.userProfilePicture setBackgroundImage:reviewObject.userProfile forState:UIControlStateNormal];
         [reviewCell.userName setTitle:reviewObject.username forState:UIControlStateNormal];
-        reviewCell.review.text = reviewObject.review;
+        reviewCell.review.text = [NSString stringWithFormat:@" %@ says \"%@\"", reviewObject.username ,reviewObject.review];
         reviewCell.score.text = reviewObject.rating;
         
         
         int ratingInInt = [reviewCell.score.text intValue];
-        if(ratingInInt <= 2)
+        if(ratingInInt == 1)
         {
             
-            reviewCell.score.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 0.0/255.0 blue:0.0/255.0 alpha: 0.5];
+            reviewCell.heartImage1.hidden = NO;
+            reviewCell.heartImage1.image = [reviewCell.heartImage1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage1 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            
+        }
+        else if(ratingInInt == 2)
+        {
+            
+            reviewCell.heartImage1.hidden = NO;
+            reviewCell.heartImage1.image = [reviewCell.heartImage1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage1 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            reviewCell.heartImage2.hidden = NO;
+            reviewCell.heartImage2.image = [reviewCell.heartImage2.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage2 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            
             
         }
         else if(ratingInInt == 3)
         {
             
-            reviewCell.score.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0];
+            //reviewCell.score.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 0.0/255.0 blue:0.0/255.0 alpha: 0.5];
+            reviewCell.heartImage1.hidden = NO;
+            reviewCell.heartImage1.image = [reviewCell.heartImage1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage1 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            reviewCell.heartImage2.hidden = NO;
+            reviewCell.heartImage2.image = [reviewCell.heartImage2.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage2 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            reviewCell.heartImage3.hidden = NO;
+            reviewCell.heartImage3.image = [reviewCell.heartImage3.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage3 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
             
             
         }
-        else {
+        else if(ratingInInt == 4)
+        {
             
-            reviewCell.score.backgroundColor = [UIColor colorWithRed: 0.0/255.0 green: 255.0/255.0 blue:0.0/255.0 alpha: 0.5];
+            //reviewCell.score.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0];
+            reviewCell.heartImage1.hidden = NO;
+            reviewCell.heartImage1.image = [reviewCell.heartImage1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage1 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            reviewCell.heartImage2.hidden = NO;
+            reviewCell.heartImage2.image = [reviewCell.heartImage2.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage2 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            reviewCell.heartImage3.hidden = NO;
+            reviewCell.heartImage3.image = [reviewCell.heartImage3.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage3 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            reviewCell.heartImage4.hidden = NO;
+            reviewCell.heartImage4.image = [reviewCell.heartImage4.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage4 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            
+            
+        }
+        else if(ratingInInt == 5){
+            
+            //reviewCell.score.backgroundColor = [UIColor colorWithRed: 0.0/255.0 green: 255.0/255.0 blue:0.0/255.0 alpha: 0.5];
+            reviewCell.heartImage1.hidden = NO;
+            reviewCell.heartImage1.image = [reviewCell.heartImage1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage1 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            reviewCell.heartImage2.hidden = NO;
+            reviewCell.heartImage2.image = [reviewCell.heartImage2.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage2 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            reviewCell.heartImage3.hidden = NO;
+            reviewCell.heartImage3.image = [reviewCell.heartImage3.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage3 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            reviewCell.heartImage4.hidden = NO;
+            reviewCell.heartImage4.image = [reviewCell.heartImage4.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage4 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            reviewCell.heartImage5.hidden = NO;
+            reviewCell.heartImage5.image = [reviewCell.heartImage5.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [reviewCell.heartImage5 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
             
         }
         

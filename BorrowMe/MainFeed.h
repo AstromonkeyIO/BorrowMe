@@ -13,6 +13,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreLocation/CLGeocoder.h>
 #import <CoreLocation/CLPlacemark.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface MainFeed : UITableViewController <CLLocationManagerDelegate>
 
@@ -22,5 +23,6 @@
 @property (assign, nonatomic) NSInteger index;
 @property (strong, nonatomic) CLLocation* currentLocation;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end

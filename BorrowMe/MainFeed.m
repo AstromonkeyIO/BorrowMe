@@ -43,6 +43,13 @@
     
     [super viewDidLoad];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    //self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed: 16.0/255.0 green: 16.0/255.0 blue:15.0/255.0 alpha: 1.0];
+    //self.navigationController.navigationBar.translucent = NO;
+    //self.navigationBar.tintColor = [UIColor whiteColor];
+    //self.navigationBar.translucent = NO
+    
+     self.searchBar.delegate = (id)self;
     //self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -51,6 +58,7 @@
         [self.locationManager requestWhenInUseAuthorization];
     }
     [self.locationManager startUpdatingLocation];
+    
     
     /*
     float latitude = self.locationManager.location.coordinate.latitude;
@@ -71,6 +79,12 @@
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     self.view.backgroundColor = [UIColor whiteColor];
+    //self.view.backgroundColor = [UIColor colorWithRed: 135.0/255.0 green: 206.0/255.0 blue:250.0/255.0 alpha: 1.0];
+
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletePost:) name:@"DeletePost" object:nil];
     
     //self.navigationItem.title = @"Navers";
     //_scoreLabel.backgroundColor = [UIColor redColor];
@@ -118,6 +132,19 @@
                 
                 NSLog(@"post deadline %@,   %@", post[@"deadline"], post[@"item"]);
                 
+                postObject.alreadyLiked = false;
+                for(int i = 0; i < [self.currentUser[@"likedPosts"] count]; i++) {
+                    
+                    if([[self.currentUser[@"likedPosts"] objectAtIndex:i] isEqualToString:[post valueForKey:@"objectId"]])
+                    {
+                        
+                        postObject.alreadyLiked = true;
+                        break;
+                        
+                    }
+                    
+                }
+                
                 
                 
                 NSDate* currentDate = [NSDate date];
@@ -134,6 +161,7 @@
                 NSInteger nowGMTOffset2 = [nowTimeZone secondsFromGMTForDate:post[@"deadline"]];
                 NSTimeInterval interval2 = nowGMTOffset2 - currentGMTOffset2;
                 NSDate* borrowDate = [[NSDate alloc] initWithTimeInterval:interval2 sinceDate:post[@"deadline"]];
+                
                 
                 
                 
@@ -325,7 +353,13 @@
     }
     else
     {
-        
+        if(postObject.alreadyLiked == true)
+        {
+            
+            post.heartImage.image = [post.heartImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [post.heartImage setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            
+        }
         post.heartCount.text = [NSString stringWithFormat:@"%@", [postObject.post valueForKey:@"likes"]];
         
     }
@@ -343,21 +377,26 @@
     PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
     if(postObject.user != NULL)
     {
+        /*
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectZero];
+        backView.backgroundColor = [UIColor clearColor];
+        post.backgroundView = backView;
+        post.backgroundColor = [UIColor clearColor];
+        */
+        CALayer * postBubbleLayer = [post.postBubble layer];
+        [postBubbleLayer setMasksToBounds:YES];
+        [postBubbleLayer setCornerRadius:5.0];
     
-    CALayer * postBubbleLayer = [post.postBubble layer];
-    [postBubbleLayer setMasksToBounds:YES];
-    [postBubbleLayer setCornerRadius:5.0];
+        CGPoint saveCenter = post.profilePicture.center;
+        CGRect newFrame = CGRectMake(post.profilePicture.frame.origin.x, post.profilePicture.frame.origin.y, 60, 60);
+        post.profilePicture.frame = newFrame;
+        post.profilePicture.layer.cornerRadius = 60 / 2.0;
+        post.profilePicture.center = saveCenter;
+        post.profilePicture.clipsToBounds = YES;
     
-    CGPoint saveCenter = post.profilePicture.center;
-    CGRect newFrame = CGRectMake(post.profilePicture.frame.origin.x, post.profilePicture.frame.origin.y, 60, 60);
-    post.profilePicture.frame = newFrame;
-    post.profilePicture.layer.cornerRadius = 60 / 2.0;
-    post.profilePicture.center = saveCenter;
-    post.profilePicture.clipsToBounds = YES;
-    
-    CALayer* helpButtonLayer = [post.helpButton layer];
-    [helpButtonLayer setMasksToBounds:YES];
-    [helpButtonLayer setCornerRadius:5.0];
+        CALayer* helpButtonLayer = [post.helpButton layer];
+        [helpButtonLayer setMasksToBounds:YES];
+        [helpButtonLayer setCornerRadius:5.0];
     
     }
     
@@ -532,34 +571,53 @@
     CGPoint currentPoint = scrollView.contentOffset;
     
     if (currentPoint.y > 0 && targetPoint.y > currentPoint.y) {
-        //NSLog(@"up");
-//        NSLog(@"current point %f", currentPoint.y);
-//        if(currentPoint.y > 0)
-//        {
-        
-            //if(.navigationController.navigationBar.hidden == NO)
+
+            [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+                self.navigationController.navigationBar.alpha = 0.5;
+                self.tabBarController.tabBar.alpha = 0.5;
+                
+            } completion:^(BOOL finished) {
                 [self.navigationController.navigationBar setHidden:YES];
-            //if(self.tabBarController.tabBar.hidden == NO)
                 [self.tabBarController.tabBar setHidden:YES];
-            
-//        }
+
+            }];
 
     }
     else {
-        //NSLog(@"down");
-//        if(self.navigationController.navigationBar.hidden == YES)
-//        {
-//            NSLog(@"checkpoint1");
-            [self.navigationController.navigationBar setHidden:NO];
-//        }
-//        if(self.tabBarController.tabBar.hidden == YES)
-//        {
-//            NSLog(@"checkpoint2");
-            [self.tabBarController.tabBar setHidden:NO];
-//        }
+
+        self.navigationController.navigationBar.alpha = 0.3;
+        self.tabBarController.tabBar.alpha = 0.3;
+        [self.navigationController.navigationBar setHidden:NO];
+        [self.tabBarController.tabBar setHidden:NO];
+        [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            
+            self.navigationController.navigationBar.alpha = 1.0;
+            self.tabBarController.tabBar.alpha = 1.0;
+            
+            
+        } completion:^(BOOL finished) {
+
+            
+        }];
+        
+
 
     }
     
+}
+
+- (void)deletePost: (NSNotification*) notification
+{
+    
+    NSInteger index = [notification.userInfo[@"index"] integerValue];
+    [self.posts removeObjectAtIndex:index];
+    [self.tableView reloadData];
+    
+}
+
+-(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text
+{
+
 }
 
 

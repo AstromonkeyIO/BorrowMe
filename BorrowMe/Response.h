@@ -15,5 +15,9 @@
 @property (strong, nonatomic) UIImage* userProfile;
 @property (strong, nonatomic) UIImage* itemImage;
 @property (strong, nonatomic) NSData* itemImageData;
+@property (strong, nonatomic) NSString* itemDescription;
+@property (strong, nonatomic) NSString* note;
+@property (strong, nonatomic) NSString* price;
+@property (strong, nonatomic) PFObject* responsePFObject;
 
 @end

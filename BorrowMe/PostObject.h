@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSString* deadline;
 @property (assign, nonatomic) bool urgent;
 @property (strong, nonatomic) NSString* type;
+@property (assign, nonatomic) bool alreadyLiked;
 
 - (void) setUserObject:(PFUser *)user;
 - (void) setItemObject:(NSString *)item;

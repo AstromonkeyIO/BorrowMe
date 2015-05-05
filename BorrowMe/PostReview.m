@@ -113,37 +113,18 @@
 
 - (IBAction)heartButton1Pressed:(id)sender {
     
+    [self makeAllHeartImagesGray];
     
-    UIImage * myImage = [UIImage imageNamed: @"hourglassIcon.png"];
-    if(myImage == NULL)
-    {
-        NSLog(@"null!");
-        
-    }
-    else
-    {
-        NSLog(@"here");
-    }
-    
-    
-    NSData *imgData = [[NSData alloc] initWithContentsOfURL:[NSURL fileURLWithPath:@"heartIconPurple.png"]];
-    
-    NSLog(@"%@", imgData);
-    UIImage *thumbNail = [[UIImage alloc] initWithData:imgData];
-    
+    self.heartIconImage1.image = [self.heartIconImage1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.heartButton1.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage1.transform = CGAffineTransformMakeScale(1.3,1.3);
+        [self.heartIconImage1 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            self.heartButton1.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage1.transform = CGAffineTransformMakeScale(1,1);
         } completion:^(BOOL finished) {
             
         }];
-        //[UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAutoreverse animations:^{
-        //self.heartImage.transform = CGAffineTransformMakeScale(1,1);
-        //} completion:^(BOOL finished) {
-        
-        //}];
     }];
     
     self.currentRating = @"1";
@@ -153,13 +134,21 @@
 
 - (IBAction)heartButton2Pressed:(id)sender {
     
+    [self makeAllHeartImagesGray];
+    
+    self.heartIconImage1.image = [self.heartIconImage1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage2.image = [self.heartIconImage2.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
     [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.heartButton1.transform = CGAffineTransformMakeScale(1.3,1.3);
-        self.heartButton2.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage1.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage2.transform = CGAffineTransformMakeScale(1.3,1.3);
+        [self.heartIconImage1 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        [self.heartIconImage2 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            self.heartButton1.transform = CGAffineTransformMakeScale(1,1);
-            self.heartButton2.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage1.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage2.transform = CGAffineTransformMakeScale(1,1);
         } completion:^(BOOL finished) {
             
         }];
@@ -178,15 +167,26 @@
 
 - (IBAction)heartButton3Pressed:(id)sender {
     
+    [self makeAllHeartImagesGray];
+    
+    self.heartIconImage1.image = [self.heartIconImage1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage2.image = [self.heartIconImage2.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage3.image = [self.heartIconImage3.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    
     [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.heartButton1.transform = CGAffineTransformMakeScale(1.3,1.3);
-        self.heartButton2.transform = CGAffineTransformMakeScale(1.3,1.3);
-        self.heartButton3.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage1.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage2.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage3.transform = CGAffineTransformMakeScale(1.3,1.3);
+        [self.heartIconImage1 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        [self.heartIconImage2 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        [self.heartIconImage3 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            self.heartButton1.transform = CGAffineTransformMakeScale(1,1);
-            self.heartButton2.transform = CGAffineTransformMakeScale(1,1);
-             self.heartButton3.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage1.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage2.transform = CGAffineTransformMakeScale(1,1);
+             self.heartIconImage3.transform = CGAffineTransformMakeScale(1,1);
         } completion:^(BOOL finished) {
             
         }];
@@ -203,18 +203,31 @@
 }
 
 - (IBAction)heartButton4Pressed:(id)sender {
+
+    [self makeAllHeartImagesGray];
+    
+    self.heartIconImage1.image = [self.heartIconImage1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage2.image = [self.heartIconImage2.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage3.image = [self.heartIconImage3.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage4.image = [self.heartIconImage4.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
     
     [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.heartButton1.transform = CGAffineTransformMakeScale(1.3,1.3);
-        self.heartButton2.transform = CGAffineTransformMakeScale(1.3,1.3);
-        self.heartButton3.transform = CGAffineTransformMakeScale(1.3,1.3);
-        self.heartButton4.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage1.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage2.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage3.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage4.transform = CGAffineTransformMakeScale(1.3,1.3);
+        [self.heartIconImage1 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        [self.heartIconImage2 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        [self.heartIconImage3 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        [self.heartIconImage4 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            self.heartButton1.transform = CGAffineTransformMakeScale(1,1);
-            self.heartButton2.transform = CGAffineTransformMakeScale(1,1);
-            self.heartButton3.transform = CGAffineTransformMakeScale(1,1);
-             self.heartButton4.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage1.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage2.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage3.transform = CGAffineTransformMakeScale(1,1);
+             self.heartIconImage4.transform = CGAffineTransformMakeScale(1,1);
         } completion:^(BOOL finished) {
             
         }];
@@ -231,19 +244,33 @@
 
 - (IBAction)heartButton5Pressed:(id)sender {
     
+    [self makeAllHeartImagesGray];
+    
+    self.heartIconImage1.image = [self.heartIconImage1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage2.image = [self.heartIconImage2.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage3.image = [self.heartIconImage3.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage4.image = [self.heartIconImage4.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage5.image = [self.heartIconImage4.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
     [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.heartButton1.transform = CGAffineTransformMakeScale(1.3,1.3);
-        self.heartButton2.transform = CGAffineTransformMakeScale(1.3,1.3);
-        self.heartButton3.transform = CGAffineTransformMakeScale(1.3,1.3);
-        self.heartButton4.transform = CGAffineTransformMakeScale(1.3,1.3);
-        self.heartButton5.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage1.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage2.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage3.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage4.transform = CGAffineTransformMakeScale(1.3,1.3);
+        self.heartIconImage5.transform = CGAffineTransformMakeScale(1.3,1.3);
+        [self.heartIconImage1 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        [self.heartIconImage2 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        [self.heartIconImage3 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        [self.heartIconImage4 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        [self.heartIconImage5 setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+        
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            self.heartButton1.transform = CGAffineTransformMakeScale(1,1);
-            self.heartButton2.transform = CGAffineTransformMakeScale(1,1);
-            self.heartButton3.transform = CGAffineTransformMakeScale(1,1);
-            self.heartButton4.transform = CGAffineTransformMakeScale(1,1);
-            self.heartButton5.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage1.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage2.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage3.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage4.transform = CGAffineTransformMakeScale(1,1);
+            self.heartIconImage5.transform = CGAffineTransformMakeScale(1,1);
         } completion:^(BOOL finished) {
             
         }];
@@ -254,7 +281,21 @@
 }
 
 
-
+- (void) makeAllHeartImagesGray {
+    
+    self.heartIconImage1.image = [self.heartIconImage1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage2.image = [self.heartIconImage2.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage3.image = [self.heartIconImage3.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage4.image = [self.heartIconImage4.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.heartIconImage5.image = [self.heartIconImage4.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.heartIconImage1 setTintColor:[UIColor colorWithRed: 64.0/255.0 green: 64.0/255.0 blue:64.0/255.0 alpha: 1.0]];
+    [self.heartIconImage2 setTintColor:[UIColor colorWithRed: 64.0/255.0 green: 64.0/255.0 blue:64.0/255.0 alpha: 1.0]];
+    [self.heartIconImage3 setTintColor:[UIColor colorWithRed: 64.0/255.0 green: 64.0/255.0 blue:64.0/255.0 alpha: 1.0]];
+    [self.heartIconImage4 setTintColor:[UIColor colorWithRed: 64.0/255.0 green: 64.0/255.0 blue:64.0/255.0 alpha: 1.0]];
+    [self.heartIconImage5 setTintColor:[UIColor colorWithRed: 64.0/255.0 green: 64.0/255.0 blue:64.0/255.0 alpha: 1.0]];
+    
+    
+}
 
 
 

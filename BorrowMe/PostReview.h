@@ -24,6 +24,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *heartButton3;
 @property (weak, nonatomic) IBOutlet UIButton *heartButton4;
 @property (weak, nonatomic) IBOutlet UIButton *heartButton5;
+@property (weak, nonatomic) IBOutlet UIImageView *heartIconImage1;
+@property (weak, nonatomic) IBOutlet UIImageView *heartIconImage2;
+@property (weak, nonatomic) IBOutlet UIImageView *heartIconImage3;
+@property (weak, nonatomic) IBOutlet UIImageView *heartIconImage4;
+@property (weak, nonatomic) IBOutlet UIImageView *heartIconImage5;
 
 
 @end

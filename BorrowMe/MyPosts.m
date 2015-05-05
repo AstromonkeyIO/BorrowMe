@@ -114,11 +114,11 @@
                 
                 if([responses count] != 0)
                 {
-                    int responseCounter = 0;
+                    int responseCounter = 1;
                     for(PFObject* response in responses)
                     {
                     
-                    if(responseCounter > 4)
+                    if(responseCounter > 5)
                         break;
                     
                     PFUser* user = (PFUser*)[[[response relationForKey:@"user"] query] getFirstObject];
@@ -127,20 +127,20 @@
                     [newMyPost.lenders addObject:user];
                     PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
                     NSData* profilePictureData = [profilePictureFile getData];
-                    if(responseCounter == 0)
+                    if(responseCounter == 1)
                     newMyPost.lender1Picture = [UIImage imageWithData: profilePictureData];
-                    else if(responseCounter == 1)
+                    else if(responseCounter == 2)
                     newMyPost.lender2Picture = [UIImage imageWithData: profilePictureData];
-                    if(responseCounter == 2)
+                    if(responseCounter == 3)
                         newMyPost.lender3Picture = [UIImage imageWithData: profilePictureData];
-                    else if(responseCounter == 3)
+                    else if(responseCounter == 4)
                         newMyPost.lender4Picture = [UIImage imageWithData: profilePictureData];
                     
                     responseCounter++;
 
                     }
                     
-                    int additionalLendersCount = [responses count] - responseCounter;
+                    int additionalLendersCount = [responses count] - (responseCounter - 1);
                     newMyPost.additionalLendersCount = [NSString stringWithFormat:@"%d", additionalLendersCount];
                 
                 }
@@ -238,9 +238,12 @@
                                 newMyPost.deadline = timeDifferenceInString;
                                 
                             }
+                            else
+                            {
 
                             //timeDifferenceInString = [NSString stringWithFormat:@"%fs", secondsBetween];
-                            newMyPost.deadline = @"Now";
+                                newMyPost.deadline = @"Now";
+                            }
 
 
                         }

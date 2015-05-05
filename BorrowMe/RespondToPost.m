@@ -38,7 +38,10 @@
     [loadingBoxLayer setMasksToBounds:YES];
     [loadingBoxLayer setCornerRadius:10.0];
     
- 
+    CALayer* itemImageLayer = [self.itemImage layer];
+    [itemImageLayer setMasksToBounds:YES];
+    [itemImageLayer setCornerRadius:5.0];
+    
     CGPoint saveCenter = self.removeItemImageButton.center;
     CGRect newFrame = CGRectMake(self.removeItemImageButton.frame.origin.x, self.removeItemImageButton.frame.origin.y, 50, 50);
     self.removeItemImageButton.frame = newFrame;
@@ -211,10 +214,11 @@
         PFFile* imageInPFFile = [PFFile fileWithName:@"test.png" data:imageData];
         newResponse[@"itemImage"] = imageInPFFile;
         newResponse[@"cost"] = self.costInput.text;
+        newResponse[@"description"] = self.itemDescription.text;
         if(self.note.text.length != 0 || ![self.note.text isEqualToString:@"Leave a little note!"])
         {
         
-            newResponse[@"description"] = self.note.text;
+            newResponse[@"note"] = self.note.text;
             
         }
         /*
@@ -244,6 +248,7 @@
                         
                         self.itemDescription.text = @"";
                         [self dismissViewControllerAnimated:YES completion:Nil];
+                        
                     }
                     else
                     {

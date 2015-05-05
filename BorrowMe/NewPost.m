@@ -241,6 +241,10 @@
                       {
                           
                           self.itemInput.text = @"";
+                          self.noteBox.text = @"";
+                          self.datePicker.hidden = NO;
+                          self.returnDatePicker.hidden = YES;
+                          self.noteBox.hidden = YES;
                           self.loadingBackground.hidden = YES;
                           self.loadingBox.hidden = YES;
                           self.loadingImage.hidden = YES;
@@ -250,7 +254,7 @@
                       }
                       else
                       {
-                          self.itemInput.text = @"";
+                          //self.itemInput.text = @"";
                           self.loadingBackground.hidden = YES;
                           self.loadingBox.hidden = YES;
                           self.loadingImage.hidden = YES;
@@ -269,7 +273,7 @@
              else
              {
                  
-                 self.itemInput.text = @"";
+                 //self.itemInput.text = @"";
                  self.loadingBackground.hidden = YES;
                  self.loadingBox.hidden = YES;
                  self.loadingImage.hidden = YES;
@@ -353,15 +357,15 @@
 - (BOOL) textViewShouldBeginEditing:(UITextView *)textView
 {
     
-    self.noteBox.text = @"";
-    self.noteBox.textColor = [UIColor blackColor];
+    //self.noteBox.text = @"";
+    //self.noteBox.textColor = [UIColor blackColor];
     return YES;
     
 }
 
 -(void) textViewDidChange:(UITextView *)textView
 {
-    
+    /*
     if(self.noteBox.text.length == 0)
     {
         
@@ -371,6 +375,7 @@
         [self.itemInput becomeFirstResponder];
         
     }
+    */
     
 }
 

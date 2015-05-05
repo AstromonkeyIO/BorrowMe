@@ -227,6 +227,10 @@
             
         }
         
+        
+        [aboutPost.map.layer setMasksToBounds:YES];
+        [aboutPost.map.layer setCornerRadius:5.0];
+        
         NSLog(@"deadline %@", receivedPost[@"deadline"]);
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -271,20 +275,26 @@
         
         CLLocation *postLocation = [[CLLocation alloc] initWithLatitude:postLatitudeInFloat longitude:postLongitudeInFloat];
         CLLocationDistance postDistanceFromCurrentLocationInMeters = [postLocation distanceFromLocation:self.currentLocation];
+        
+        /*
         if(postDistanceFromCurrentLocationInMeters >= 1609.344)
         {
-           
+        */
             float postDistanceFromCurrentLocationInMiles = postDistanceFromCurrentLocationInMeters/1609.344;
             aboutPost.postDistance.text = [NSString stringWithFormat:@"%.2f miles away!", postDistanceFromCurrentLocationInMiles];
             
             
-        }
+        //}
+        /*
         else
         {
             
             aboutPost.postDistance.text = [NSString stringWithFormat:@"%.2f meters away!", postDistanceFromCurrentLocationInMeters];
             
         }
+        */
+        
+        
         
         return aboutPost;
         
@@ -319,7 +329,9 @@
     }
     else if(indexPath.row == 1)
     {
-
+        
+        
+        
     }
     
 }

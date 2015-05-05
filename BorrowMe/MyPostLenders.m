@@ -62,6 +62,7 @@
      
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showTextDialog:) name:@"RespondToLender" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(directToUserProfile:) name:@"DisplayUserProfile" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteResponse:) name:@"DeleteResponse" object:nil];
     
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -88,6 +89,8 @@
                 
                 //[self.receivedMyPostObject.responses addObject:response];
                 Response* newResponse = [[Response alloc] init];
+                
+                newResponse.responsePFObject = response;
                 PFUser* user = (PFUser*)[[[response relationForKey:@"user"] query] getFirstObject];
                 newResponse.user = user;
                 
@@ -100,8 +103,14 @@
                 //newResponse.itemImageData = itemImageData;
                 newResponse.itemImage = [UIImage imageWithData: itemImageData];
                 
-                //NSLog(@"response user looppppp   %@", user);
-                //NSLog(@"item image in the loop   %@", itemImageData);
+                
+                //NSLog(@"%@",response[@"description"]);
+                newResponse.itemDescription = response[@"description"];
+                //newResponse.note = response[@"note"];
+                newResponse.price = response[@"cost"];
+                newResponse.responsePFObject = response;
+                
+                
                 [self.responses addObject:newResponse];
                 
             }
@@ -212,15 +221,33 @@
         myPostLender.profileImage.image = response.userProfile;
         myPostLender.itemImage.image = response.itemImage;
         myPostLender.username.text = [response.user valueForKey:@"username"];
+        if(response.price == NULL)
+        {
+            myPostLender.price.text = @"$0";
+            
+        }
+        else
+        {
+            
+            myPostLender.price.text = [NSString stringWithFormat:@"$%@", response.price];
+            
+        }
+            
         myPostLender.index = indexPath.row;
     
     
         [myPostLender.usernameButton setTitle:[response.user valueForKey:@"username"] forState:UIControlStateNormal];
         [myPostLender.userProfileButton setBackgroundImage:myPostLender.profileImage.image
                         forState:UIControlStateNormal];
-
-    
-    
+        if(response.itemDescription != NULL)
+        {
+            myPostLender.itemDescription.text = [NSString stringWithFormat:@"\"%@\"",response.itemDescription];
+        }
+        else
+        {
+            myPostLender.itemDescription.text = [NSString stringWithFormat:@"\"No Description :(\""];
+        }
+            
         return myPostLender;
     
         }
@@ -344,6 +371,19 @@
     self.viewUser = response.user;
     
     [self performSegueWithIdentifier:@"View-User-Profile" sender:self];
+    
+}
+
+- (void)deleteResponse: (NSNotification*) notification
+{
+    
+    NSInteger index = [notification.userInfo[@"index"] integerValue];
+    Response* response = [self.responses objectAtIndex:index];
+    [self.responses removeObjectAtIndex:index];
+    NSLog(@"pfrepsonse %@", response.responsePFObject);
+    [response.responsePFObject deleteInBackground];
+    NSLog(@"%@", response);
+    [self.tableView reloadData];
     
 }
 

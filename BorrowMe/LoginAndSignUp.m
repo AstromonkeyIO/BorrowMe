@@ -30,9 +30,47 @@
 
     
     
+    /*
+    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+    [query fromLocalDatastore];
+    [[query getObjectInBackgroundWithId:<#(NSString *)#>] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            // something went wrong;
+            return task;
+        }
+        
+        // task.result will be your game score
+        return task;
+    }];
+    */
+    PFQuery *query = [[PFQuery queryWithClassName:@"User"]
+                       fromLocalDatastore];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!object) {
+            // Did not find any UserStats for the current user
+            NSLog(@"not found him");
+        } else {
+            // Found UserStats
+            NSLog(@"found him");
+            
+        }
+    }];
     
+    
+    
+    
+    /*
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!object) {
+            // Did not find any UserStats for the current user
+        } else {
+            // Found UserStats
+            int highScore = [[object objectForKey:@"highScore"] intValue];
+        }
+    }];
+    */
     //Temporary auto login for testing purposes
-    
+    /*
     [PFUser logInWithUsernameInBackground:@"a" password:@"a" block:^(PFUser *user,NSError *error) {
         
         if (user)
@@ -41,7 +79,7 @@
         }
         
     }];
-     
+     */
     
     
     
@@ -120,6 +158,8 @@
             self.usernameInput.hidden = YES;
             self.passwordInput.hidden = YES;
             self.loginButton.hidden = YES;
+            
+            [user pinInBackgroundWithName:@"User"];
             
             /*
             [NSTimer scheduledTimerWithTimeInterval:1.0

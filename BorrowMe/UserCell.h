@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *rating;
 @property (weak, nonatomic) IBOutlet UIButton *background;
 @property (weak, nonatomic) IBOutlet UILabel *container;
+@property (weak, nonatomic) IBOutlet UIImageView *heartImage;
 
 @end

@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Tom Lee. All rights reserved.
 //
 
+#define RADIANS(degrees) ((degrees * M_PI) / 180.0)
 #import "MyPostLender.h"
 
 @implementation MyPostLender
@@ -15,6 +16,7 @@
 
 
 - (IBAction)RespondToLender:(id)sender {
+    
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RespondToLender" object:nil userInfo:@{@"index" : @(self.index)}];
     
@@ -50,8 +52,11 @@
 
 - (IBAction)xButtonPressed:(id)sender {
     
+
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteResponse" object:nil userInfo:@{@"index" : @(self.index)}];
     
+
 }
 
 

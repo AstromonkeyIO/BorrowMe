@@ -36,13 +36,17 @@
         if(!alreadyLiked)
         {
 
-            
+            self.heartImage.image = [self.heartImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
                 self.heartImage.transform = CGAffineTransformMakeScale(1.3,1.3);
+                [self.heartImage setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+
             } completion:^(BOOL finished) {
                 [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
                     self.heartImage.transform = CGAffineTransformMakeScale(1,1);
                 } completion:^(BOOL finished) {
+                    
+                    
                     
                 }];
             }];
@@ -61,7 +65,7 @@
             NSLog(@"pfpost object %@", [self.postPFObject valueForKey:@"objectId"]);
             [currentUser[@"likedPosts"] addObject:[self.postPFObject valueForKey:@"objectId"]];
             NSLog(@"yo 1 %@", currentUser[@"likedPosts"]);
-            
+            [currentUser saveInBackground];
             [self.postPFObject saveInBackground];
             
         }
@@ -74,6 +78,8 @@
             CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(14.0));
 
             self.heartImage.transform = leftWobble;  // starting point
+            self.heartImage.image = [self.heartImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            
             [UIView animateWithDuration:0.1 delay:0 options:(UIViewAnimationOptionAutoreverse) animations:^{
                 self.heartImage.transform = rightWobble;
             }completion:^(BOOL finished){
@@ -82,6 +88,7 @@
                 CGAffineTransform stopWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(0.0));
                 self.heartImage.transform = stopWobble;
                 [self.heartImage.layer removeAllAnimations];
+                [self.heartImage setTintColor:[UIColor colorWithRed: 64.0/255.0 green: 64.0/255.0 blue:64.0/255.0 alpha: 1.0]];
             }];
             
             NSNumber* likes = self.postPFObject[@"likes"];
@@ -93,7 +100,7 @@
             self.postPFObject[@"likes"] = likes;
             [currentUser[@"likedPosts"] removeObject:[self.postPFObject valueForKey:@"objectId"]];
             NSLog(@"yo 2 %@", currentUser[@"likedPosts"]);
-            //[currentUser saveInBackground];
+            [currentUser saveInBackground];
             
             [self.postPFObject saveInBackground];
             
@@ -108,8 +115,8 @@
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RespondToPost" object:nil userInfo:@{@"index" : @(self.index)}];
     
-    NSString* buttonTitle = [NSString stringWithFormat:@":)"];
-    [self.helpButton setTitle: buttonTitle forState: UIControlStateNormal];
+   // NSString* buttonTitle = [NSString stringWithFormat:@":)"];
+    //[self.helpButton setTitle: buttonTitle forState: UIControlStateNormal];
     
     
 }

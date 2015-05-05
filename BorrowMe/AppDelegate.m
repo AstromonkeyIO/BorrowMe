@@ -18,11 +18,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [Parse enableLocalDatastore];
     [Parse setApplicationId:@"weAM1TOetzAhsOVcnspYolh6vtdpx2ntA75QaHKe"
                   clientKey:@"qpXaYZDFu8BmVbERWxFr7L3ScbJgi0MjZtlH3zkB"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    [[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
+    //[[UINavigationBar appearance] setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed: 16.0/255.0 green: 16.0/255.0 blue:15.0/255.0 alpha: 1.0]];
+    [[UITabBar appearance] setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
     
     return YES;
 }
