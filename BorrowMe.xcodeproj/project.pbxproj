@@ -10,6 +10,8 @@
 		660314481AA3038600C0F763 /* MyPostNoLenders.m in Sources */ = {isa = PBXBuildFile; fileRef = 660314471AA3038600C0F763 /* MyPostNoLenders.m */; };
 		661DB0931A9D32AD00400B86 /* MyPosts.m in Sources */ = {isa = PBXBuildFile; fileRef = 661DB0921A9D32AD00400B86 /* MyPosts.m */; };
 		661FA3FB1A9B10E900D79003 /* RespondToPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 661FA3FA1A9B10E900D79003 /* RespondToPost.m */; };
+		66232E7F1AF99DFE001532BD /* UserSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 66232E7E1AF99DFE001532BD /* UserSearchResult.m */; };
+		66232E821AF9A03F001532BD /* UserSearchResultObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 66232E811AF9A03F001532BD /* UserSearchResultObject.m */; };
 		6624FD2D1AE07BDF004EA647 /* noteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6624FD2C1AE07BDE004EA647 /* noteIcon.png */; };
 		6624FD2F1AE07C67004EA647 /* 1429244562_699044-icon-55-document-text-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 6624FD2E1AE07C67004EA647 /* 1429244562_699044-icon-55-document-text-128.png */; };
 		6624FD331AE081A7004EA647 /* clockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6624FD321AE081A7004EA647 /* clockIcon.png */; };
@@ -147,6 +149,10 @@
 		661DB0921A9D32AD00400B86 /* MyPosts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPosts.m; sourceTree = "<group>"; };
 		661FA3F91A9B10E900D79003 /* RespondToPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RespondToPost.h; sourceTree = "<group>"; };
 		661FA3FA1A9B10E900D79003 /* RespondToPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespondToPost.m; sourceTree = "<group>"; };
+		66232E7D1AF99DFE001532BD /* UserSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSearchResult.h; sourceTree = "<group>"; };
+		66232E7E1AF99DFE001532BD /* UserSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSearchResult.m; sourceTree = "<group>"; };
+		66232E801AF9A03F001532BD /* UserSearchResultObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSearchResultObject.h; sourceTree = "<group>"; };
+		66232E811AF9A03F001532BD /* UserSearchResultObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSearchResultObject.m; sourceTree = "<group>"; };
 		6624FD2C1AE07BDE004EA647 /* noteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noteIcon.png; sourceTree = "<group>"; };
 		6624FD2E1AE07C67004EA647 /* 1429244562_699044-icon-55-document-text-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1429244562_699044-icon-55-document-text-128.png"; sourceTree = "<group>"; };
 		6624FD321AE081A7004EA647 /* clockIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockIcon.png; sourceTree = "<group>"; };
@@ -499,6 +505,10 @@
 			children = (
 				66AE446F1AF8AF2500B3A9FC /* Search.h */,
 				66AE44701AF8AF2500B3A9FC /* Search.m */,
+				66232E7D1AF99DFE001532BD /* UserSearchResult.h */,
+				66232E7E1AF99DFE001532BD /* UserSearchResult.m */,
+				66232E801AF9A03F001532BD /* UserSearchResultObject.h */,
+				66232E811AF9A03F001532BD /* UserSearchResultObject.m */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -798,6 +808,7 @@
 				66B07F781AAE94F0000F4B21 /* MyPostItem.m in Sources */,
 				66953AE81A79BCE200AEB78C /* AppDelegate.m in Sources */,
 				661DB0931A9D32AD00400B86 /* MyPosts.m in Sources */,
+				66232E7F1AF99DFE001532BD /* UserSearchResult.m in Sources */,
 				66AC793F1A9EA91300DDF2AE /* MyPostObject.m in Sources */,
 				66AE44711AF8AF2500B3A9FC /* Search.m in Sources */,
 				66B07F751AAE8E86000F4B21 /* MyPostLenders.m in Sources */,
@@ -806,6 +817,7 @@
 				660314481AA3038600C0F763 /* MyPostNoLenders.m in Sources */,
 				66953AE51A79BCE200AEB78C /* main.m in Sources */,
 				66953AEB1A79BCE200AEB78C /* BorrowMe.xcdatamodeld in Sources */,
+				66232E821AF9A03F001532BD /* UserSearchResultObject.m in Sources */,
 				6678BF411A7DB7720060B73A /* LoginAndSignUp.m in Sources */,
 				66B07F7B1AAE96D3000F4B21 /* MyPostLender.m in Sources */,
 				6667C6ED1AC92F34000467AC /* UserObject.m in Sources */,

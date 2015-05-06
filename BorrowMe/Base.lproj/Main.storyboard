@@ -397,9 +397,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="FLn-Rf-LcA">
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Find New Friends" id="FLn-Rf-LcA">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="tintColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
                                 <outlet property="delegate" destination="BAb-YW-rzM" id="y5t-Tw-I2x"/>
@@ -421,6 +423,29 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="7xk-Re-oBI" kind="modal" identifier="View-User-Profile" id="tFf-XO-hVG"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserSearchResult" rowHeight="75" id="0Cj-dG-mla" customClass="UserSearchResult">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Cj-dG-mla" id="NGZ-vA-SJt">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b6x-FZ-aEC">
+                                            <rect key="frame" x="23" y="13" width="50" height="50"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jzY-me-Xhj">
+                                            <rect key="frame" x="89" y="24" width="203" height="27"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                            <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="userProfileImage" destination="b6x-FZ-aEC" id="Eg3-fx-bcY"/>
+                                    <outlet property="username" destination="jzY-me-Xhj" id="dx6-ll-f47"/>
+                                    <segue destination="7xk-Re-oBI" kind="modal" identifier="View-User-Profile" id="30w-xe-jGO"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -452,7 +477,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2792" y="-1111"/>
+            <point key="canvasLocation" x="2792" y="-1113"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="L0K-Pf-Iee">
@@ -804,20 +829,20 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgl-Ob-3Z7">
-                                            <rect key="frame" x="60" y="184" width="200" height="200"/>
+                                            <rect key="frame" x="60" y="159" width="200" height="200"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Getting my posts..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57c-mx-PkG">
-                                            <rect key="frame" x="100" y="288" width="120" height="30"/>
+                                            <rect key="frame" x="100" y="263" width="120" height="30"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="13"/>
                                             <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="495.GIF" translatesAutoresizingMaskIntoConstraints="NO" id="1gW-YR-VTR">
-                                            <rect key="frame" x="145" y="250" width="30" height="30"/>
+                                            <rect key="frame" x="145" y="225" width="30" height="30"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>

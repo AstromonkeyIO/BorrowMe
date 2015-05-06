@@ -27,9 +27,22 @@
     self.gestureRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:self.gestureRecognizer];
     //self.view.backgroundColor = [UIColor whiteColor];
-
     
-    
+    /*
+    if([PFUser currentUser])
+    {
+        PFUser* currentUser = [PFUser currentUser];
+        [PFUser logInWithUsernameInBackground:currentUser.username password:currentUser.password block:^(PFUser *user,NSError *error) {
+            
+            if (user)
+            {
+                [self performSegueWithIdentifier:@"Login-Success" sender:self];
+            }
+            
+        }];
+        
+    }
+    */
     /*
     PFQuery *query = [PFQuery queryWithClassName:@"User"];
     [query fromLocalDatastore];
@@ -43,18 +56,6 @@
         return task;
     }];
     */
-    PFQuery *query = [[PFQuery queryWithClassName:@"User"]
-                       fromLocalDatastore];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (!object) {
-            // Did not find any UserStats for the current user
-            NSLog(@"not found him");
-        } else {
-            // Found UserStats
-            NSLog(@"found him");
-            
-        }
-    }];
     
     
     

@@ -360,7 +360,7 @@
         
         CALayer* loadingBoxLayer = [loadingCell.loadingBox layer];
         [loadingBoxLayer setMasksToBounds:YES];
-        [loadingBoxLayer setCornerRadius:5.0];
+        [loadingBoxLayer setCornerRadius:10.0];
         
         return loadingCell;
         

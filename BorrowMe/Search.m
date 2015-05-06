@@ -8,6 +8,8 @@
 
 #import "Search.h"
 #import "UserProfile.h"
+#import "UserSearchResult.h"
+#import "UserSearchResultObject.h"
 
 @interface Search () <UISearchDisplayDelegate>
 
@@ -48,8 +50,48 @@
 {
     
     NSLog(@"%@", searchString);
+    searchString = [searchString lowercaseString];
+    if(![searchString isEqualToString:@""])
+    {
     PFQuery *query = [PFUser query];
-    [query whereKey:@"username" equalTo: searchString];
+    [query whereKey:@"username" containsString: searchString];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray* users, NSError *error) {
+        if (users) {
+            [self.searchResults removeAllObjects];
+            
+            for(int i = 0; i < [users count]; i++)
+            {
+                
+                PFUser* user = [users objectAtIndex:i];
+                UserSearchResultObject* newUser = [[UserSearchResultObject alloc] init];
+                newUser.user = user;
+                newUser.userId = user.objectId;
+                newUser.username = user.username;
+                PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
+                NSData* profilePictureData = [profilePictureFile getData];
+                newUser.userProfileImage = [UIImage imageWithData: profilePictureData];
+                [self.searchResults addObject:newUser];
+                
+            }
+
+            [self.tableView reloadData];
+            [self.searchDisplayController.searchResultsTableView reloadData];
+        }
+        else
+        {
+            NSLog(@"failed");
+            
+        }
+    }];
+    }
+    return YES;
+    
+    
+    /*
+    NSLog(@"%@", searchString);
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"username" containsString: searchString];
 
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (object) {
@@ -58,6 +100,7 @@
             [self.searchResults removeAllObjects];
             
             //[self.searchResults addObject:user.username];
+            
             [self.searchResults addObject:user];
             [self.tableView reloadData];
             [self.searchDisplayController.searchResultsTableView reloadData];
@@ -70,8 +113,11 @@
     }];
     
     return YES;
+    */
+    
+    
 }
-
+/*
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
     NSString *searchString = searchController.searchBar.text;
@@ -98,7 +144,7 @@
     
     //[self.tableView reloadData];
 }
-
+*/
 
 #pragma mark - UITableViewDataSource
 
@@ -113,19 +159,43 @@ numberOfRowsInSection:(NSInteger)section {
     }
     NSLog(@"search results %@", self.searchResults);
     return [self.searchResults count];
-    //return 0;
+
 }
 
 // check if displaying search results
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //NSLog(@"searchedResults %@", self.searchResults);
 
+    if ([[self searchDisplayController] isActive]) {
+       UserSearchResult *cell
+        = [self.tableView dequeueReusableCellWithIdentifier:@"UserSearchResult"
+                                               forIndexPath:indexPath];
+        
+        UserSearchResultObject* userSearchResultObject = [self.searchResults objectAtIndex:indexPath.row];
+        cell.username.text = userSearchResultObject.username;
+        cell.userProfileImage.image = userSearchResultObject.userProfileImage;
+        
+        return cell;
+        
+    } else {
+        UserSearchResult *cell
+        = [self.tableView dequeueReusableCellWithIdentifier:@"UserSearchResult"
+                                               forIndexPath:indexPath];
+        
+        UserSearchResultObject* userSearchResultObject = [self.searchResults objectAtIndex:indexPath.row];
+        cell.username.text = userSearchResultObject.username;
+        cell.userProfileImage.image = userSearchResultObject.userProfileImage;
+        
+        return cell;
+        
+    }
+    
+    
+    /*
     if ([[self searchDisplayController] isActive]) {
         UITableViewCell *cell
         = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"
                                                forIndexPath:indexPath];
-        //NSString* username = [self.searchResults objectAtIndex:indexPath.row];
         PFUser* user = [self.searchResults objectAtIndex:indexPath.row];
         NSString* username = user.username;
         cell.textLabel.text = username;
@@ -136,7 +206,6 @@ numberOfRowsInSection:(NSInteger)section {
         UITableViewCell *cell
         = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"
                                                forIndexPath:indexPath];
-        //NSString* username = [self.searchResults objectAtIndex:indexPath.row];
         PFUser* user = [self.searchResults objectAtIndex:indexPath.row];
         NSString* username = user.username;
         cell.textLabel.text = username;
@@ -145,7 +214,47 @@ numberOfRowsInSection:(NSInteger)section {
         return cell;
         
     }
+    */
+    
+}
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UserSearchResultObject* userSearchResultObject = [self.searchResults objectAtIndex:indexPath.row];
+    if(userSearchResultObject.user != NULL)
+    {
+        
+        return 75;
+        
+    }
+    else
+    {
+        
+        return 75;
+        
+    }
+    
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UserSearchResult *)userSearchResult forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    UserSearchResultObject* userSearchResultObject = [self.searchResults objectAtIndex:indexPath.row];
+    
+    if(userSearchResultObject.user != NULL)
+    {
+
+        CGPoint saveCenter = userSearchResult.userProfileImage.center;
+        CGRect newFrame = CGRectMake(userSearchResult.userProfileImage.frame.origin.x, userSearchResult.userProfileImage.frame.origin.y, 50, 50);
+        userSearchResult.userProfileImage.frame = newFrame;
+        userSearchResult.userProfileImage.layer.cornerRadius = 50 / 2.0;
+        userSearchResult.userProfileImage.center = saveCenter;
+        userSearchResult.userProfileImage.clipsToBounds = YES;
+        
+    }
+    
+    
     
 }
 
@@ -168,12 +277,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if([segue.identifier isEqualToString:@"View-User-Profile"])
     {
-        
+        /*
         UserProfile* userProfile = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
         PFUser* selectedUser = [self.searchResults objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         userProfile.user = selectedUser;
         
         //postDetail.receivedPostObject = selectedPostObject;
+        */
+        UserProfile* userProfile = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
+        UserSearchResultObject* selectedUserObject = [self.searchResults objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        userProfile.user = selectedUserObject.user;
         
     }
     /*
