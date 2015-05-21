@@ -244,6 +244,8 @@
         user.email = self.signUpEmailInput.text;
         user[@"phone"] = self.signUpPhoneInput.text;
         user[@"profilePicture"] = self.signUpUserProfilePictureFile;
+        NSMutableArray* likedPosts = [[NSMutableArray alloc] init];
+        user[@"likedPosts"] = likedPosts;
         
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error)

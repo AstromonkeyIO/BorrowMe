@@ -50,7 +50,7 @@
 {
     
     NSLog(@"%@", searchString);
-    searchString = [searchString lowercaseString];
+    //searchString = [searchString lowercaseString];
     if(![searchString isEqualToString:@""])
     {
     PFQuery *query = [PFUser query];
@@ -284,9 +284,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
         //postDetail.receivedPostObject = selectedPostObject;
         */
-        UserProfile* userProfile = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
-        UserSearchResultObject* selectedUserObject = [self.searchResults objectAtIndex:self.tableView.indexPathForSelectedRow.row];
-        userProfile.user = selectedUserObject.user;
+        if ([[self searchDisplayController] isActive])
+        {
+            
+            UserProfile* userProfile = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
+            UserSearchResultObject* selectedUserObject = [self.searchResults objectAtIndex:self.searchDisplayController.searchResultsTableView.indexPathForSelectedRow.row];
+            userProfile.user = selectedUserObject.user;
+            
+        }
+        else
+        {
+        
+            UserProfile* userProfile = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
+            UserSearchResultObject* selectedUserObject = [self.searchResults objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+            userProfile.user = selectedUserObject.user;
+        
+        }
+        
         
     }
     /*
