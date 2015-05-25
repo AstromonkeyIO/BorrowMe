@@ -12,7 +12,7 @@
 #import "LoadingCell.h"
 #import "PostDetail.h"
 #import "UserProfile.h"
-
+#import "SWRevealViewController.h"
 
 @implementation MainFeed {
     
@@ -43,7 +43,14 @@
     
     [super viewDidLoad];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    SWRevealViewController *revealViewController = self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.sideBarButton setTarget: self.revealViewController];
+        [self.sideBarButton setAction: @selector( revealToggle: )];
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
+    }
     //self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed: 16.0/255.0 green: 16.0/255.0 blue:15.0/255.0 alpha: 1.0];
     //self.navigationController.navigationBar.translucent = NO;
     //self.navigationBar.tintColor = [UIColor whiteColor];

@@ -25,5 +25,6 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) PFUser* viewUser;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
 
 @end

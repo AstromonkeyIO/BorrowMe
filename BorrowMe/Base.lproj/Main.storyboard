@@ -198,12 +198,35 @@
                         <outlet property="uploadProfilePictureButton" destination="gM5-MU-AuE" id="HsD-RB-RCm"/>
                         <outlet property="userProfile" destination="TBF-ho-Nic" id="fmJ-Sb-gQX"/>
                         <outlet property="usernameInput" destination="LMu-nT-F5H" id="V5i-aJ-cwE"/>
-                        <segue destination="Vie-hm-kvU" kind="modal" identifier="Login-Success" id="7DL-oV-0jU"/>
+                        <segue destination="1no-rZ-zKc" kind="modal" identifier="Login-Success" id="Kr1-M3-Aa2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="410" y="153"/>
+        </scene>
+        <!--Feed-->
+        <scene sceneID="Sxo-rS-BkS">
+            <objects>
+                <viewController id="1no-rZ-zKc" customClass="SWRevealViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0IS-pD-IxX"/>
+                        <viewControllerLayoutGuide type="bottom" id="aB4-bI-a7N"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ayh-bK-WPh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Feed" image="newsFeedIconNew.png" id="qfD-qp-u5b"/>
+                    <connections>
+                        <segue destination="jmG-fv-zb9" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="pCj-Wu-nKx"/>
+                        <segue destination="Vie-hm-kvU" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="3cJ-xA-8GI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nbf-eR-RVb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="801" y="-580"/>
         </scene>
         <!--Feed-->
         <scene sceneID="RnN-HS-roC">
@@ -221,7 +244,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w9H-9R-flS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1270" y="-422"/>
+            <point key="canvasLocation" x="1366" y="-351"/>
         </scene>
         <!--Feed-->
         <scene sceneID="QTx-bU-KBI">
@@ -370,9 +393,6 @@
                     <navigationItem key="navigationItem" id="FsY-pL-AeJ">
                         <barButtonItem key="leftBarButtonItem" image="navBarMenuIcon.png" id="1H3-3Q-cQO">
                             <color key="tintColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="vXZ-lx-hvc" kind="modal" id="DvU-RB-bev"/>
-                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="searchPeopleIconNew.png" id="HZo-F4-pgU">
                             <color key="tintColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -382,12 +402,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="sideBarButton" destination="1H3-3Q-cQO" id="HEV-SO-F2h"/>
                         <segue destination="7xk-Re-oBI" kind="modal" identifier="View-User-Profile" id="Ozk-Ad-0kk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dry-u1-qac" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1717" y="-466"/>
+            <point key="canvasLocation" x="1810" y="-451"/>
         </scene>
         <!--Search-->
         <scene sceneID="jQb-Kr-dlJ">
@@ -478,6 +499,87 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2792" y="-1113"/>
+        </scene>
+        <!--Slide Menu-->
+        <scene sceneID="6Mg-YZ-fGE">
+            <objects>
+                <tableViewController id="jmG-fv-zb9" customClass="SlideMenu" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77" sectionHeaderHeight="22" sectionFooterHeight="22" id="VbL-SB-zZd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuItemCellUserProfile" rowHeight="92" id="Jyd-Ui-Bpg" customClass="MenuItemCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jyd-Ui-Bpg" id="2z5-1x-g1T">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gQ7-yv-Qfl">
+                                            <rect key="frame" x="20" y="18" width="55" height="55"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7za-q2-5du">
+                                            <rect key="frame" x="88" y="33" width="213" height="27"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                            <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="userProfileImage" destination="gQ7-yv-Qfl" id="0kX-nl-OZh"/>
+                                    <outlet property="usernameLabel" destination="7za-q2-5du" id="bRF-W1-PZn"/>
+                                    <segue destination="7xk-Re-oBI" kind="modal" id="jrP-0Z-40e"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuItemCellSettings" id="Cro-8G-2ca" customClass="MenuItemCell">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cro-8G-2ca" id="uoc-CK-Ekl">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ve4-pa-32h">
+                                            <rect key="frame" x="81" y="24" width="213" height="27"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                            <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingsIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="2IT-LA-6ID">
+                                            <rect key="frame" x="27" y="18" width="40" height="40"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuItemCellLogout" id="oRH-N8-cwW" customClass="MenuItemCell">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oRH-N8-cwW" id="yht-4L-vB5">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logoutIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kxv-zb-tUZ">
+                                            <rect key="frame" x="25" y="18" width="40" height="40"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Logout" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cO3-wf-IGe">
+                                            <rect key="frame" x="81" y="24" width="213" height="27"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                            <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="vXZ-lx-hvc" kind="modal" id="9Pi-NK-xPE"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="jmG-fv-zb9" id="Wti-Fj-Huh"/>
+                            <outlet property="delegate" destination="jmG-fv-zb9" id="Nih-vh-55O"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ivn-4G-DCd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1164" y="-976"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="L0K-Pf-Iee">
@@ -728,15 +830,14 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="GZf-5C-ll1" kind="relationship" relationship="viewControllers" id="KXV-Fd-xK4"/>
-                        <segue destination="MCZ-E1-SWZ" kind="relationship" relationship="viewControllers" id="Mgy-99-UJY"/>
-                        <segue destination="2w0-nI-HgY" kind="relationship" relationship="viewControllers" id="PvG-0u-iic"/>
-                        <segue destination="7c0-3y-Pdh" kind="relationship" relationship="viewControllers" id="st6-ro-6vc"/>
+                        <segue destination="GZf-5C-ll1" kind="relationship" relationship="viewControllers" id="R2X-yS-kup"/>
+                        <segue destination="MCZ-E1-SWZ" kind="relationship" relationship="viewControllers" id="Sl8-2E-4kx"/>
+                        <segue destination="2w0-nI-HgY" kind="relationship" relationship="viewControllers" id="6Zw-ol-9My"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fdM-Gj-gnt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="834" y="271"/>
+            <point key="canvasLocation" x="911" y="142"/>
         </scene>
         <!--My Posts-->
         <scene sceneID="Dlg-Nh-cRh">
@@ -1403,7 +1504,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XPI-dr-b8I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1270" y="231"/>
+            <point key="canvasLocation" x="1366" y="289"/>
         </scene>
         <!--Me-->
         <scene sceneID="sPh-Gp-08V">
@@ -2047,12 +2148,14 @@
         <image name="heartIcon.png" width="128" height="128"/>
         <image name="hourglass.png" width="256" height="256"/>
         <image name="hourglassIcon.png" width="34" height="45"/>
+        <image name="logoutIcon.png" width="64" height="64"/>
         <image name="messageIcon.png" width="64" height="64"/>
         <image name="myPostsFilesIcon.png" width="24" height="24"/>
         <image name="navBarMenuIcon.png" width="24" height="24"/>
         <image name="newsFeedIconNew.png" width="24" height="24"/>
         <image name="noteIcon.png" width="128" height="128"/>
         <image name="searchPeopleIconNew.png" width="24" height="24"/>
+        <image name="settingsIcon.png" width="128" height="128"/>
         <image name="userProfileIconNew.png" width="24" height="24"/>
         <image name="xButtonIconNew.png" width="64" height="64"/>
     </resources>
@@ -2062,7 +2165,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="tFf-XO-hVG"/>
-        <segue reference="VHu-2J-4Nu"/>
+        <segue reference="jrP-0Z-40e"/>
+        <segue reference="kgh-b9-K6U"/>
     </inferredMetricsTieBreakers>
 </document>
