@@ -335,7 +335,7 @@
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hourglassIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="b6l-6X-JKN">
-                                            <rect key="frame" x="255" y="122" width="10" height="14"/>
+                                            <rect key="frame" x="258" y="124" width="7" height="10"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
@@ -543,8 +543,8 @@
                                             <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingsIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="2IT-LA-6ID">
-                                            <rect key="frame" x="27" y="18" width="40" height="40"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="equalizer.png" translatesAutoresizingMaskIntoConstraints="NO" id="2IT-LA-6ID">
+                                            <rect key="frame" x="34" y="25" width="25" height="25"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
@@ -555,15 +555,15 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oRH-N8-cwW" id="yht-4L-vB5">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logoutIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kxv-zb-tUZ">
-                                            <rect key="frame" x="25" y="18" width="40" height="40"/>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Logout" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cO3-wf-IGe">
                                             <rect key="frame" x="81" y="24" width="213" height="27"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                             <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="enter.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kxv-zb-tUZ">
+                                            <rect key="frame" x="30" y="25" width="25" height="25"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -699,8 +699,8 @@
                                                 <action selector="heartButtonPressed:" destination="bx9-Lk-rlx" eventType="touchUpInside" id="F2B-0y-ecW"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hourglass.png" translatesAutoresizingMaskIntoConstraints="NO" id="vQr-Nb-W2P">
-                                            <rect key="frame" x="252" y="124" width="12" height="12"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hourglassIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="vQr-Nb-W2P">
+                                            <rect key="frame" x="256" y="125" width="7" height="10"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
@@ -817,7 +817,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ven-9d-80H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2792" y="-505"/>
+            <point key="canvasLocation" x="2792" y="-509"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="fDm-bq-icj">
@@ -2144,18 +2144,17 @@
         <image name="cameraIcon2.png" width="128" height="128"/>
         <image name="clock2.png" width="32" height="32"/>
         <image name="distanceIcon.png" width="32" height="32"/>
+        <image name="enter.png" width="32" height="32"/>
         <image name="envelopIcon.png" width="24" height="24"/>
+        <image name="equalizer.png" width="32" height="32"/>
         <image name="heartIcon.png" width="128" height="128"/>
-        <image name="hourglass.png" width="256" height="256"/>
         <image name="hourglassIcon.png" width="34" height="45"/>
-        <image name="logoutIcon.png" width="64" height="64"/>
         <image name="messageIcon.png" width="64" height="64"/>
         <image name="myPostsFilesIcon.png" width="24" height="24"/>
         <image name="navBarMenuIcon.png" width="24" height="24"/>
         <image name="newsFeedIconNew.png" width="24" height="24"/>
         <image name="noteIcon.png" width="128" height="128"/>
         <image name="searchPeopleIconNew.png" width="24" height="24"/>
-        <image name="settingsIcon.png" width="128" height="128"/>
         <image name="userProfileIconNew.png" width="24" height="24"/>
         <image name="xButtonIconNew.png" width="64" height="64"/>
     </resources>
@@ -2165,7 +2164,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="jrP-0Z-40e"/>
-        <segue reference="kgh-b9-K6U"/>
+        <segue reference="kr3-bD-Acl"/>
+        <segue reference="VHu-2J-4Nu"/>
     </inferredMetricsTieBreakers>
 </document>
