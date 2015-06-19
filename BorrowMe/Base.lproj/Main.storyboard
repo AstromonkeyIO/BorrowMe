@@ -257,33 +257,59 @@
                         <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexTrackingBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderCell" rowHeight="30" id="EFO-34-atb" customClass="HeaderCell">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EFO-34-atb" id="kJV-ne-iMy">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NNe-4h-PTM">
+                                            <rect key="frame" x="8" y="16" width="136" height="20"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                            <state key="normal" title="Lend">
+                                                <color key="titleColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eJ-aD-aVn">
+                                            <rect key="frame" x="176" y="16" width="136" height="20"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                            <state key="normal" title="Borrow">
+                                                <color key="titleColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.40000000596046448" green="1" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post" rowHeight="160" id="RoY-hm-jSL" customClass="Post">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RoY-hm-jSL" id="kB8-mI-ldv">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yre-h0-rU9">
-                                            <rect key="frame" x="10" y="8" width="300" height="140"/>
+                                            <rect key="frame" x="10" y="12" width="300" height="140"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RsA-jA-mYG">
-                                            <rect key="frame" x="30" y="25" width="60" height="60"/>
+                                            <rect key="frame" x="30" y="29" width="60" height="60"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="is looking to borrow" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XNU-yL-siP">
-                                            <rect key="frame" x="98" y="48" width="193" height="16"/>
+                                            <rect key="frame" x="98" y="52" width="103" height="16"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="11"/>
-                                            <color key="textColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBF-zX-Dvd">
-                                            <rect key="frame" x="98" y="25" width="144" height="27"/>
+                                            <rect key="frame" x="98" y="29" width="144" height="27"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                             <state key="normal" title="Button">
-                                                <color key="titleColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -291,7 +317,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vz9-w7-5eh">
-                                            <rect key="frame" x="120" y="101" width="81" height="32"/>
+                                            <rect key="frame" x="120" y="105" width="81" height="32"/>
                                             <color key="backgroundColor" red="0.40000000000000002" green="0.80000000000000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
                                             <state key="normal" title="Help!">
@@ -304,29 +330,29 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXf-6M-rnV">
-                                            <rect key="frame" x="273" y="118" width="29" height="21"/>
+                                            <rect key="frame" x="273" y="122" width="29" height="21"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgk-rb-mDT">
-                                            <rect key="frame" x="98" y="61" width="184" height="24"/>
+                                            <rect key="frame" x="98" y="65" width="184" height="24"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                            <color key="textColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McH-on-CVR">
-                                            <rect key="frame" x="221" y="18" width="42" height="23"/>
+                                            <rect key="frame" x="221" y="22" width="42" height="23"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                             <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heartIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="sZy-9y-wj2">
-                                            <rect key="frame" x="266" y="16" width="30" height="30"/>
+                                            <rect key="frame" x="266" y="20" width="30" height="30"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZcX-2r-y0d">
-                                            <rect key="frame" x="232" y="8" width="78" height="37"/>
+                                            <rect key="frame" x="232" y="12" width="78" height="37"/>
                                             <state key="normal">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -335,11 +361,11 @@
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hourglassIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="b6l-6X-JKN">
-                                            <rect key="frame" x="258" y="124" width="7" height="10"/>
+                                            <rect key="frame" x="258" y="128" width="7" height="10"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="deadline" destination="aXf-6M-rnV" id="Uqf-AI-4bd"/>
@@ -351,6 +377,31 @@
                                     <outlet property="profilePicture" destination="RsA-jA-mYG" id="LOX-C6-Uvj"/>
                                     <outlet property="username" destination="jBF-zX-Dvd" id="KGJ-ze-qcE"/>
                                     <segue destination="kXi-4K-m6V" kind="modal" identifier="GoToPostDetail" id="1MB-sk-s0T"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Item" id="k8f-o5-HvX" customClass="ItemsCell">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k8f-o5-HvX" id="tk6-mj-YcG">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kW6-PM-nAL">
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfq-72-tIW">
+                                            <rect key="frame" x="160" y="0.0" width="160" height="160"/>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="leftItemImageButton" destination="kW6-PM-nAL" id="aLb-kM-Cpb"/>
+                                    <outlet property="rightItemImageButton" destination="Mfq-72-tIW" id="QdT-iT-Kgk"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoadingCell" rowHeight="568" id="P9G-RZ-beY" customClass="LoadingCell">
@@ -391,9 +442,22 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Feed" id="AKv-n8-ZWS"/>
                     <navigationItem key="navigationItem" id="FsY-pL-AeJ">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="navBarMenuIcon.png" id="1H3-3Q-cQO">
                             <color key="tintColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="bQM-0z-0pC">
+                            <rect key="frame" x="96" y="7" width="128" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="First"/>
+                                <segment title="Second"/>
+                            </segments>
+                            <color key="tintColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="navBarSegmentedControlValueChanged:" destination="ZpA-g3-sxc" eventType="valueChanged" id="4tj-bp-rYb"/>
+                            </connections>
+                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="searchPeopleIconNew.png" id="HZo-F4-pgU">
                             <color key="tintColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -402,6 +466,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="navBarSegmentedControl" destination="bQM-0z-0pC" id="IKF-Mh-0oN"/>
                         <outlet property="sideBarButton" destination="1H3-3Q-cQO" id="HEV-SO-F2h"/>
                         <segue destination="7xk-Re-oBI" kind="modal" identifier="View-User-Profile" id="Ozk-Ad-0kk"/>
                     </connections>
@@ -437,7 +502,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Pi8-ha-RSb">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -2164,7 +2229,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="kr3-bD-Acl"/>
-        <segue reference="VHu-2J-4Nu"/>
+        <segue reference="Ozk-Ad-0kk"/>
+        <segue reference="kgh-b9-K6U"/>
     </inferredMetricsTieBreakers>
 </document>

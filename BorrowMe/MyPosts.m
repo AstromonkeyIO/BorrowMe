@@ -30,7 +30,6 @@
 {
     [super viewWillAppear:animated];
     self.currentUser = [PFUser currentUser];
-    
     //NSLog(@"%@", self.currentUser);
     //[self pullFromDatabase];
     //[self.tableView reloadData];
@@ -72,7 +71,7 @@
 {
   
     NSLog(@"I'm in pull from db");
-  
+    self.tableView.scrollEnabled = NO;
     MyPostObject* loadingCell = [[MyPostObject alloc] init];
     [self.myPosts addObject:loadingCell];
     
@@ -261,6 +260,7 @@
             dispatch_async(dispatch_get_main_queue(), ^ {
                 [self.tableView reloadData];
                 [self.refreshControl endRefreshing];
+                self.tableView.scrollEnabled = YES;
             });
             
         }

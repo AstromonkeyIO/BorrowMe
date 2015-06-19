@@ -7,12 +7,14 @@
 //
 
 #import "MainFeed.h"
+#import "HeaderCell.h"
 #import "Post.h"
 #import "RespondToPost.h"
 #import "LoadingCell.h"
 #import "PostDetail.h"
 #import "UserProfile.h"
 #import "SWRevealViewController.h"
+#import "ItemsObject.h"
 
 @implementation MainFeed {
     
@@ -34,6 +36,7 @@
 {
     
     [super viewWillAppear:animated];
+
     self.currentUser = [PFUser currentUser];
     
 }
@@ -51,6 +54,11 @@
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     }
+    
+    [self.navBarSegmentedControl setTitle:@"Lend"forSegmentAtIndex:0];
+    [self.navBarSegmentedControl setTitle:@"Borrow"forSegmentAtIndex:1];
+    [self.navBarSegmentedControl setSelectedSegmentIndex:0];
+    
     //self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed: 16.0/255.0 green: 16.0/255.0 blue:15.0/255.0 alpha: 1.0];
     //self.navigationController.navigationBar.translucent = NO;
     //self.navigationBar.tintColor = [UIColor whiteColor];
@@ -82,36 +90,33 @@
     PostObject* postObject = [[PostObject alloc] init];
     [self.posts addObject: postObject];
     
+    self.items = [[NSMutableArray alloc] init];
+    
     //[self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     self.view.backgroundColor = [UIColor whiteColor];
-    //self.view.backgroundColor = [UIColor colorWithRed: 135.0/255.0 green: 206.0/255.0 blue:250.0/255.0 alpha: 1.0];
+    //self.view.backgroundColor = [UIColor colorWithRed: 135.0/255.0 green: 206.0/255.0 blue:250.0/255.0 alpha: 0.5];
 
-    
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletePost:) name:@"DeletePost" object:nil];
-    
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(directToUserProfile:) name:@"DisplayUserProfile" object:nil];
     
-
     //self.navigationItem.title = @"Navers";
     //_scoreLabel.backgroundColor = [UIColor redColor];
     //_scoreLabel.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:(36.0)];
     
     //self.hidesBottomBarWhenPushed = YES;
     
-    //self.view.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 0.5];
+    //self.view.backgroundColor = [UIColor colorWithRed: 203.0/255.0 green: 238.0/255.0 blue:248.0/255.0 alpha: 1.0];
+    //self.view.backgroundColor = [UIColor colorWithRed: 186.0/255.0 green: 232.0/255.0 blue:245.0/255.0 alpha: 1.0];
+    self.view.backgroundColor = [UIColor colorWithRed: 169.0/255.0 green: 226.0/255.0 blue:243.0/255.0 alpha: 1.0];
     
 }
 
 - (void) pullFromDatabase
 {
     NSLog(@"zipcode !!!!!!   %@", zipCode);
-    
+    self.tableView.scrollEnabled = NO;
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     [query whereKey:@"zipcode" equalTo:self.currentUser[@"currentZipcode"]];
     [query orderByDescending:@"createdAt"];
@@ -271,13 +276,12 @@
                 
                 }
                 
-
-                
             }
             //NSLog(@"posts array %@", self.posts);
             dispatch_async(dispatch_get_main_queue(), ^ {
                 [self.tableView reloadData];
                 [self.refreshControl endRefreshing];
+                self.tableView.scrollEnabled = YES;
             });
             
         } else {
@@ -289,13 +293,104 @@
     
 }
 
+- (void) pullItemsFromDatabase
+{
+    
+    PFQuery *queryItemsFromDatabase = [PFQuery queryWithClassName:@"Items"];
+    //[query whereKey:@"zipcode" equalTo:self.currentUser[@"currentZipcode"]];
+    [queryItemsFromDatabase orderByDescending:@"createdAt"];
+    //[query includeKey:@"User"];
+    [queryItemsFromDatabase findObjectsInBackgroundWithBlock:^(NSArray *items, NSError *error)
+    {
+        NSLog(@"hereeeee");
+        if (!error)
+        {
+            
+            if([self.items count] != 0)
+            {
+                
+                [self.items removeAllObjects];
+
+                for (int i = 0; i < [self.items count]; i = i + 2)
+                {
+                
+                    int tempIndex = i;
+                    if([self.items objectAtIndex:tempIndex])
+                    {
+                        
+                        ItemsObject* itemsObject = [[ItemsObject alloc] init];
+                        PFFile* itemImageFile = [[self.items objectAtIndex:tempIndex] valueForKey:@"itemImage"];
+                        NSData* itemImageData = [itemImageFile getData];
+                        itemsObject.leftItemImage = [UIImage imageWithData: itemImageData];
+                        
+                        if([self.items objectAtIndex:tempIndex++])
+                        {
+ 
+                            PFFile* itemImageFile = [[self.items objectAtIndex:tempIndex] valueForKey:@"itemImage"];
+                            NSData* itemImageData = [itemImageFile getData];
+                            itemsObject.rightItemImage = [UIImage imageWithData: itemImageData];
+                            
+                            [self.items addObject:itemsObject];
+                            
+                        }
+                        else
+                        {
+                            
+                            [self.items addObject:itemsObject];
+                            break;
+                            
+                        }
+                        
+                    }
+                    else
+                    {
+                        
+                        break;
+                        
+                    }
+            
+                }
+                
+            }
+            
+        }
+        else
+        {
+            
+            
+            
+        }
+        
+    }];
+    
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+/*
 #pragma mark - Table view data source
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    
+    return 30.0;
+    
+}
+
+
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    // 1. Dequeue the custom header cell
+    HeaderCell* headerCell = [tableView dequeueReusableCellWithIdentifier:@"HeaderCell"];
+    // 3. And return
+    return headerCell;
+    
+}
+*/
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -313,7 +408,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+
     PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
     if(postObject.user == NULL)
     {
@@ -341,7 +436,8 @@
     {
     
     Post* post = [tableView dequeueReusableCellWithIdentifier:@"Post" forIndexPath:indexPath];
-    
+    post.backgroundColor = [UIColor clearColor];
+        
     post.index = indexPath.row;
     
     PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
@@ -657,6 +753,27 @@
 {
 
 }
+
+- (IBAction)navBarSegmentedControlValueChanged:(id)sender
+{
+    
+    if(self.navBarSegmentedControl.selectedSegmentIndex == 1)
+    {
+
+        [self pullItemsFromDatabase];
+        NSLog(@"yoooo  %@", self.items);
+        
+    }
+    else if(self.navBarSegmentedControl.selectedSegmentIndex == 0)
+    {
+
+        
+        
+        
+    }
+    
+}
+
 
 
 /*

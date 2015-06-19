@@ -19,6 +19,7 @@
 
 @property (strong, nonatomic) PFUser* currentUser;
 @property (strong, nonatomic) NSMutableArray* posts;
+@property (strong, nonatomic) NSMutableArray* items;
 @property (strong, nonatomic) UINavigationBar* navBar;
 @property (assign, nonatomic) NSInteger index;
 @property (strong, nonatomic) CLLocation* currentLocation;
@@ -26,5 +27,6 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) PFUser* viewUser;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *navBarSegmentedControl;
 
 @end

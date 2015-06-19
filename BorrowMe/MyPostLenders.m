@@ -29,6 +29,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    
     [super viewWillAppear:animated];
     self.currentUser = [PFUser currentUser];
     
@@ -73,9 +74,9 @@
 - (void) pullFromDatabase
 {
     
+    self.tableView.scrollEnabled = NO;
     PFQuery* queryResponses = [[self.receivedMyPostObject.myPostPFObject relationForKey:@"responses"] query];
     [queryResponses orderByDescending:@"createdAt"];
-    
     //NSLog(@"responses %@", queryResponses);
     [queryResponses findObjectsInBackgroundWithBlock:^(NSArray *responses, NSError *error) {
         
@@ -122,7 +123,14 @@
             dispatch_async(dispatch_get_main_queue(), ^ {
                 [self.tableView reloadData];
                 [self.refreshControl endRefreshing];
+                self.tableView.scrollEnabled = YES;
             });
+            
+        }
+        else
+        {
+            
+            self.tableView.scrollEnabled = YES;
             
         }
         

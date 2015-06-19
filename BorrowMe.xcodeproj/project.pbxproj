@@ -35,6 +35,9 @@
 		6662DEB91AE4EABA00917B65 /* messageIconNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 6662DEB81AE4EABA00917B65 /* messageIconNew.png */; };
 		6662DEBB1AE4EBF800917B65 /* xButtonIconNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 6662DEBA1AE4EBF800917B65 /* xButtonIconNew.png */; };
 		6663A8351AC4C90A002C5EE2 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6663A8341AC4C90A002C5EE2 /* UserProfile.m */; };
+		6666C90F1B34AE3B008F9E66 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6666C90E1B34AE3B008F9E66 /* HeaderCell.m */; };
+		6666C9121B34B9FF008F9E66 /* ItemsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6666C9111B34B9FF008F9E66 /* ItemsCell.m */; };
+		6666C9151B34C00A008F9E66 /* ItemsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6666C9141B34C00A008F9E66 /* ItemsObject.m */; };
 		666720271ADDD316004D59A6 /* backbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 666720261ADDD316004D59A6 /* backbutton.png */; };
 		6667C6DE1AC7BAF5000467AC /* camera icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6667C6DD1AC7BAF5000467AC /* camera icon2.png */; };
 		6667C6E41AC92A32000467AC /* ReviewObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667C6E31AC92A32000467AC /* ReviewObject.m */; };
@@ -189,6 +192,12 @@
 		6662DEBA1AE4EBF800917B65 /* xButtonIconNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xButtonIconNew.png; sourceTree = "<group>"; };
 		6663A8331AC4C90A002C5EE2 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
 		6663A8341AC4C90A002C5EE2 /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile.m; sourceTree = "<group>"; };
+		6666C90D1B34AE3B008F9E66 /* HeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderCell.h; sourceTree = "<group>"; };
+		6666C90E1B34AE3B008F9E66 /* HeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderCell.m; sourceTree = "<group>"; };
+		6666C9101B34B9FF008F9E66 /* ItemsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsCell.h; sourceTree = "<group>"; };
+		6666C9111B34B9FF008F9E66 /* ItemsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsCell.m; sourceTree = "<group>"; };
+		6666C9131B34C00A008F9E66 /* ItemsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsObject.h; sourceTree = "<group>"; };
+		6666C9141B34C00A008F9E66 /* ItemsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsObject.m; sourceTree = "<group>"; };
 		666720261ADDD316004D59A6 /* backbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backbutton.png; sourceTree = "<group>"; };
 		6667C6DD1AC7BAF5000467AC /* camera icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera icon2.png"; sourceTree = "<group>"; };
 		6667C6E21AC92A32000467AC /* ReviewObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewObject.h; sourceTree = "<group>"; };
@@ -670,6 +679,12 @@
 				66F4C3381A7F3389001B97AA /* Post.m */,
 				664CAE751A88B0E600E3E929 /* PostObject.h */,
 				664CAE761A88B0E600E3E929 /* PostObject.m */,
+				6666C9131B34C00A008F9E66 /* ItemsObject.h */,
+				6666C9141B34C00A008F9E66 /* ItemsObject.m */,
+				6666C90D1B34AE3B008F9E66 /* HeaderCell.h */,
+				6666C90E1B34AE3B008F9E66 /* HeaderCell.m */,
+				6666C9101B34B9FF008F9E66 /* ItemsCell.h */,
+				6666C9111B34B9FF008F9E66 /* ItemsCell.m */,
 			);
 			name = MainFeed;
 			sourceTree = "<group>";
@@ -860,6 +875,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6666C90F1B34AE3B008F9E66 /* HeaderCell.m in Sources */,
 				66F4C3361A7F1866001B97AA /* MainFeed.m in Sources */,
 				66F24A9F1AE22F5E00DEC153 /* AboutPost.m in Sources */,
 				66F4C3391A7F3389001B97AA /* Post.m in Sources */,
@@ -887,11 +903,13 @@
 				660314481AA3038600C0F763 /* MyPostNoLenders.m in Sources */,
 				66953AE51A79BCE200AEB78C /* main.m in Sources */,
 				66953AEB1A79BCE200AEB78C /* BorrowMe.xcdatamodeld in Sources */,
+				6666C9121B34B9FF008F9E66 /* ItemsCell.m in Sources */,
 				66232E821AF9A03F001532BD /* UserSearchResultObject.m in Sources */,
 				6678BF411A7DB7720060B73A /* LoginAndSignUp.m in Sources */,
 				66B07F7B1AAE96D3000F4B21 /* MyPostLender.m in Sources */,
 				6667C6ED1AC92F34000467AC /* UserObject.m in Sources */,
 				6667C6EA1AC92A6C000467AC /* UserCell.m in Sources */,
+				6666C9151B34C00A008F9E66 /* ItemsObject.m in Sources */,
 				66EB23121ADB42EF004CDE69 /* LoadingCell.m in Sources */,
 				6667C6E41AC92A32000467AC /* ReviewObject.m in Sources */,
 			);
