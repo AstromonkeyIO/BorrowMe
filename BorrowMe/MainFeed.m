@@ -15,6 +15,7 @@
 #import "UserProfile.h"
 #import "SWRevealViewController.h"
 #import "ItemsObject.h"
+#import "ItemsCell.h"
 
 @implementation MainFeed {
     
@@ -88,6 +89,7 @@
     
     self.posts = [[NSMutableArray alloc] init];
     PostObject* postObject = [[PostObject alloc] init];
+    postObject.type = @"post";
     [self.posts addObject: postObject];
     
     self.items = [[NSMutableArray alloc] init];
@@ -138,10 +140,15 @@
                 //NSLog(@"%@", user);
                 
                 PostObject* postObject = [[PostObject alloc] init];
+                postObject.type = @"post";
+                postObject.user = user;
+                postObject.item = [post valueForKey:@"item"];
+                postObject.post = post;
+                /*
                 [postObject setUserObject:user];
                 [postObject setItemObject: [post valueForKey:@"item"]];
                 [postObject setPostObject: post];
-                
+                */
                 PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
                 NSData* profilePictureData = [profilePictureFile getData];
                 postObject.userProfileImage = [UIImage imageWithData: profilePictureData];
@@ -311,22 +318,23 @@
                 
                 [self.items removeAllObjects];
 
-                for (int i = 0; i < [self.items count]; i = i + 2)
+                for (int i = 0; i < [items count]; i = i + 2)
                 {
                 
                     int tempIndex = i;
-                    if([self.items objectAtIndex:tempIndex])
+                    if([items objectAtIndex:tempIndex])
                     {
                         
                         ItemsObject* itemsObject = [[ItemsObject alloc] init];
-                        PFFile* itemImageFile = [[self.items objectAtIndex:tempIndex] valueForKey:@"itemImage"];
+                        itemsObject.type = @"items";
+                        PFFile* itemImageFile = [[items objectAtIndex:tempIndex] valueForKey:@"itemImage"];
                         NSData* itemImageData = [itemImageFile getData];
                         itemsObject.leftItemImage = [UIImage imageWithData: itemImageData];
                         
-                        if([self.items objectAtIndex:tempIndex++])
+                        if([items objectAtIndex:tempIndex++])
                         {
  
-                            PFFile* itemImageFile = [[self.items objectAtIndex:tempIndex] valueForKey:@"itemImage"];
+                            PFFile* itemImageFile = [[items objectAtIndex:tempIndex] valueForKey:@"itemImage"];
                             NSData* itemImageData = [itemImageFile getData];
                             itemsObject.rightItemImage = [UIImage imageWithData: itemImageData];
                             
@@ -350,6 +358,12 @@
                     }
             
                 }
+                
+                
+                self.posts = self.items;
+                [self.tableView reloadData];
+                NSLog(@"yoo");
+                
                 
             }
             
@@ -409,8 +423,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
-    if(postObject.user == NULL)
+    //PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
+
+    
+    //if(postObject.user == NULL)
+    
+    if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"post"])
+    {
+    
+    if([[self.posts objectAtIndex:indexPath.row] valueForKey:@"user"] == NULL)
     {
     
         LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
@@ -474,6 +495,32 @@
     post.deadline.text = postObject.deadline;
     
     return post;
+        
+    }
+    
+    }
+    /*
+    else if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"items"])
+    {
+    
+        ItemsCell* itemsCell = [tableView dequeueReusableCellWithIdentifier:@"ItemsCell" forIndexPath:indexPath];
+        //post.index = indexPath.row;
+        
+        //PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
+        //post.item.text = [[self.posts objectAtIndex:indexPath.row] getItem];
+        
+        ItemsObject* itemsObject = [self.posts objectAtIndex:indexPath.row];
+        itemsCell.leftItemImageButton.imageView.image = itemsObject.leftItemImage;
+        itemsCell.rightItemImageButton.imageView.image = itemsObject.rightItemImage;
+        
+        return itemsCell;
+
+    }
+    */
+    else
+    {
+        
+        return NULL;
         
     }
 

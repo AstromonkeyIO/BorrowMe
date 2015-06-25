@@ -379,7 +379,7 @@
                                     <segue destination="kXi-4K-m6V" kind="modal" identifier="GoToPostDetail" id="1MB-sk-s0T"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Item" id="k8f-o5-HvX" customClass="ItemsCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemsCell" id="k8f-o5-HvX" customClass="ItemsCell">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k8f-o5-HvX" id="tk6-mj-YcG">
