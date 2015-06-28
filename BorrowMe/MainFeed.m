@@ -88,9 +88,10 @@
     NSLog(@"current user %@", self.currentUser);
     
     self.posts = [[NSMutableArray alloc] init];
-    PostObject* postObject = [[PostObject alloc] init];
-    postObject.type = @"post";
-    [self.posts addObject: postObject];
+    PostObject* loadingCell = [[PostObject alloc] init];
+    //postObject.type = @"post";
+    loadingCell.type = @"loadingCell";
+    [self.posts addObject: loadingCell];
     
     self.items = [[NSMutableArray alloc] init];
     
@@ -309,7 +310,7 @@
     //[query includeKey:@"User"];
     [queryItemsFromDatabase findObjectsInBackgroundWithBlock:^(NSArray *items, NSError *error)
     {
-        NSLog(@"hereeeee");
+        NSLog(@"hereeeee %@", items);
         if (!error)
         {
             
@@ -317,64 +318,82 @@
             {
                 
                 [self.items removeAllObjects];
-
-                for (int i = 0; i < [items count]; i = i + 2)
-                {
                 
-                    int tempIndex = i;
-                    if([items objectAtIndex:tempIndex])
+            }
+            
+            for (int i = 0; i < [items count]; i = i + 2)
+            {
+                
+                int tempIndex = i;
+                if([items objectAtIndex:tempIndex])
+                {
+                    
+                    NSLog(@"I'm heree");
+                    ItemsObject* itemsObject = [[ItemsObject alloc] init];
+                    itemsObject.type = @"items";
+                    PFFile* itemImageFile = [[items objectAtIndex:tempIndex] valueForKey:@"itemImage"];
+                    NSData* itemImageData = [itemImageFile getData];
+                    itemsObject.leftItemImage = [UIImage imageWithData: itemImageData];
+                    NSLog(@"left image %@", itemsObject.leftItemImage);
+                    [self.items addObject:itemsObject];
+                    //self.posts = self.items;
+                    /*
+                    [self.posts removeAllObjects];
+                    [self.posts addObjectsFromArray:self.items];
+                    
+                    [self.tableView reloadData];
+                    */
+                    tempIndex += 1;
+                    NSLog(@"tempIndex %d", tempIndex);
+                    if([items objectAtIndex:tempIndex] != NULL)
                     {
+
+                        NSLog(@"I'm heree2");
+                        PFObject* itemPFObject = [items objectAtIndex:tempIndex];
+                        NSLog(@"itemPFObject %@", itemPFObject);
+                        PFFile* itemImageFile = itemPFObject[@"itemImage"];
                         
-                        ItemsObject* itemsObject = [[ItemsObject alloc] init];
-                        itemsObject.type = @"items";
-                        PFFile* itemImageFile = [[items objectAtIndex:tempIndex] valueForKey:@"itemImage"];
+                        NSLog(@"I'm heree3");
                         NSData* itemImageData = [itemImageFile getData];
-                        itemsObject.leftItemImage = [UIImage imageWithData: itemImageData];
+                        itemsObject.rightItemImage = [UIImage imageWithData: itemImageData];
                         
-                        if([items objectAtIndex:tempIndex++])
-                        {
- 
-                            PFFile* itemImageFile = [[items objectAtIndex:tempIndex] valueForKey:@"itemImage"];
-                            NSData* itemImageData = [itemImageFile getData];
-                            itemsObject.rightItemImage = [UIImage imageWithData: itemImageData];
-                            
-                            [self.items addObject:itemsObject];
-                            
-                        }
-                        else
-                        {
-                            
-                            [self.items addObject:itemsObject];
-                            break;
-                            
-                        }
+                        [self.items addObject:itemsObject];
+                        //self.posts = self.items;
+                        [self.posts removeAllObjects];
+                        [self.posts addObjectsFromArray:self.items];
+  
+                        [self.tableView reloadData];
+                        
+                        NSLog(@"yoo");
                         
                     }
                     else
                     {
                         
+                         NSLog(@"else");
+                        [self.posts removeAllObjects];
+                        [self.posts addObjectsFromArray:self.items];
+                        [self.tableView reloadData];
                         break;
                         
                     }
-            
+                    
                 }
-                
-                
-                self.posts = self.items;
-                [self.tableView reloadData];
-                NSLog(@"yoo");
-                
-                
+                else
+                {
+                    
+                    break;
+                    
+                }
+        
             }
             
+            [self.posts removeAllObjects];
+            [self.posts addObjectsFromArray:self.items];
+            [self.tableView reloadData];
+            
+            
         }
-        else
-        {
-            
-            
-            
-        }
-        
     }];
     
 }
@@ -423,17 +442,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    //PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
 
-    
-    //if(postObject.user == NULL)
-    
-    if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"post"])
+    if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"loadingCell"])
     {
-    
-    if([[self.posts objectAtIndex:indexPath.row] valueForKey:@"user"] == NULL)
-    {
-    
+        
         LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
         loadingCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -453,53 +465,49 @@
         return loadingCell;
         
     }
-    else
+    else if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"post"])
     {
-    
-    Post* post = [tableView dequeueReusableCellWithIdentifier:@"Post" forIndexPath:indexPath];
-    post.backgroundColor = [UIColor clearColor];
+
+        Post* post = [tableView dequeueReusableCellWithIdentifier:@"Post" forIndexPath:indexPath];
+        post.backgroundColor = [UIColor clearColor];
+            
+        post.index = indexPath.row;
         
-    post.index = indexPath.row;
-    
-    PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
-    post.item.text = [[self.posts objectAtIndex:indexPath.row] getItem];
-    
-    PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
-    post.profilePicture.image = postObject.userProfileImage;
-    
-    post.postPFObject = postObject.post;
+        PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
+        post.item.text = [[self.posts objectAtIndex:indexPath.row] getItem];
         
-    
-    post.postId = [postObject.post valueForKey:@"id"];
-    
-    NSString* buttonTitle = [NSString stringWithFormat:@"%@", [user valueForKey:@"username"]];
-    [post.username setTitle: buttonTitle forState: UIControlStateNormal];
-    if([postObject.post valueForKey:@"likes"] == NULL)
-    {
+        PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
+        post.profilePicture.image = postObject.userProfileImage;
         
-        post.heartCount.text = @"0";
+        post.postPFObject = postObject.post;
         
-    }
-    else
-    {
-        if(postObject.alreadyLiked == true)
+        post.postId = [postObject.post valueForKey:@"id"];
+        
+        NSString* buttonTitle = [NSString stringWithFormat:@"%@", [user valueForKey:@"username"]];
+        [post.username setTitle: buttonTitle forState: UIControlStateNormal];
+        if([postObject.post valueForKey:@"likes"] == NULL)
         {
             
-            post.heartImage.image = [post.heartImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-            [post.heartImage setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+            post.heartCount.text = @"0";
             
         }
-        post.heartCount.text = [NSString stringWithFormat:@"%@", [postObject.post valueForKey:@"likes"]];
+        else
+        {
+            if(postObject.alreadyLiked == true)
+            {
+                
+                post.heartImage.image = [post.heartImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                [post.heartImage setTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0]];
+                
+            }
+            post.heartCount.text = [NSString stringWithFormat:@"%@", [postObject.post valueForKey:@"likes"]];
+            
+        }
+        post.deadline.text = postObject.deadline;
         
+        return post;
+            
     }
-    post.deadline.text = postObject.deadline;
-    
-    return post;
-        
-    }
-    
-    }
-    /*
     else if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"items"])
     {
     
@@ -510,13 +518,14 @@
         //post.item.text = [[self.posts objectAtIndex:indexPath.row] getItem];
         
         ItemsObject* itemsObject = [self.posts objectAtIndex:indexPath.row];
-        itemsCell.leftItemImageButton.imageView.image = itemsObject.leftItemImage;
-        itemsCell.rightItemImageButton.imageView.image = itemsObject.rightItemImage;
+        //itemsCell.leftItemImageButton.imageView.image = itemsObject.leftItemImage;
+        [itemsCell.leftItemImageButton setBackgroundImage:itemsObject.leftItemImage forState:UIControlStateNormal];
+        NSLog(@"leftItemImage %@", itemsCell.leftItemImageButton.imageView.image);
+        //itemsCell.rightItemImageButton.imageView.image = itemsObject.rightItemImage;
         
         return itemsCell;
 
     }
-    */
     else
     {
         
@@ -529,15 +538,9 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(Post *)post forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
-    if(postObject.user != NULL)
+    if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"post"])
     {
-        /*
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectZero];
-        backView.backgroundColor = [UIColor clearColor];
-        post.backgroundView = backView;
-        post.backgroundColor = [UIColor clearColor];
-        */
+
         CALayer * postBubbleLayer = [post.postBubble layer];
         [postBubbleLayer setMasksToBounds:YES];
         [postBubbleLayer setCornerRadius:5.0];
@@ -555,23 +558,33 @@
     
     }
     
-    
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
-    if(postObject.user == NULL)
+
+    if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"loadingCell"])
     {
         
         return 568;
-    
+        
+    }
+    else if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"post"])
+    {
+     
+        return 160;
+        
+    }
+    else if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"items"])
+    {
+        
+        return 160;
+        
     }
     else
     {
         
-        return 160;
+        return 0;
         
     }
 
@@ -617,15 +630,11 @@
  }
  */
 
-- (void) help {
-    
-}
-
-- (void) getIndexOfHelpedPost:(NSNotification*) notification {
+- (void) getIndexOfHelpedPost:(NSNotification*) notification
+{
     
     self.index = [notification.userInfo[@"index"] integerValue];
-    
-    
+
 }
 
 - (void)directToUserProfile: (NSNotification*) notification

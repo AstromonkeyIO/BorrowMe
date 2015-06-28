@@ -632,7 +632,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="vXZ-lx-hvc" kind="modal" id="9Pi-NK-xPE"/>
+                                    <segue destination="vXZ-lx-hvc" kind="modal" identifier="Logout-Segue" id="9Pi-NK-xPE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

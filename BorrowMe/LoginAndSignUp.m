@@ -20,73 +20,36 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void) viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary* savedCurrentUser = [defaults objectForKey:@"savedCurrentUser"];
+    if(savedCurrentUser[@"username"] && savedCurrentUser[@"password"])
+    {
+    
+        [PFUser logInWithUsernameInBackground:savedCurrentUser[@"username"] password:savedCurrentUser[@"password"] block:^(PFUser *user,NSError *error) {
+            
+            if (user)
+            {
+            
+                [self performSegueWithIdentifier:@"Login-Success" sender:self];
+                
+            }
+            
+        }];
+    
+    }
+    
+}
+
+- (void) viewDidLoad
 {
     [super viewDidLoad];
     self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAllKeyboards)];
     self.gestureRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:self.gestureRecognizer];
-    //self.view.backgroundColor = [UIColor whiteColor];
-    
-    /*
-    if([PFUser currentUser])
-    {
-        PFUser* currentUser = [PFUser currentUser];
-        [PFUser logInWithUsernameInBackground:currentUser.username password:currentUser.password block:^(PFUser *user,NSError *error) {
-            
-            if (user)
-            {
-                [self performSegueWithIdentifier:@"Login-Success" sender:self];
-            }
-            
-        }];
-        
-    }
-    */
-    /*
-    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-    [query fromLocalDatastore];
-    [[query getObjectInBackgroundWithId:<#(NSString *)#>] continueWithBlock:^id(BFTask *task) {
-        if (task.error) {
-            // something went wrong;
-            return task;
-        }
-        
-        // task.result will be your game score
-        return task;
-    }];
-    */
-    
-    
-    
-    
-    /*
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (!object) {
-            // Did not find any UserStats for the current user
-        } else {
-            // Found UserStats
-            int highScore = [[object objectForKey:@"highScore"] intValue];
-        }
-    }];
-    */
-    //Temporary auto login for testing purposes
-    /*
-    [PFUser logInWithUsernameInBackground:@"a" password:@"a" block:^(PFUser *user,NSError *error) {
-        
-        if (user)
-        {
-            [self performSegueWithIdentifier:@"Login-Success" sender:self];
-        }
-        
-    }];
-     */
-    
-    
-    
-    //[scroller setScrollEnabled:YES];
-    //[scroller setContentSize:CGSizeMake(320, 625)];
-    //self.usernameInput.delegate = self;
     
     CALayer * loginBoxLayer = [self.loginBox layer];
     [loginBoxLayer setMasksToBounds:YES];
@@ -159,8 +122,18 @@
             self.usernameInput.hidden = YES;
             self.passwordInput.hidden = YES;
             self.loginButton.hidden = YES;
+            NSDictionary* savedCurrentUser = @{ @"username": self.usernameInput.text, @"password" : self.passwordInput.text};
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:savedCurrentUser forKey:@"savedCurrentUser"];
+            [defaults synchronize];
+            NSLog(@"yooo");
+            [NSTimer scheduledTimerWithTimeInterval:1.2
+                                             target:self
+                                           selector:@selector(goToMainPage)
+                                           userInfo:nil
+                                            repeats:NO];
             
-            [user pinInBackgroundWithName:@"User"];
+            //[user pinInBackgroundWithName:@"User"];
             
             /*
             [NSTimer scheduledTimerWithTimeInterval:1.0
@@ -173,11 +146,7 @@
             
             
             
-            [NSTimer scheduledTimerWithTimeInterval:1.2
-                                             target:self
-                                           selector:@selector(goToMainPage)
-                                           userInfo:nil
-                                            repeats:NO];
+
             
 
             
@@ -250,6 +219,13 @@
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error)
             {
+                
+                NSDictionary* savedCurrentUser = @{ @"username" : [ NSString stringWithString: user.username], @"password" : [NSString stringWithString: user.password]};
+                
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                [defaults setObject:savedCurrentUser forKey:@"savedCurrentUser"];
+                [defaults synchronize];
+                
                 [self performSegueWithIdentifier:@"Login-Success" sender:self];
                 // Hooray! Let them use the app now.
             } else

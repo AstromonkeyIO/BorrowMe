@@ -159,6 +159,17 @@
     
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+    if([segue.identifier isEqualToString:@"Logout-Segue"])
+    {
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"savedCurrentUser"];
+        
+    }
+    
+}
 
 /*
 // Override to support conditional editing of the table view.
