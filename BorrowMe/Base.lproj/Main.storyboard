@@ -631,9 +631,6 @@
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="vXZ-lx-hvc" kind="modal" identifier="Logout-Segue" id="9Pi-NK-xPE"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -641,10 +638,13 @@
                             <outlet property="delegate" destination="jmG-fv-zb9" id="Nih-vh-55O"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="modal" identifier="Logout-Segue" id="IkX-5l-lBS"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ivn-4G-DCd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1164" y="-976"/>
+            <point key="canvasLocation" x="1142" y="-923"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="L0K-Pf-Iee">
@@ -2229,7 +2229,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ozk-Ad-0kk"/>
         <segue reference="kgh-b9-K6U"/>
+        <segue reference="Ozk-Ad-0kk"/>
     </inferredMetricsTieBreakers>
 </document>

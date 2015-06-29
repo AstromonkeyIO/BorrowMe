@@ -23,16 +23,6 @@
     
 }
 
-//- (id)initWithStyle:(UITableViewStyle)style
-//{
-//    self = [super initWithStyle:style];
-//    if (self) {
-//        // Custom initialization
-//        
-//    }
-//    return self;
-//}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     
@@ -60,11 +50,6 @@
     [self.navBarSegmentedControl setTitle:@"Borrow"forSegmentAtIndex:1];
     [self.navBarSegmentedControl setSelectedSegmentIndex:0];
     
-    //self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed: 16.0/255.0 green: 16.0/255.0 blue:15.0/255.0 alpha: 1.0];
-    //self.navigationController.navigationBar.translucent = NO;
-    //self.navigationBar.tintColor = [UIColor whiteColor];
-    //self.navigationBar.translucent = NO
-    
      self.searchBar.delegate = (id)self;
     //self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     self.locationManager = [[CLLocationManager alloc] init];
@@ -76,47 +61,34 @@
     [self.locationManager startUpdatingLocation];
     
     
-    /*
-    float latitude = self.locationManager.location.coordinate.latitude;
-    float longitude = self.locationManager.location.coordinate.longitude;
-
-    NSLog(@" before latitidue %f", latitude);
-    NSLog(@" before longitude %f", longitude);
-    */
-    
+    //Current user object
     self.currentUser = [PFUser currentUser];
-    NSLog(@"current user %@", self.currentUser);
+
     
+    
+    //Initializing all the mainfeed arrays
     self.posts = [[NSMutableArray alloc] init];
+    self.items = [[NSMutableArray alloc] init];
+    self.mainfeedCells = [[NSMutableArray alloc] init];
+    
     PostObject* loadingCell = [[PostObject alloc] init];
-    //postObject.type = @"post";
     loadingCell.type = @"loadingCell";
     [self.posts addObject: loadingCell];
     
-    self.items = [[NSMutableArray alloc] init];
-    
+
     //[self pullFromDatabase];
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullPostsFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     self.view.backgroundColor = [UIColor whiteColor];
-    //self.view.backgroundColor = [UIColor colorWithRed: 135.0/255.0 green: 206.0/255.0 blue:250.0/255.0 alpha: 0.5];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletePost:) name:@"DeletePost" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(directToUserProfile:) name:@"DisplayUserProfile" object:nil];
     
-    //self.navigationItem.title = @"Navers";
-    //_scoreLabel.backgroundColor = [UIColor redColor];
-    //_scoreLabel.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:(36.0)];
-    
-    //self.hidesBottomBarWhenPushed = YES;
-    
-    //self.view.backgroundColor = [UIColor colorWithRed: 203.0/255.0 green: 238.0/255.0 blue:248.0/255.0 alpha: 1.0];
-    //self.view.backgroundColor = [UIColor colorWithRed: 186.0/255.0 green: 232.0/255.0 blue:245.0/255.0 alpha: 1.0];
     self.view.backgroundColor = [UIColor colorWithRed: 169.0/255.0 green: 226.0/255.0 blue:243.0/255.0 alpha: 1.0];
     
 }
 
-- (void) pullFromDatabase
+- (void) pullPostsFromDatabase
 {
     NSLog(@"zipcode !!!!!!   %@", zipCode);
     self.tableView.scrollEnabled = NO;
@@ -310,7 +282,7 @@
     //[query includeKey:@"User"];
     [queryItemsFromDatabase findObjectsInBackgroundWithBlock:^(NSArray *items, NSError *error)
     {
-        NSLog(@"hereeeee %@", items);
+        
         if (!error)
         {
             
@@ -325,7 +297,7 @@
             {
                 
                 int tempIndex = i;
-                if([items objectAtIndex:tempIndex])
+                if ([items count] > tempIndex && [items objectAtIndex:tempIndex] !=nil)
                 {
                     
                     NSLog(@"I'm heree");
@@ -335,48 +307,30 @@
                     NSData* itemImageData = [itemImageFile getData];
                     itemsObject.leftItemImage = [UIImage imageWithData: itemImageData];
                     NSLog(@"left image %@", itemsObject.leftItemImage);
-                    [self.items addObject:itemsObject];
-                    //self.posts = self.items;
-                    /*
-                    [self.posts removeAllObjects];
-                    [self.posts addObjectsFromArray:self.items];
-                    
-                    [self.tableView reloadData];
-                    */
                     tempIndex += 1;
                     NSLog(@"tempIndex %d", tempIndex);
-                    if([items objectAtIndex:tempIndex] != NULL)
+                    
+                    if ([items count] > tempIndex && [items objectAtIndex:tempIndex] !=nil)
                     {
 
                         NSLog(@"I'm heree2");
                         PFObject* itemPFObject = [items objectAtIndex:tempIndex];
                         NSLog(@"itemPFObject %@", itemPFObject);
                         PFFile* itemImageFile = itemPFObject[@"itemImage"];
-                        
-                        NSLog(@"I'm heree3");
                         NSData* itemImageData = [itemImageFile getData];
                         itemsObject.rightItemImage = [UIImage imageWithData: itemImageData];
                         
                         [self.items addObject:itemsObject];
-                        //self.posts = self.items;
-                        [self.posts removeAllObjects];
-                        [self.posts addObjectsFromArray:self.items];
-  
-                        [self.tableView reloadData];
-                        
-                        NSLog(@"yoo");
                         
                     }
                     else
                     {
                         
-                         NSLog(@"else");
-                        [self.posts removeAllObjects];
-                        [self.posts addObjectsFromArray:self.items];
-                        [self.tableView reloadData];
+                        [self.items addObject:itemsObject];
                         break;
                         
                     }
+                    
                     
                 }
                 else
@@ -520,9 +474,8 @@
         ItemsObject* itemsObject = [self.posts objectAtIndex:indexPath.row];
         //itemsCell.leftItemImageButton.imageView.image = itemsObject.leftItemImage;
         [itemsCell.leftItemImageButton setBackgroundImage:itemsObject.leftItemImage forState:UIControlStateNormal];
-        NSLog(@"leftItemImage %@", itemsCell.leftItemImageButton.imageView.image);
-        //itemsCell.rightItemImageButton.imageView.image = itemsObject.rightItemImage;
-        
+        [itemsCell.rightItemImageButton setBackgroundImage:itemsObject.rightItemImage forState:UIControlStateNormal];
+
         return itemsCell;
 
     }
@@ -735,7 +688,7 @@
              NSLog(@"current zipcode %@",self.currentUser[@"currentZipcode"]);
              
              
-             [self pullFromDatabase];
+             [self pullPostsFromDatabase];
              
              NSLog(@"zip code %@",zipCode);
          }

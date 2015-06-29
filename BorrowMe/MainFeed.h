@@ -18,6 +18,7 @@
 @interface MainFeed : UITableViewController <CLLocationManagerDelegate>
 
 @property (strong, nonatomic) PFUser* currentUser;
+@property (strong, nonatomic) NSMutableArray* mainfeedCells;
 @property (strong, nonatomic) NSMutableArray* posts;
 @property (strong, nonatomic) NSMutableArray* items;
 @property (strong, nonatomic) UINavigationBar* navBar;
