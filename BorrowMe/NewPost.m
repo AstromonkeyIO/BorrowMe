@@ -105,8 +105,9 @@
     self.dateRangeSelector.selectedSegmentIndex = 0;
     
     [self resignFirstResponder];
-    [self.tabBarController.tabBar setHidden:NO];
-    [self.tabBarController setSelectedIndex:0];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    //[self.tabBarController.tabBar setHidden:NO];
+    //[self.tabBarController setSelectedIndex:0];
     //[self dismissViewControllerAnimated:YES completion:Nil];
     
 }
@@ -222,24 +223,33 @@
         
         newPost[@"deadline"] = self.datePicker.date;
         newPost[@"returnDate"] = self.returnDatePicker.date;
-
+        newPost[@"referenceToUser"] = self.currentUser;
         PFRelation *relation = [newPost relationForKey:@"user"];
         [relation addObject:self.currentUser];
-        //[newPost save];
+        
+        
+
         [newPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
          {
-             
+             //__strong NewPost *strongSelf = weakSelf;
              if (succeeded)
              {
-                 
+                 //__weak NewPost *weakSelf = self;
                  PFRelation* userToPostRelation = [self.currentUser relationForKey:@"posts"];
                  [userToPostRelation addObject:newPost];
                  //[self.currentUser save];
+                 //NSDictionary *finishDict = @{@"postKey":postKey,@"objectId":newPost.objectId};
+                 //[[NSNotificationCenter defaultCenter] postNotificationName:@"PostFinished" object:self userInfo:finishDict];
+                 
+                 NSMutableDictionary* returnDic = [self convertPFObjectToNSMutableDictionary:newPost];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"NewUserPost" object:self userInfo:returnDic];
+                 
                  [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
                  {
                       if (succeeded)
                       {
-                          
+                          // Add all Parse data to returnDict
+
                           self.itemInput.text = @"";
                           self.noteBox.text = @"";
                           self.datePicker.hidden = NO;
@@ -248,8 +258,9 @@
                           self.loadingBackground.hidden = YES;
                           self.loadingBox.hidden = YES;
                           self.loadingImage.hidden = YES;
-                        [self.tabBarController.tabBar setHidden:NO];
-                          [self.tabBarController setSelectedIndex:0];
+                          [self dismissViewControllerAnimated:YES completion:NULL];
+                          //[self.tabBarController.tabBar setHidden:NO];
+                          //[self.tabBarController setSelectedIndex:0];
                           
                       }
                       else
@@ -385,8 +396,30 @@
     
 }
 
+- (NSMutableDictionary*) convertPFObjectToNSMutableDictionary:(PFObject*) pfobject
+{
+    
+    NSLog(@"input pfObject %@", pfobject.objectId);
+    
+    NSArray * allKeys = [pfobject allKeys];
+    NSMutableDictionary * retDict = [[NSMutableDictionary alloc] init];
+    
 
+    for (NSString * key in allKeys)
+    {
+        
+        [retDict setObject:[pfobject objectForKey:key] forKey:key];
 
+    }
+    
+    NSLog(@"retDict %@", retDict);
+    
+    [retDict setValue:pfobject.objectId forKey:@"objectId"];
+    
+    NSLog(@"result nsdictionary %@", retDict);
+    
+    return retDict;
 
+}
 
 @end

@@ -52,8 +52,6 @@
             }];
             
             NSLog(@"not liked");
-            
-        
             NSNumber* likes = self.postPFObject[@"likes"];
             int likesInInt = [likes intValue];
             likesInInt++;

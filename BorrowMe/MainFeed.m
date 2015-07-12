@@ -69,20 +69,22 @@
     //Initializing all the mainfeed arrays
     self.posts = [[NSMutableArray alloc] init];
     self.items = [[NSMutableArray alloc] init];
-    self.mainfeedCells = [[NSMutableArray alloc] init];
+    self.mainfeedRows = [[NSMutableArray alloc] init];
     
     PostObject* loadingCell = [[PostObject alloc] init];
     loadingCell.type = @"loadingCell";
-    [self.posts addObject: loadingCell];
     
+    //*[self.posts addObject: loadingCell];
+    [self.mainfeedRows addObject:loadingCell];
 
     //[self pullFromDatabase];
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullPostsFromDatabase) forControlEvents:UIControlEventValueChanged];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     self.view.backgroundColor = [UIColor whiteColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletePost:) name:@"DeletePost" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(directToUserProfile:) name:@"DisplayUserProfile" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newPostAdded:) name:@"NewUserPost" object:nil];
     
     self.view.backgroundColor = [UIColor colorWithRed: 169.0/255.0 green: 226.0/255.0 blue:243.0/255.0 alpha: 1.0];
     
@@ -96,6 +98,7 @@
     [query whereKey:@"zipcode" equalTo:self.currentUser[@"currentZipcode"]];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"User"];
+    [query includeKey:@"referenceToUser"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (!error) {
             
@@ -107,7 +110,14 @@
                 [self.posts removeAllObjects];
             }
             
-            for (PFObject *post in posts) {
+            for (PFObject *post in posts)
+            {
+                
+                PFUser* userTemp = post[@"referenceToUser"];
+                if(userTemp)
+                {
+                    NSLog(@"userTemp %@", userTemp);
+                }
                 
                 PFUser* user = (PFUser*)[[[post relationForKey:@"user"] query] getFirstObject];
                 //NSLog(@"%@", user);
@@ -256,7 +266,19 @@
                 
                 }
                 
+                
+                
             }
+            
+            if([self.mainfeedRows count] > 0)
+            {
+                
+                [self.mainfeedRows removeAllObjects];
+                
+            }
+            
+            [self.mainfeedRows addObjectsFromArray:self.posts];
+            
             //NSLog(@"posts array %@", self.posts);
             dispatch_async(dispatch_get_main_queue(), ^ {
                 [self.tableView reloadData];
@@ -342,9 +364,19 @@
         
             }
             
-            [self.posts removeAllObjects];
-            [self.posts addObjectsFromArray:self.items];
-            [self.tableView reloadData];
+            if([self.mainfeedRows count] > 0)
+            {
+                
+                [self.mainfeedRows removeAllObjects];
+                
+            }
+
+            [self.mainfeedRows addObjectsFromArray:self.items];
+            dispatch_async(dispatch_get_main_queue(), ^ {
+                [self.tableView reloadData];
+                [self.refreshControl endRefreshing];
+                self.tableView.scrollEnabled = YES;
+            });
             
             
         }
@@ -389,15 +421,15 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return [self.posts count];
+    //*return [self.posts count];
+    return [ self.mainfeedRows count];
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-
-    if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"loadingCell"])
+    if([[[self.mainfeedRows objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"loadingCell"])
     {
         
         LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
@@ -419,7 +451,7 @@
         return loadingCell;
         
     }
-    else if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"post"])
+    else if([[[self.mainfeedRows objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"post"])
     {
 
         Post* post = [tableView dequeueReusableCellWithIdentifier:@"Post" forIndexPath:indexPath];
@@ -427,10 +459,12 @@
             
         post.index = indexPath.row;
         
-        PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
-        post.item.text = [[self.posts objectAtIndex:indexPath.row] getItem];
+        //PostObject* postObject =
         
-        PostObject* postObject = [self.posts objectAtIndex:indexPath.row];
+        PFUser* user = [[self.mainfeedRows objectAtIndex:indexPath.row] getUser];
+        post.item.text = [[self.mainfeedRows objectAtIndex:indexPath.row] getItem];
+        
+        PostObject* postObject = [self.mainfeedRows objectAtIndex:indexPath.row];
         post.profilePicture.image = postObject.userProfileImage;
         
         post.postPFObject = postObject.post;
@@ -462,7 +496,7 @@
         return post;
             
     }
-    else if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"items"])
+    else if([[[self.mainfeedRows objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"items"])
     {
     
         ItemsCell* itemsCell = [tableView dequeueReusableCellWithIdentifier:@"ItemsCell" forIndexPath:indexPath];
@@ -471,7 +505,7 @@
         //PFUser* user = [[self.posts objectAtIndex:indexPath.row] getUser];
         //post.item.text = [[self.posts objectAtIndex:indexPath.row] getItem];
         
-        ItemsObject* itemsObject = [self.posts objectAtIndex:indexPath.row];
+        ItemsObject* itemsObject = [self.mainfeedRows objectAtIndex:indexPath.row];
         //itemsCell.leftItemImageButton.imageView.image = itemsObject.leftItemImage;
         [itemsCell.leftItemImageButton setBackgroundImage:itemsObject.leftItemImage forState:UIControlStateNormal];
         [itemsCell.rightItemImageButton setBackgroundImage:itemsObject.rightItemImage forState:UIControlStateNormal];
@@ -491,7 +525,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(Post *)post forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"post"])
+    if([[[self.mainfeedRows objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"post"])
     {
 
         CALayer * postBubbleLayer = [post.postBubble layer];
@@ -516,19 +550,19 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"loadingCell"])
+    if([[[self.mainfeedRows objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"loadingCell"])
     {
         
         return 568;
         
     }
-    else if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"post"])
+    else if([[[self.mainfeedRows objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"post"])
     {
      
         return 160;
         
     }
-    else if([[[self.posts objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"items"])
+    else if([[[self.mainfeedRows objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"items"])
     {
         
         return 160;
@@ -594,7 +628,7 @@
 {
     
     NSInteger index = [notification.userInfo[@"index"] integerValue];
-    PostObject* postObject = [self.posts objectAtIndex:index];
+    PostObject* postObject = [self.mainfeedRows objectAtIndex:index];
     self.viewUser = postObject.user;
     
     [self performSegueWithIdentifier:@"View-User-Profile" sender:self];
@@ -614,7 +648,7 @@
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getIndexOfHelpedPost:) name:@"RespondToPost" object:nil];
         
-         PostObject* passPostObject = [self.posts objectAtIndex:self.index];
+         PostObject* passPostObject = [self.mainfeedRows objectAtIndex:self.index];
         
         linkedInHelpBorrowerViewController.receivedPostObject = passPostObject;
         
@@ -624,7 +658,7 @@
         
         PostDetail* postDetail = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
         
-        PostObject* selectedPostObject = [self.posts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        PostObject* selectedPostObject = [self.mainfeedRows objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         postDetail.receivedPostObject = selectedPostObject;
         postDetail.currentLocation = self.currentLocation;
         
@@ -753,7 +787,7 @@
 {
     
     NSInteger index = [notification.userInfo[@"index"] integerValue];
-    [self.posts removeObjectAtIndex:index];
+    [self.mainfeedRows removeObjectAtIndex:index];
     [self.tableView reloadData];
     
 }
@@ -766,41 +800,289 @@
 - (IBAction)navBarSegmentedControlValueChanged:(id)sender
 {
     
-    if(self.navBarSegmentedControl.selectedSegmentIndex == 1)
+    if(self.navBarSegmentedControl.selectedSegmentIndex == 0)
     {
 
-        [self pullItemsFromDatabase];
-        NSLog(@"yoooo  %@", self.items);
+        if([self.posts count] == 0)
+        {
+            
+            [self pullPostsFromDatabase];
+            
+        }
+        else
+        {
+            
+            [self.mainfeedRows removeAllObjects];
+            [self.mainfeedRows addObjectsFromArray:self.posts];
+            [self.tableView reloadData];
+            
+        }
         
     }
-    else if(self.navBarSegmentedControl.selectedSegmentIndex == 0)
+    else if(self.navBarSegmentedControl.selectedSegmentIndex == 1)
     {
 
-        
-        
+        if([self.items count] == 0)
+        {
+            
+            [self pullItemsFromDatabase];
+            
+        }
+        else
+        {
+            
+            [self.mainfeedRows removeAllObjects];
+            [self.mainfeedRows addObjectsFromArray:self.items];
+            [self.tableView reloadData];
+            
+        }
         
     }
     
 }
 
+- (void) pullFromDatabase
+{
+    
+    if(self.navBarSegmentedControl.selectedSegmentIndex == 0)
+    {
+        
+        [self pullPostsFromDatabase];
+        
+    }
+    else if(self.navBarSegmentedControl.selectedSegmentIndex == 1)
+    {
+        
+        [self pullItemsFromDatabase];
+        
+    }
+    else
+    {
+        
+        NSLog(@"navBarSegmentedControl not selected");
+        
+    }
+    
+    
+}
+
+- (void) newPostAdded: (NSNotification*) notification
+{
+    
+    NSDictionary *ud = notification.userInfo;
+    NSLog(@"new post added %@", ud);
+    
+    PFObject* postPFObject = [self convertNSMutableDictionaryToPFObject:ud];
+    NSLog(@"PFObject %@", postPFObject);
+    PostObject* p = [self createNewPostObject:postPFObject];
+    [self.tableView beginUpdates];
+    [self.posts insertObject:p atIndex:0];
+    [self.mainfeedRows insertObject:p atIndex:0];
+    NSIndexPath *ip = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
+    
+    
+}
+
+- (PFObject*) convertNSMutableDictionaryToPFObject:(NSDictionary*) nsDictionary {
+    NSArray * allKeys = [nsDictionary allKeys];
+    PFObject* postObject = [PFObject objectWithoutDataWithClassName:@"Posts" objectId:[nsDictionary objectForKey:@"objectId"]];
+    
+    for (NSString * key in allKeys)
+    {
+
+        if([key isEqualToString:@"user"])
+        {
+            
+            
+        }
+        else if([key isEqualToString:@"objectId"])
+        {
+            
+            //postObject.objectId = [nsDictionary objectForKey:key];
+            
+        }
+        else
+        {
+
+            postObject[key] = [nsDictionary objectForKey:key];
+            
+        }
+        
+        
+    }
+    
+    
+    NSLog(@"result PFpostobject %@", postObject);
+    return postObject;
+    
+}
+
+- (PostObject*) createNewPostObject: (PFObject*) pfObject
+{
+    
+    PostObject *newPostObject = [[PostObject alloc] init];
+    newPostObject.post = pfObject;
+    NSLog(@"pfpost %@", pfObject);
+    newPostObject.type = @"post";
+    newPostObject.deadline = @"now";
+    newPostObject.item = pfObject[@"item"];
+    NSLog(@"referenceToUserInCreateNewPost %@", pfObject[@"referenceToUser"]);
+    newPostObject.user = pfObject[@"referenceToUser"];
+    PFFile* profilePictureFile = newPostObject.user[@"profilePicture"];
+    NSData* profilePictureData = [profilePictureFile getData];
+    newPostObject.userProfileImage = [UIImage imageWithData: profilePictureData];
+    newPostObject.deadline = [self getTimeDifference:pfObject[@"deadline"]];
+    
+    return newPostObject;
+    
+}
+
+- (NSString*) getTimeDifference: (NSDate*) inputDate
+{
+    
+    NSDate* currentDate = [NSDate date];
+    //NSLog(@"current date = %@", currentDate);
+    NSTimeZone* currentTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    NSTimeZone* nowTimeZone = [NSTimeZone systemTimeZone];
+    
+    NSInteger currentGMTOffset = [currentTimeZone secondsFromGMTForDate:currentDate];
+    NSInteger nowGMTOffset = [nowTimeZone secondsFromGMTForDate:currentDate];
+    NSTimeInterval interval = nowGMTOffset - currentGMTOffset;
+    currentDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:currentDate];
+    
+    NSInteger currentGMTOffset2 = [currentTimeZone secondsFromGMTForDate:inputDate];
+    NSInteger nowGMTOffset2 = [nowTimeZone secondsFromGMTForDate:inputDate];
+    NSTimeInterval interval2 = nowGMTOffset2 - currentGMTOffset2;
+    NSDate* borrowDate = [[NSDate alloc] initWithTimeInterval:interval2 sinceDate:inputDate];
+    
+    NSLog(@"current date after = %@", currentDate);
+    
+    NSLog(@"current borrow  date fter = %@", borrowDate);
+    
+    NSLog(@"borrow date before %@", inputDate);
+    //NSDate* borrowDate;
+    
+    NSTimeInterval secondsBetween = [borrowDate timeIntervalSinceDate:currentDate];
+    NSLog(@"seconds difference %f", secondsBetween);
+    //NSTimeInterval secondsBetween = [[post valueForKey:@"deadline"] timeIntervalSinceDate: n];
+    
+    if(secondsBetween <= 0)
+    {
+        
+        return @"ex";
+        
+    }
+    else
+    {
+        
+        int numberOfWeeksElapsed;
+        int numberOfDaysElapsed;
+        int numberOfHoursElapsed;
+        int numberofMinutesElapsed;
+        NSString* timeDifferenceInString;
+        
+        numberOfWeeksElapsed = secondsBetween / 604800;
+        if(numberOfWeeksElapsed >= 1)
+        {
+            
+            timeDifferenceInString = [NSString stringWithFormat:@"%dw", numberOfWeeksElapsed];
+            return timeDifferenceInString;
+            
+        }
+        else
+        {
+            
+            numberOfDaysElapsed = secondsBetween / 86400;
+            NSLog(@"number of days %d", numberOfDaysElapsed);
+            if(numberOfDaysElapsed >= 1)
+            {
+                
+                if(numberOfDaysElapsed == 1)
+                {
+                    //postObject.urgent = true;
+                }
+                timeDifferenceInString = [NSString stringWithFormat:@"%dd", numberOfDaysElapsed];
+                return timeDifferenceInString;
+                
+            }
+            else
+            {
+                
+                //postObject.urgent = true;
+                numberOfHoursElapsed = secondsBetween / 3600;
+                if(numberOfHoursElapsed >= 1)
+                {
+                    
+                    timeDifferenceInString = [NSString stringWithFormat:@"%dh", numberOfHoursElapsed];
+                    return timeDifferenceInString;
+                    
+                }
+                else
+                {
+                    numberofMinutesElapsed = secondsBetween / 60;
+                    if(numberofMinutesElapsed >= 1)
+                    {
+                        
+                        timeDifferenceInString = [NSString stringWithFormat:@"%dm", numberofMinutesElapsed];
+                        return timeDifferenceInString;
+                        
+                    }
+                    else
+                    {
+                        timeDifferenceInString = [NSString stringWithFormat:@"%fs", secondsBetween];
+                        //postObject.deadline = timeDifferenceInString;
+                        return @"now";
+                    }
+                    
+                }
+                
+                
+            }
+            
+        }
+    }
+    
+}
+
+- (IBAction)newPostButtonPressed:(id)sender {
+
+    
+    if(self.navBarSegmentedControl.selectedSegmentIndex == 0)
+    {
+    
+        [self performSegueWithIdentifier:@"New-Post-Segue" sender:self];
+    
+    }
+    else if(self.navBarSegmentedControl.selectedSegmentIndex == 1)
+    {
+        
+        
+        
+    }
+    
+    
+}
 
 
 /*
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    
+ 
     NSLog(@"scroll begin");
 
-    
+ 
 }
 
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    
+ 
     NSLog(@"scroll end");
 
-    
-    
+ 
+ 
 }
 */
 
 
 @end
+

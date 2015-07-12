@@ -12,7 +12,6 @@
 
 @interface Post : UITableViewCell
 
-
 @property (weak, nonatomic) IBOutlet UILabel *postBubble;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UIButton *username;
