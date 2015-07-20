@@ -228,11 +228,13 @@
             </objects>
             <point key="canvasLocation" x="801" y="-580"/>
         </scene>
-        <!--Feed-->
+        <!--Navigation Controller-->
         <scene sceneID="RnN-HS-roC">
             <objects>
                 <navigationController id="GZf-5C-ll1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feed" image="newsFeedIconNew.png" id="kHm-CO-I80"/>
+                    <tabBarItem key="tabBarItem" title="" image="newsFeedIconNew.png" id="kHm-CO-I80">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LRR-Xu-zSN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -246,7 +248,7 @@
             </objects>
             <point key="canvasLocation" x="1366" y="-351"/>
         </scene>
-        <!--Feed-->
+        <!--Main Feed-->
         <scene sceneID="QTx-bU-KBI">
             <objects>
                 <tableViewController id="ZpA-g3-sxc" customClass="MainFeed" sceneMemberID="viewController">
@@ -350,7 +352,7 @@
                                     <outlet property="postBubble" destination="Yre-h0-rU9" id="dvl-Nc-TSf"/>
                                     <outlet property="profilePicture" destination="RsA-jA-mYG" id="LOX-C6-Uvj"/>
                                     <outlet property="username" destination="jBF-zX-Dvd" id="KGJ-ze-qcE"/>
-                                    <segue destination="kXi-4K-m6V" kind="modal" identifier="GoToPostDetail" id="1MB-sk-s0T"/>
+                                    <segue destination="erc-Hu-PU1" kind="modal" identifier="GoToPostDetail" id="SpB-Eb-zdz"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemsCell" id="k8f-o5-HvX" customClass="ItemsCell">
@@ -414,7 +416,9 @@
                             <outlet property="delegate" destination="ZpA-g3-sxc" id="qqh-uO-ZKZ"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Feed" id="AKv-n8-ZWS"/>
+                    <tabBarItem key="tabBarItem" title="" id="AKv-n8-ZWS">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="FsY-pL-AeJ">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="navBarMenuIcon.png" id="1H3-3Q-cQO">
@@ -432,7 +436,7 @@
                                 <action selector="navBarSegmentedControlValueChanged:" destination="ZpA-g3-sxc" eventType="valueChanged" id="4tj-bp-rYb"/>
                             </connections>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" image="envelopIcon.png" id="HZo-F4-pgU">
+                        <barButtonItem key="rightBarButtonItem" image="plusIcon.png" id="HZo-F4-pgU">
                             <color key="tintColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="newPostButtonPressed:" destination="ZpA-g3-sxc" id="XZ6-g0-5tg"/>
@@ -450,11 +454,13 @@
             </objects>
             <point key="canvasLocation" x="1844" y="-475"/>
         </scene>
-        <!--Search-->
+        <!--Navigation Controller-->
         <scene sceneID="Jvg-at-t69">
             <objects>
                 <navigationController id="0ZI-Ql-Xha" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="searchPeopleIconNew.png" id="2GK-Fv-aXN"/>
+                    <tabBarItem key="tabBarItem" title="" image="searchPeopleIconNew.png" id="2GK-Fv-aXN">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="c3X-g1-6oi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -467,7 +473,7 @@
             </objects>
             <point key="canvasLocation" x="1372" y="310"/>
         </scene>
-        <!--Item-->
+        <!--Search-->
         <scene sceneID="jQb-Kr-dlJ">
             <objects>
                 <tableViewController id="BAb-YW-rzM" customClass="Search" sceneMemberID="viewController">
@@ -532,7 +538,9 @@
                             <outlet property="delegate" destination="BAb-YW-rzM" id="uK3-6o-Eq9"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" image="searchPeopleIconNew.png" id="qft-wm-XIA"/>
+                    <tabBarItem key="tabBarItem" title="" image="searchPeopleIconNew.png" id="qft-wm-XIA">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="Hs1-TL-0V5"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="6eS-fr-1rz" id="WZ7-V3-pna"/>
@@ -599,6 +607,9 @@
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="cTE-x0-4NV" kind="modal" id="5WP-rV-Za6"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuItemCellLogout" id="oRH-N8-cwW" customClass="MenuItemCell">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -632,21 +643,42 @@
             </objects>
             <point key="canvasLocation" x="1142" y="-923"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="AYO-yP-Xhc">
+        <!--Chat Table View Controller-->
+        <scene sceneID="5ke-r3-tNM">
             <objects>
-                <navigationController id="kXi-4K-m6V" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Sjv-dU-IxC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
+                <tableViewController id="cTE-x0-4NV" customClass="ChatTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="A8y-yK-XpW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="W2B-Tb-ihq" customClass="THChatInput">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="delegate" destination="cTE-x0-4NV" id="3bj-4Q-ixB"/>
+                            </connections>
+                        </view>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="IeZ-Wv-oPq">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IeZ-Wv-oPq" id="RBz-sw-plT">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="cTE-x0-4NV" id="da9-Fh-aZT"/>
+                            <outlet property="delegate" destination="cTE-x0-4NV" id="3oT-f8-8kr"/>
+                        </connections>
+                    </tableView>
                     <connections>
-                        <segue destination="erc-Hu-PU1" kind="relationship" relationship="rootViewController" id="7nA-d6-Wcf"/>
+                        <outlet property="chatInput" destination="W2B-Tb-ihq" id="Wdr-bw-uoU"/>
                     </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3Fm-WP-ENN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DDc-8D-Q7n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2260" y="-482"/>
+            <point key="canvasLocation" x="1640" y="-1099"/>
         </scene>
         <!--Post Detail-->
         <scene sceneID="yU8-A7-C0Q">
@@ -657,6 +689,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderCellPostDetail" rowHeight="70" id="4hN-2F-ICV" customClass="HeaderCellPostDetail">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4hN-2F-ICV" id="S92-l2-ggX">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yfv-L2-A9i">
+                                            <rect key="frame" x="8" y="21" width="40" height="40"/>
+                                            <state key="normal" image="cancelIcon.png">
+                                                <color key="titleColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="dismissPostDetail:" destination="erc-Hu-PU1" eventType="touchUpInside" id="QO0-Gj-jbJ"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="cancelButton" destination="Yfv-L2-A9i" id="3Lg-RP-joY"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post" rowHeight="160" id="bx9-Lk-rlx" customClass="Post">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bx9-Lk-rlx" id="SDN-6C-tfM">
@@ -739,7 +795,7 @@
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="deadline" destination="45c-XK-HxZ" id="qlP-NN-ZZ7"/>
@@ -818,7 +874,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="aboutPostSelector" destination="zEa-RM-Ukm" id="Ydp-Hh-Khd"/>
                                     <outlet property="borrowDate" destination="2Oi-np-DF8" id="f7X-ew-eK9"/>
@@ -841,9 +897,6 @@
                     <navigationItem key="navigationItem" id="Wau-h3-CEo">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="ydZ-hi-gI8">
                             <color key="tintColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="dismissPostDetail:" destination="erc-Hu-PU1" id="Ei4-ZN-WvY"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -852,7 +905,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ven-9d-80H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2792" y="-509"/>
+            <point key="canvasLocation" x="2489" y="-500"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="fDm-bq-icj">
@@ -995,7 +1048,9 @@
                             <outlet property="delegate" destination="2w0-nI-HgY" id="eim-Ii-7Sx"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="My Posts" image="myPostsFilesIcon.png" id="bgj-5M-PxS"/>
+                    <tabBarItem key="tabBarItem" title="" image="chatBubbleIcon.png" id="bgj-5M-PxS">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjt-bf-csv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2178,6 +2233,8 @@
     <resources>
         <image name="495.GIF" width="128" height="128"/>
         <image name="cameraIcon2.png" width="128" height="128"/>
+        <image name="cancelIcon.png" width="128" height="128"/>
+        <image name="chatBubbleIcon.png" width="24" height="21"/>
         <image name="clock2.png" width="32" height="32"/>
         <image name="distanceIcon.png" width="32" height="32"/>
         <image name="enter.png" width="32" height="32"/>
@@ -2186,10 +2243,10 @@
         <image name="heartIcon.png" width="128" height="128"/>
         <image name="hourglassIcon.png" width="34" height="45"/>
         <image name="messageIcon.png" width="64" height="64"/>
-        <image name="myPostsFilesIcon.png" width="24" height="24"/>
         <image name="navBarMenuIcon.png" width="24" height="24"/>
         <image name="newsFeedIconNew.png" width="24" height="24"/>
         <image name="noteIcon.png" width="128" height="128"/>
+        <image name="plusIcon.png" width="24" height="24"/>
         <image name="searchPeopleIconNew.png" width="24" height="24"/>
         <image name="userProfileIconNew.png" width="24" height="24"/>
         <image name="xButtonIconNew.png" width="64" height="64"/>
@@ -2201,6 +2258,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="kgh-b9-K6U"/>
-        <segue reference="tFf-XO-hVG"/>
+        <segue reference="Ozk-Ad-0kk"/>
     </inferredMetricsTieBreakers>
 </document>

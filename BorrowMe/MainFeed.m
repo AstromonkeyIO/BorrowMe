@@ -50,6 +50,10 @@
     [self.navBarSegmentedControl setTitle:@"Borrow"forSegmentAtIndex:1];
     [self.navBarSegmentedControl setSelectedSegmentIndex:0];
     
+    
+    //self.tabBarController.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+    //self.tabBarController.title = nil;
+    
      self.searchBar.delegate = (id)self;
     //self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     self.locationManager = [[CLLocationManager alloc] init];
@@ -80,7 +84,7 @@
     //[self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
-    self.view.backgroundColor = [UIColor whiteColor];
+    //self.view.backgroundColor = [UIColor whiteColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletePost:) name:@"DeletePost" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(directToUserProfile:) name:@"DisplayUserProfile" object:nil];
@@ -384,32 +388,11 @@
     
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-/*
-#pragma mark - Table view data source
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    
-    return 30.0;
-    
-}
-
-
--(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    // 1. Dequeue the custom header cell
-    HeaderCell* headerCell = [tableView dequeueReusableCellWithIdentifier:@"HeaderCell"];
-    // 3. And return
-    return headerCell;
-    
-}
-*/
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -577,8 +560,6 @@
 
 }
 
-
-
 /*
  // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -656,8 +637,8 @@
     else if([segue.identifier isEqualToString:@"GoToPostDetail"])
     {
         
-        PostDetail* postDetail = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
-        
+        //PostDetail* postDetail = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
+        PostDetail* postDetail = (PostDetail *)segue.destinationViewController;
         PostObject* selectedPostObject = [self.mainfeedRows objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         postDetail.receivedPostObject = selectedPostObject;
         postDetail.currentLocation = self.currentLocation;
@@ -1064,6 +1045,7 @@
     
     
 }
+
 
 
 /*

@@ -7,6 +7,7 @@
 //
 
 #import "PostDetail.h"
+#import "HeaderCellPostDetail.h"
 
 @implementation PostDetail
 
@@ -23,7 +24,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.view.backgroundColor = [UIColor colorWithRed: 169.0/255.0 green: 226.0/255.0 blue:243.0/255.0 alpha: 1.0];
+    
     self.currentUser = [PFUser currentUser];
+    
     
 }
 
@@ -140,6 +144,27 @@
 {
     
     return [self.postDetails count];
+    
+}
+
+#pragma mark - Table view data source
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    
+    return 70;
+    
+}
+
+
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+
+    HeaderCellPostDetail* headerCellPostDetail = [tableView dequeueReusableCellWithIdentifier:@"HeaderCellPostDetail"];
+    
+    headerCellPostDetail.cancelButton.imageView.image = [headerCellPostDetail.cancelButton.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [headerCellPostDetail.cancelButton.imageView setTintColor:[UIColor colorWithRed: 255.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 1.0]];
+    
+    return headerCellPostDetail;
     
 }
 
@@ -412,6 +437,7 @@
     [self dismissViewControllerAnimated:true completion:nil];
     
 }
+
 
 
 @end
