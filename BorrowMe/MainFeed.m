@@ -16,6 +16,7 @@
 #import "SWRevealViewController.h"
 #import "ItemsObject.h"
 #import "ItemsCell.h"
+#import "PaginationTableViewCell.h"
 
 @implementation MainFeed {
     
@@ -23,16 +24,18 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
     
     [super viewWillAppear:animated];
+    NSLog(@"viewWillAppear");
 
     self.currentUser = [PFUser currentUser];
+    //self.createdAtForLastPostCell = [[NSDate alloc] init];
     
 }
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     
     [super viewDidLoad];
@@ -49,11 +52,7 @@
     [self.navBarSegmentedControl setTitle:@"Lend"forSegmentAtIndex:0];
     [self.navBarSegmentedControl setTitle:@"Borrow"forSegmentAtIndex:1];
     [self.navBarSegmentedControl setSelectedSegmentIndex:0];
-    
-    
-    //self.tabBarController.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
-    //self.tabBarController.title = nil;
-    
+
      self.searchBar.delegate = (id)self;
     //self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     self.locationManager = [[CLLocationManager alloc] init];
@@ -68,8 +67,6 @@
     //Current user object
     self.currentUser = [PFUser currentUser];
 
-    
-    
     //Initializing all the mainfeed arrays
     self.posts = [[NSMutableArray alloc] init];
     self.items = [[NSMutableArray alloc] init];
@@ -82,7 +79,7 @@
     [self.mainfeedRows addObject:loadingCell];
 
     //[self pullFromDatabase];
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(refreshTableView) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     //self.view.backgroundColor = [UIColor whiteColor];
 
@@ -96,10 +93,19 @@
 
 - (void) pullPostsFromDatabase
 {
+    
     NSLog(@"zipcode !!!!!!   %@", zipCode);
-    self.tableView.scrollEnabled = NO;
+    //self.tableView.scrollEnabled = NO;
     PFQuery *query = [PFQuery queryWithClassName:@"Posts"];
     [query whereKey:@"zipcode" equalTo:self.currentUser[@"currentZipcode"]];
+    [query whereKey:@"deadline" greaterThan:[NSDate date]];
+    
+    if(self.createdAtForLastPostCell)
+    {
+        [query whereKey:@"createdAt" lessThan:self.createdAtForLastPostCell];
+    }
+
+    [query setLimit:15];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"User"];
     [query includeKey:@"referenceToUser"];
@@ -117,14 +123,7 @@
             for (PFObject *post in posts)
             {
                 
-                PFUser* userTemp = post[@"referenceToUser"];
-                if(userTemp)
-                {
-                    NSLog(@"userTemp %@", userTemp);
-                }
-                
-                PFUser* user = (PFUser*)[[[post relationForKey:@"user"] query] getFirstObject];
-                //NSLog(@"%@", user);
+                PFUser* user = post[@"referenceToUser"];
                 
                 PostObject* postObject = [[PostObject alloc] init];
                 postObject.type = @"post";
@@ -141,7 +140,7 @@
                 postObject.userProfileImage = [UIImage imageWithData: profilePictureData];
                 
                 
-                NSLog(@"post deadline %@,   %@", post[@"deadline"], post[@"item"]);
+                //NSLog(@"post deadline %@,   %@", post[@"deadline"], post[@"item"]);
                 
                 postObject.alreadyLiked = false;
                 for(int i = 0; i < [self.currentUser[@"likedPosts"] count]; i++) {
@@ -156,139 +155,64 @@
                     
                 }
                 
-                
-                
-                NSDate* currentDate = [NSDate date];
-                //NSLog(@"current date = %@", currentDate);
-                NSTimeZone* currentTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-                NSTimeZone* nowTimeZone = [NSTimeZone systemTimeZone];
-  
-                NSInteger currentGMTOffset = [currentTimeZone secondsFromGMTForDate:currentDate];
-                NSInteger nowGMTOffset = [nowTimeZone secondsFromGMTForDate:currentDate];
-                NSTimeInterval interval = nowGMTOffset - currentGMTOffset;
-                currentDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:currentDate];
-                
-                NSInteger currentGMTOffset2 = [currentTimeZone secondsFromGMTForDate:post[@"deadline"]];
-                NSInteger nowGMTOffset2 = [nowTimeZone secondsFromGMTForDate:post[@"deadline"]];
-                NSTimeInterval interval2 = nowGMTOffset2 - currentGMTOffset2;
-                NSDate* borrowDate = [[NSDate alloc] initWithTimeInterval:interval2 sinceDate:post[@"deadline"]];
-                
-                
-                
-                
-                NSLog(@"current date after = %@", currentDate);
-                
-                NSLog(@"current borrow  date fter = %@", borrowDate);
-                
-                NSLog(@"borrow date before %@", post[@"deadline"]);
-                
- 
-                
-                //NSDate* borrowDate;
-                
-                NSTimeInterval secondsBetween = [borrowDate timeIntervalSinceDate:currentDate];
-                NSLog(@"seconds difference %f", secondsBetween);
-                //NSTimeInterval secondsBetween = [[post valueForKey:@"deadline"] timeIntervalSinceDate: n];
-                
-                
-                if(secondsBetween <= 0)
-                {
-                    
-                    postObject.deadline = @"ex";
-                    
-                }
-                else
-                {
-                
-                int numberOfWeeksElapsed;
-                int numberOfDaysElapsed;
-                int numberOfHoursElapsed;
-                int numberofMinutesElapsed;
-                NSString* timeDifferenceInString;
-                
-                numberOfWeeksElapsed = secondsBetween / 604800;
-                if(numberOfWeeksElapsed >= 1)
-                {
-                    
-                    timeDifferenceInString = [NSString stringWithFormat:@"%dw", numberOfWeeksElapsed];
-                    postObject.deadline = timeDifferenceInString;
-                    
-                }
-                else
-                {
-                    
-                    numberOfDaysElapsed = secondsBetween / 86400;
-                    NSLog(@"number of days %d", numberOfDaysElapsed);
-                    if(numberOfDaysElapsed >= 1)
-                    {
-                        
-                        if(numberOfDaysElapsed == 1)
-                        {
-                            postObject.urgent = true;
-                        }
-                        timeDifferenceInString = [NSString stringWithFormat:@"%dd", numberOfDaysElapsed];
-                        postObject.deadline = timeDifferenceInString;
-                        
-                    }
-                    else
-                    {
-                        
-                        postObject.urgent = true;
-                        numberOfHoursElapsed = secondsBetween / 3600;
-                        if(numberOfHoursElapsed >= 1)
-                        {
-
-                            timeDifferenceInString = [NSString stringWithFormat:@"%dh", numberOfHoursElapsed];
-                            postObject.deadline = timeDifferenceInString;
-                            
-                        }
-                        else
-                        {
-                            numberofMinutesElapsed = secondsBetween / 60;
-                            if(numberofMinutesElapsed >= 1)
-                            {
-                                timeDifferenceInString = [NSString stringWithFormat:@"%dm", numberofMinutesElapsed];
-                                //postObject.deadline = timeDifferenceInString;
-                                postObject.deadline = timeDifferenceInString;
-                                
-                            }
-                            else
-                            {
-                            timeDifferenceInString = [NSString stringWithFormat:@"%fs", secondsBetween];
-                            //postObject.deadline = timeDifferenceInString;
-                            postObject.deadline = @"Now";
-                            }
-                            
-                        }
-                        
-                        
-                    }
-                    
-                }
-                    
+                NSString* timeUntilDeadline = [self getTimeDifference: [post valueForKey:@"deadline"]];
+                postObject.deadline = timeUntilDeadline;
                 [self.posts addObject:postObject];
                 
+            }
+            
+            //for initial load and pull to refresh
+            if(!self.createdAtForLastPostCell)
+            {
+                //recording createdAt value for last post for pagination functionality
+                PFObject* tempPFPost = [posts lastObject];
+                self.createdAtForLastPostCell = [tempPFPost createdAt];
+            
+                //adding pagination table view cell
+                PostObject* paginationCellObject = [[PostObject alloc] init];
+                paginationCellObject.type = @"paginationTableViewCell";
+                [self.posts addObject:paginationCellObject];
+                
+                if([self.mainfeedRows count] > 0)
+                {
+                    
+                    [self.mainfeedRows removeAllObjects];
+                    
                 }
                 
+                [self.mainfeedRows addObjectsFromArray:self.posts];
                 
                 
-            }
+                //NSLog(@"posts array %@", self.posts);
+                dispatch_async(dispatch_get_main_queue(), ^ {
+                    
+                    [self.tableView reloadData];
+                    [self.refreshControl endRefreshing];
+                    self.tableView.scrollEnabled = YES;
+                });
             
-            if([self.mainfeedRows count] > 0)
+            }
+            else
             {
                 
-                [self.mainfeedRows removeAllObjects];
+                [self.tableView beginUpdates];
+                [self.posts removeLastObject];
+                [self.mainfeedRows removeLastObject];
+                
+                NSInteger lastSectionIndex = [self.tableView numberOfSections] - 1;
+                
+                NSInteger lastRowIndex = [self.tableView numberOfRowsInSection:lastSectionIndex] - 1;
+                
+                NSIndexPath* pathToLastRow = [NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex];
+                NSArray* deleteIndexPaths = [[NSArray alloc] initWithObjects: pathToLastRow, nil];
+                [self.tableView deleteRowsAtIndexPaths:deleteIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+                
+                [self.tableView endUpdates];
                 
             }
             
-            [self.mainfeedRows addObjectsFromArray:self.posts];
             
-            //NSLog(@"posts array %@", self.posts);
-            dispatch_async(dispatch_get_main_queue(), ^ {
-                [self.tableView reloadData];
-                [self.refreshControl endRefreshing];
-                self.tableView.scrollEnabled = YES;
-            });
+            
             
         } else {
             // Log details of the failure
@@ -496,6 +420,30 @@
         return itemsCell;
 
     }
+    else if([[[self.mainfeedRows objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"paginationTableViewCell"])
+    {
+        
+        PaginationTableViewCell* paginationTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"PaginationTableViewCell" forIndexPath:indexPath];
+        paginationTableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        CABasicAnimation *rotation;
+        rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        rotation.fromValue = [NSNumber numberWithFloat:0];
+        rotation.toValue = [NSNumber numberWithFloat:(2 * M_PI)];
+        rotation.duration = 0.8f; // Speed
+        rotation.repeatCount = HUGE_VALF; // Repeat forever. Can be a finite number.
+        [paginationTableViewCell.loaderImage.layer removeAllAnimations];
+        [paginationTableViewCell.loaderImage.layer addAnimation:rotation forKey:@"Spin"];
+        
+        CALayer * loaderImageBoxLayer = [paginationTableViewCell.loaderImageBox layer];
+        [loaderImageBoxLayer setMasksToBounds:YES];
+        [loaderImageBoxLayer setCornerRadius:10.0];
+        
+        [self pullFromDatabase];
+        
+        return paginationTableViewCell;
+        
+    }
     else
     {
         
@@ -549,6 +497,12 @@
     {
         
         return 160;
+        
+    }
+    else if([[[self.mainfeedRows objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"paginationTableViewCell"])
+    {
+        
+        return 90;
         
     }
     else
@@ -636,7 +590,6 @@
     }
     else if([segue.identifier isEqualToString:@"GoToPostDetail"])
     {
-        
         //PostDetail* postDetail = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
         PostDetail* postDetail = (PostDetail *)segue.destinationViewController;
         PostObject* selectedPostObject = [self.mainfeedRows objectAtIndex:self.tableView.indexPathForSelectedRow.row];
@@ -647,12 +600,10 @@
     else if([segue.identifier isEqualToString:@"View-User-Profile"])
     {
         
-        
         UserProfile* tableView = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
         PFUser* passUser = self.viewUser;
         // MyPostLenders* tableView = (MyPostLenders*)[self.navigationController.viewControllers objectAtIndex:0];
         tableView.user = passUser;
-        
         NSLog(@"I'm in the prepare for segue!");
         
     }
@@ -673,7 +624,6 @@
     NSLog(@"%@", [locations lastObject]);
     float latitude = self.locationManager.location.coordinate.latitude;
     float longitude = self.locationManager.location.coordinate.longitude;
-    
     
     NSString* latitudeString = [NSString stringWithFormat:@"%fw", latitude];
     NSString* longitudeString = [NSString stringWithFormat:@"%fw", longitude];
@@ -924,7 +874,6 @@
 {
     
     NSDate* currentDate = [NSDate date];
-    //NSLog(@"current date = %@", currentDate);
     NSTimeZone* currentTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
     NSTimeZone* nowTimeZone = [NSTimeZone systemTimeZone];
     
@@ -1043,6 +992,27 @@
         
     }
     
+    
+}
+
+- (void) addTheNextPostPages {
+
+    [self.tableView beginUpdates];
+    //[self.posts removeObjectAtIndex:[self.posts count] - 1];
+    //[self.mainfeedRows removeObjectAtIndex:[self.mainfeedRows count] - 1];
+    //NSIndexPath *ip = [NSIndexPath indexPathForRow:[self.posts count] -1 inSection:1];
+    //[self.tableView insertRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
+
+
+
+}
+
+- (void) refreshTableView
+{
+    
+    self.createdAtForLastPostCell = nil;
+    [self pullPostsFromDatabase];
     
 }
 

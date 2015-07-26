@@ -50,15 +50,6 @@
     self.returnDatePicker.hidden = YES;
 
     
-    //self.datePicker.timeZone = [NSTimeZone localTimeZone];
-    //self.returnDatePicker.timeZone = [NSTimeZone localTimeZone];
-    
-
-    //self.noteBox.text = @"Leave a little note!";
-    
-    //[[self.askButton layer] setBorderWidth:2.0f];
-    //[[self.askButton layer] setBorderColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0].CGColor];
-    
     self.currentUser = [PFUser currentUser];
     
     NSLog(@"current zipcode in new post%@",self.currentUser[@"currentZipcode"]);
@@ -224,9 +215,10 @@
         newPost[@"deadline"] = self.datePicker.date;
         newPost[@"returnDate"] = self.returnDatePicker.date;
         newPost[@"referenceToUser"] = self.currentUser;
+        /*
         PFRelation *relation = [newPost relationForKey:@"user"];
         [relation addObject:self.currentUser];
-        
+        */
         
 
         [newPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -343,10 +335,7 @@
         UIImage * noteIcon = [UIImage imageWithContentsOfFile:pngFilePath];
         [self.askButton setBackgroundImage:noteIcon
                                                   forState:UIControlStateNormal];
-        
-        
-        
-        //[self.itemInput becomeFirstResponder];
+
     }
     else if(self.noteBox.hidden == NO)
     {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Login And Sign Up-->
@@ -380,6 +380,30 @@
                                     <outlet property="rightItemImageButton" destination="Mfq-72-tIW" id="QdT-iT-Kgk"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PaginationTableViewCell" rowHeight="90" id="c6M-IW-X6o" customClass="PaginationTableViewCell">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c6M-IW-X6o" id="yT1-k8-1kg">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JEp-Ws-U8l">
+                                            <rect key="frame" x="130" y="15" width="60" height="60"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="495.GIF" translatesAutoresizingMaskIntoConstraints="NO" id="HRo-3f-ucG">
+                                                    <rect key="frame" x="15" y="15" width="30" height="30"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="loaderImage" destination="HRo-3f-ucG" id="vBU-OY-5Fm"/>
+                                    <outlet property="loaderImageBox" destination="JEp-Ws-U8l" id="HyS-c5-ZHw"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoadingCell" rowHeight="568" id="P9G-RZ-beY" customClass="LoadingCell">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
@@ -541,7 +565,18 @@
                     <tabBarItem key="tabBarItem" title="" image="searchPeopleIconNew.png" id="qft-wm-XIA">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" id="Hs1-TL-0V5"/>
+                    <navigationItem key="navigationItem" id="Hs1-TL-0V5">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8cJ-ZU-DzC">
+                            <rect key="frame" x="96" y="7" width="128" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                            <state key="normal" title="Explore!">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="6eS-fr-1rz" id="WZ7-V3-pna"/>
                     </connections>
@@ -608,7 +643,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="cTE-x0-4NV" kind="modal" id="5WP-rV-Za6"/>
+                                    <segue destination="tSc-2Q-dVu" kind="modal" id="RK6-97-IAR"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuItemCellLogout" id="oRH-N8-cwW" customClass="MenuItemCell">
@@ -643,42 +678,23 @@
             </objects>
             <point key="canvasLocation" x="1142" y="-923"/>
         </scene>
-        <!--Chat Table View Controller-->
-        <scene sceneID="5ke-r3-tNM">
+        <!--Messaging View Controller-->
+        <scene sceneID="D6q-dc-3uE">
             <objects>
-                <tableViewController id="cTE-x0-4NV" customClass="ChatTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="A8y-yK-XpW">
+                <viewController id="tSc-2Q-dVu" customClass="SOMessagingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nhd-82-Tz8"/>
+                        <viewControllerLayoutGuide type="bottom" id="HkD-LF-XSP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="b7s-mh-ycM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="W2B-Tb-ihq" customClass="THChatInput">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <outlet property="delegate" destination="cTE-x0-4NV" id="3bj-4Q-ixB"/>
-                            </connections>
-                        </view>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="IeZ-Wv-oPq">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IeZ-Wv-oPq" id="RBz-sw-plT">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="cTE-x0-4NV" id="da9-Fh-aZT"/>
-                            <outlet property="delegate" destination="cTE-x0-4NV" id="3oT-f8-8kr"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="chatInput" destination="W2B-Tb-ihq" id="Wdr-bw-uoU"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DDc-8D-Q7n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Iu9-ck-0a6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1640" y="-1099"/>
+            <point key="canvasLocation" x="1641" y="-1053"/>
         </scene>
         <!--Post Detail-->
         <scene sceneID="yU8-A7-C0Q">
@@ -921,12 +937,31 @@
                     <connections>
                         <segue destination="GZf-5C-ll1" kind="relationship" relationship="viewControllers" id="R2X-yS-kup"/>
                         <segue destination="0ZI-Ql-Xha" kind="relationship" relationship="viewControllers" id="0Xi-IS-VQC"/>
-                        <segue destination="2w0-nI-HgY" kind="relationship" relationship="viewControllers" id="Zcc-op-dX9"/>
+                        <segue destination="6Km-Z5-vvP" kind="relationship" relationship="viewControllers" id="s88-hb-bXf"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fdM-Gj-gnt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="911" y="142"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rZC-ec-noA">
+            <objects>
+                <navigationController id="6Km-Z5-vvP" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="chatBubbleIcon.png" id="m3i-mF-IOw">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f6k-PR-F34">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2w0-nI-HgY" kind="relationship" relationship="rootViewController" id="vKW-Or-TGR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HER-Zy-sTk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="952" y="1024"/>
         </scene>
         <!--My Posts-->
         <scene sceneID="Dlg-Nh-cRh">
@@ -1019,20 +1054,20 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgl-Ob-3Z7">
-                                            <rect key="frame" x="60" y="159" width="200" height="200"/>
+                                            <rect key="frame" x="60" y="121" width="200" height="200"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Getting my posts..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57c-mx-PkG">
-                                            <rect key="frame" x="100" y="263" width="120" height="30"/>
+                                            <rect key="frame" x="100" y="225" width="120" height="30"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="13"/>
                                             <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="495.GIF" translatesAutoresizingMaskIntoConstraints="NO" id="1gW-YR-VTR">
-                                            <rect key="frame" x="145" y="225" width="30" height="30"/>
+                                            <rect key="frame" x="145" y="187" width="30" height="30"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
@@ -1051,10 +1086,26 @@
                     <tabBarItem key="tabBarItem" title="" image="chatBubbleIcon.png" id="bgj-5M-PxS">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
+                    <navigationItem key="navigationItem" id="OsA-oA-GHz">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="SVg-1a-Knh">
+                            <rect key="frame" x="68" y="7" width="185" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="First"/>
+                                <segment title="Second"/>
+                                <segment title=""/>
+                            </segments>
+                            <color key="tintColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="filterSegmentedControl" destination="SVg-1a-Knh" id="h2c-KR-eyU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjt-bf-csv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1366" y="1027"/>
+            <point key="canvasLocation" x="1366" y="1024"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DGa-Hr-1bx">
@@ -1225,7 +1276,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="messageIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="1od-Kl-s3Z">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="activityIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="1od-Kl-s3Z">
                                                     <rect key="frame" x="103" y="372" width="30" height="30"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elg-Bw-T8e">
@@ -2232,6 +2283,7 @@
     </scenes>
     <resources>
         <image name="495.GIF" width="128" height="128"/>
+        <image name="activityIcon.png" width="30" height="30"/>
         <image name="cameraIcon2.png" width="128" height="128"/>
         <image name="cancelIcon.png" width="128" height="128"/>
         <image name="chatBubbleIcon.png" width="24" height="21"/>
@@ -2242,7 +2294,6 @@
         <image name="equalizer.png" width="32" height="32"/>
         <image name="heartIcon.png" width="128" height="128"/>
         <image name="hourglassIcon.png" width="34" height="45"/>
-        <image name="messageIcon.png" width="64" height="64"/>
         <image name="navBarMenuIcon.png" width="24" height="24"/>
         <image name="newsFeedIconNew.png" width="24" height="24"/>
         <image name="noteIcon.png" width="128" height="128"/>
@@ -2257,7 +2308,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="tFf-XO-hVG"/>
         <segue reference="kgh-b9-K6U"/>
-        <segue reference="Ozk-Ad-0kk"/>
     </inferredMetricsTieBreakers>
 </document>

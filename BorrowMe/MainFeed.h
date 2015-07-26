@@ -29,5 +29,6 @@
 @property (strong, nonatomic) PFUser* viewUser;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *navBarSegmentedControl;
+@property (strong, nonatomic) NSDate* createdAtForLastPostCell;
 
 @end

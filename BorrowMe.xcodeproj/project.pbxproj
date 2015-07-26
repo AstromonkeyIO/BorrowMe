@@ -45,6 +45,7 @@
 		6667C6EA1AC92A6C000467AC /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667C6E91AC92A6C000467AC /* UserCell.m */; };
 		6667C6ED1AC92F34000467AC /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6667C6EC1AC92F34000467AC /* UserObject.m */; };
 		66695A1F1AF459620081AA1C /* clock2.png in Resources */ = {isa = PBXBuildFile; fileRef = 66695A1E1AF459620081AA1C /* clock2.png */; };
+		666B57711B644225004477D1 /* PaginationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 666B57701B644225004477D1 /* PaginationTableViewCell.m */; };
 		667601521AEB2DEE00963621 /* hourglassIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 667601511AEB2DED00963621 /* hourglassIcon.png */; };
 		667601541AEB6CEB00963621 /* heartIconPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 667601531AEB6CEB00963621 /* heartIconPurple.png */; };
 		6678BF411A7DB7720060B73A /* LoginAndSignUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 6678BF401A7DB7720060B73A /* LoginAndSignUp.m */; };
@@ -61,6 +62,9 @@
 		6687DD311B5C7432005E37E3 /* chatBubbleIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6687DD2F1B5C7432005E37E3 /* chatBubbleIcon.png */; };
 		6687DD341B5C7439005E37E3 /* chatBubbleIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6687DD321B5C7439005E37E3 /* chatBubbleIcon@2x.png */; };
 		6687DD351B5C7439005E37E3 /* chatBubbleIcon2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6687DD331B5C7439005E37E3 /* chatBubbleIcon2@2x.png */; };
+		6687DD381B5C7851005E37E3 /* MyPostsSelectorHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6687DD371B5C7851005E37E3 /* MyPostsSelectorHeaderCell.m */; };
+		6687DD3A1B5C868C005E37E3 /* activityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6687DD391B5C868C005E37E3 /* activityIcon.png */; };
+		668974D21B608CBA00FC5ABE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 668974D11B608CBA00FC5ABE /* MediaPlayer.framework */; };
 		668AD9DA1AA0597600627437 /* MyPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 668AD9D91AA0597600627437 /* MyPost.m */; };
 		668FC80E1AB110C300AB2BAD /* Response.m in Sources */ = {isa = PBXBuildFile; fileRef = 668FC80D1AB110C300AB2BAD /* Response.m */; };
 		6692704C1ADE21E700C39F27 /* gear.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6692704B1ADE21E700C39F27 /* gear.gif */; };
@@ -222,6 +226,8 @@
 		6667C6EB1AC92F34000467AC /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserObject.h; sourceTree = "<group>"; };
 		6667C6EC1AC92F34000467AC /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserObject.m; sourceTree = "<group>"; };
 		66695A1E1AF459620081AA1C /* clock2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock2.png; sourceTree = "<group>"; };
+		666B576F1B644225004477D1 /* PaginationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaginationTableViewCell.h; sourceTree = "<group>"; };
+		666B57701B644225004477D1 /* PaginationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaginationTableViewCell.m; sourceTree = "<group>"; };
 		667601511AEB2DED00963621 /* hourglassIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglassIcon.png; sourceTree = "<group>"; };
 		667601531AEB6CEB00963621 /* heartIconPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heartIconPurple.png; sourceTree = "<group>"; };
 		6678BF3F1A7DB7720060B73A /* LoginAndSignUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAndSignUp.h; sourceTree = "<group>"; };
@@ -240,6 +246,10 @@
 		6687DD2F1B5C7432005E37E3 /* chatBubbleIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatBubbleIcon.png; sourceTree = "<group>"; };
 		6687DD321B5C7439005E37E3 /* chatBubbleIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBubbleIcon@2x.png"; sourceTree = "<group>"; };
 		6687DD331B5C7439005E37E3 /* chatBubbleIcon2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBubbleIcon2@2x.png"; sourceTree = "<group>"; };
+		6687DD361B5C7851005E37E3 /* MyPostsSelectorHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPostsSelectorHeaderCell.h; sourceTree = "<group>"; };
+		6687DD371B5C7851005E37E3 /* MyPostsSelectorHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostsSelectorHeaderCell.m; sourceTree = "<group>"; };
+		6687DD391B5C868C005E37E3 /* activityIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = activityIcon.png; sourceTree = "<group>"; };
+		668974D11B608CBA00FC5ABE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		668AD9D81AA0597600627437 /* MyPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPost.h; sourceTree = "<group>"; };
 		668AD9D91AA0597600627437 /* MyPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPost.m; sourceTree = "<group>"; };
 		668FC80C1AB110C300AB2BAD /* Response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Response.h; sourceTree = "<group>"; };
@@ -363,6 +373,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				668974D21B608CBA00FC5ABE /* MediaPlayer.framework in Frameworks */,
 				66F24AA11AE2F4CF00DEC153 /* MapKit.framework in Frameworks */,
 				66953B2F1A79BE7400AEB78C /* libsqlite3.dylib in Frameworks */,
 				66953B2D1A79BE4700AEB78C /* libz.dylib in Frameworks */,
@@ -414,6 +425,8 @@
 				66B07F7A1AAE96D3000F4B21 /* MyPostLender.m */,
 				668FC80C1AB110C300AB2BAD /* Response.h */,
 				668FC80D1AB110C300AB2BAD /* Response.m */,
+				6687DD361B5C7851005E37E3 /* MyPostsSelectorHeaderCell.h */,
+				6687DD371B5C7851005E37E3 /* MyPostsSelectorHeaderCell.m */,
 			);
 			name = MyPosts;
 			sourceTree = "<group>";
@@ -486,6 +499,7 @@
 		66953AD61A79BCE200AEB78C = {
 			isa = PBXGroup;
 			children = (
+				668974D11B608CBA00FC5ABE /* MediaPlayer.framework */,
 				66F24AA01AE2F4CF00DEC153 /* MapKit.framework */,
 				66953B2E1A79BE7400AEB78C /* libsqlite3.dylib */,
 				66953B2C1A79BE4700AEB78C /* libz.dylib */,
@@ -634,6 +648,7 @@
 		66F42B5C1A96D05600F99A31 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6687DD391B5C868C005E37E3 /* activityIcon.png */,
 				6687DD321B5C7439005E37E3 /* chatBubbleIcon@2x.png */,
 				6687DD331B5C7439005E37E3 /* chatBubbleIcon2@2x.png */,
 				6687DD2E1B5C7432005E37E3 /* chatBubbleIcon2.png */,
@@ -737,6 +752,8 @@
 				6666C90E1B34AE3B008F9E66 /* HeaderCell.m */,
 				6666C9101B34B9FF008F9E66 /* ItemsCell.h */,
 				6666C9111B34B9FF008F9E66 /* ItemsCell.m */,
+				666B576F1B644225004477D1 /* PaginationTableViewCell.h */,
+				666B57701B644225004477D1 /* PaginationTableViewCell.m */,
 			);
 			name = MainFeed;
 			sourceTree = "<group>";
@@ -887,6 +904,7 @@
 				66DBB8C11ADCC8D0005919FF /* 495.GIF in Resources */,
 				6662DEA51AE31F4500917B65 /* cancelIcon.png in Resources */,
 				66F24A9C1AE22C9100DEC153 /* Main.storyboard in Resources */,
+				6687DD3A1B5C868C005E37E3 /* activityIcon.png in Resources */,
 				66FF3A8D1AF0B06400EB51E7 /* xIcon.png in Resources */,
 				669BFE4C1AF1D20800967CD8 /* stack.png in Resources */,
 				6624FD2F1AE07C67004EA647 /* 1429244562_699044-icon-55-document-text-128.png in Resources */,
@@ -952,6 +970,7 @@
 				66B07F781AAE94F0000F4B21 /* MyPostItem.m in Sources */,
 				66953AE81A79BCE200AEB78C /* AppDelegate.m in Sources */,
 				661DB0931A9D32AD00400B86 /* MyPosts.m in Sources */,
+				6687DD381B5C7851005E37E3 /* MyPostsSelectorHeaderCell.m in Sources */,
 				66232E7F1AF99DFE001532BD /* UserSearchResult.m in Sources */,
 				66B3D7811B1289F100C3881D /* MenuItemUserProfileCell.m in Sources */,
 				66AC793F1A9EA91300DDF2AE /* MyPostObject.m in Sources */,
@@ -964,6 +983,7 @@
 				664CAE771A88B0E600E3E929 /* PostObject.m in Sources */,
 				660314481AA3038600C0F763 /* MyPostNoLenders.m in Sources */,
 				66953AE51A79BCE200AEB78C /* main.m in Sources */,
+				666B57711B644225004477D1 /* PaginationTableViewCell.m in Sources */,
 				66953AEB1A79BCE200AEB78C /* BorrowMe.xcdatamodeld in Sources */,
 				6666C9121B34B9FF008F9E66 /* ItemsCell.m in Sources */,
 				66232E821AF9A03F001532BD /* UserSearchResultObject.m in Sources */,
@@ -1100,6 +1120,7 @@
 					"$(PROJECT_DIR)/parse-library-1.6.2",
 				);
 				INFOPLIST_FILE = BorrowMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1114,6 +1135,7 @@
 					"$(PROJECT_DIR)/parse-library-1.6.2",
 				);
 				INFOPLIST_FILE = BorrowMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

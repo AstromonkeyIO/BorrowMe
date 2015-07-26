@@ -31,22 +31,32 @@
 
 #pragma mark - UISearchDisplayDelegate
 
-
-- (void)viewDidLoad
+- (void) viewWillAppear:(BOOL)animated
 {
+    
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 0.5]];
+    [self.navigationController.navigationBar setTranslucent:NO];
+    
+}
+
+- (void) viewDidLoad
+{
+    
     self.users = [[NSMutableArray alloc] init];
     self.searchResults = [[NSMutableArray alloc] init];
+    
 
 }
 // register a cell reuse identifier for the search results table view
 
--(void)searchDisplayController:(UISearchDisplayController *)controller
+-(void) searchDisplayController:(UISearchDisplayController *)controller
  didLoadSearchResultsTableView:(UITableView *)tableView {
     [tableView registerClass:[UITableViewCell class]
       forCellReuseIdentifier:@"SearchResultsTableViewUITableViewCell"];
 }
 
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+-(BOOL) searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     
     NSLog(@"%@", searchString);

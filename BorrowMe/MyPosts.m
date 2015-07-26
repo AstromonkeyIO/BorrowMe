@@ -13,6 +13,7 @@
 #import "MyPostLenders.h"
 #import "PostObject.h"
 #import "LoadingCell.h"
+#import "MyPostsSelectorHeaderCell.h"
 
 @implementation MyPosts
 
@@ -29,6 +30,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     self.currentUser = [PFUser currentUser];
     //NSLog(@"%@", self.currentUser);
     //[self pullFromDatabase];
@@ -45,14 +47,19 @@
 {
     
     [super viewDidLoad];
-    self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+    [self.filterSegmentedControl setTitle:@"Posts"forSegmentAtIndex:0];
+    [self.filterSegmentedControl setTitle:@"Items"forSegmentAtIndex:1];
+    [self.filterSegmentedControl setTitle:@"Messages"forSegmentAtIndex:2];
+    [self.filterSegmentedControl setSelectedSegmentIndex:0];
+    
+    //self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.currentUser = [PFUser currentUser];
     self.myPosts = [[NSMutableArray alloc] init];
     [self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
-    
+        
     /*
     UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
     [gestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];

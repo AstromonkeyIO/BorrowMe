@@ -13,6 +13,8 @@
 
 @property (strong, nonatomic) PFUser* currentUser;
 @property (strong, nonatomic) NSMutableArray* myPosts;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *myPostsSelector;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *filterSegmentedControl;
 
 
 @end
