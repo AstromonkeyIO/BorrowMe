@@ -105,15 +105,18 @@
         [query whereKey:@"createdAt" lessThan:self.createdAtForLastPostCell];
     }
 
-    [query setLimit:15];
+    [query setLimit:3];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"User"];
     [query includeKey:@"referenceToUser"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (!error) {
             
-            // The find succeeded.
-            // Do something with the found objects
+            
+            //for initial load and pull to refresh
+            if(!self.createdAtForLastPostCell)
+            {
+            
             
             if([self.posts count] != 0)
             {
@@ -160,10 +163,7 @@
                 [self.posts addObject:postObject];
                 
             }
-            
-            //for initial load and pull to refresh
-            if(!self.createdAtForLastPostCell)
-            {
+
                 //recording createdAt value for last post for pagination functionality
                 PFObject* tempPFPost = [posts lastObject];
                 self.createdAtForLastPostCell = [tempPFPost createdAt];
@@ -182,8 +182,6 @@
                 
                 [self.mainfeedRows addObjectsFromArray:self.posts];
                 
-                
-                //NSLog(@"posts array %@", self.posts);
                 dispatch_async(dispatch_get_main_queue(), ^ {
                     
                     [self.tableView reloadData];
@@ -195,23 +193,71 @@
             else
             {
                 
+                
                 [self.tableView beginUpdates];
                 [self.posts removeLastObject];
                 [self.mainfeedRows removeLastObject];
                 
-                NSInteger lastSectionIndex = [self.tableView numberOfSections] - 1;
-                
-                NSInteger lastRowIndex = [self.tableView numberOfRowsInSection:lastSectionIndex] - 1;
-                
-                NSIndexPath* pathToLastRow = [NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex];
+                NSInteger lastRowIndex = [self.posts count];
+                NSIndexPath* pathToLastRow = [NSIndexPath indexPathForRow:lastRowIndex inSection:0];
                 NSArray* deleteIndexPaths = [[NSArray alloc] initWithObjects: pathToLastRow, nil];
                 [self.tableView deleteRowsAtIndexPaths:deleteIndexPaths withRowAnimation:UITableViewRowAnimationFade];
                 
-                [self.tableView endUpdates];
+                if([posts count] > 0)
+                {
+                    
+                    for (PFObject *post in posts)
+                    {
+                        
+                        PFUser* user = post[@"referenceToUser"];
+                        
+                        PostObject* postObject = [[PostObject alloc] init];
+                        postObject.type = @"post";
+                        postObject.user = user;
+                        postObject.item = [post valueForKey:@"item"];
+                        postObject.post = post;
+
+                        PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
+                        NSData* profilePictureData = [profilePictureFile getData];
+                        postObject.userProfileImage = [UIImage imageWithData: profilePictureData];
+
+                        postObject.alreadyLiked = false;
+                        for(int i = 0; i < [self.currentUser[@"likedPosts"] count]; i++) {
+                            
+                            if([[self.currentUser[@"likedPosts"] objectAtIndex:i] isEqualToString:[post valueForKey:@"objectId"]])
+                            {
+                                
+                                postObject.alreadyLiked = true;
+                                break;
+                                
+                            }
+                            
+                        }
+                        
+                        NSString* timeUntilDeadline = [self getTimeDifference: [post valueForKey:@"deadline"]];
+                        postObject.deadline = timeUntilDeadline;
+
+                        [self.posts addObject:postObject];
+                        [self.mainfeedRows addObject:postObject];
+
+                    }
+                    
+                    //recording createdAt value for last post for pagination functionality
+                    PFObject* tempPFPost = [posts lastObject];
+                    self.createdAtForLastPostCell = [tempPFPost createdAt];
+                    
+                    //adding pagination table view cell
+                    PostObject* paginationCellObject = [[PostObject alloc] init];
+                    paginationCellObject.type = @"paginationTableViewCell";
+                    [self.posts addObject:paginationCellObject];
+                    [self.mainfeedRows addObject:paginationCellObject];
+                    [self.tableView reloadData];
                 
+                }
+
             }
             
-            
+            [self.tableView endUpdates];
             
             
         } else {
@@ -599,12 +645,14 @@
     }
     else if([segue.identifier isEqualToString:@"View-User-Profile"])
     {
-        
+        /*
         UserProfile* tableView = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
         PFUser* passUser = self.viewUser;
-        // MyPostLenders* tableView = (MyPostLenders*)[self.navigationController.viewControllers objectAtIndex:0];
+        */
+        UserProfile* tableView = (UserProfile*)segue.destinationViewController;
+        PFUser* passUser = self.viewUser;
         tableView.user = passUser;
-        NSLog(@"I'm in the prepare for segue!");
+        // MyPostLenders* tableView = (MyPostLenders*)[self.navigationController.viewControllers objectAtIndex:0];
         
     }
     
@@ -801,8 +849,7 @@
 {
     
     NSDictionary *ud = notification.userInfo;
-    NSLog(@"new post added %@", ud);
-    
+
     PFObject* postPFObject = [self convertNSMutableDictionaryToPFObject:ud];
     NSLog(@"PFObject %@", postPFObject);
     PostObject* p = [self createNewPostObject:postPFObject];

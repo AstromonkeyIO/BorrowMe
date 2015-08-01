@@ -151,7 +151,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    return 70;
+    return 55;
     
 }
 
@@ -419,14 +419,10 @@
     else if([segue.identifier isEqualToString:@"View-User-Profile"])
     {
         
-        
-        UserProfile* tableView = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
+        UserProfile* tableView = (UserProfile*)segue.destinationViewController;
         PFUser* passUser = self.viewUser;
-        // MyPostLenders* tableView = (MyPostLenders*)[self.navigationController.viewControllers objectAtIndex:0];
         tableView.user = passUser;
-        
-        NSLog(@"I'm in the prepare for segue!");
-        
+    
     }
     
     

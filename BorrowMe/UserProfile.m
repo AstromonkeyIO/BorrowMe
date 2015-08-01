@@ -49,8 +49,7 @@
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     self.view.backgroundColor = [UIColor whiteColor];
-    //self.view.backgroundColor = [UIColor colorWithRed: 102.0/255.0 green: 204.0/255.0 blue:255.0/255.0 alpha: 1.0];
-    
+    self.view.backgroundColor = [UIColor colorWithRed: 169.0/255.0 green: 226.0/255.0 blue:243.0/255.0 alpha: 1.0];
     
 }
 
@@ -433,7 +432,7 @@
     if(indexPath.row == 0)
     {
         
-        return 323;
+        return 343;
         
     }
     else
@@ -487,5 +486,13 @@
     */
     
 }
+
+- (IBAction)dismissUserProfileTableViewController:(id)sender
+{
+    
+    [self dismissViewControllerAnimated:true completion:nil];
+    
+}
+
 
 @end
