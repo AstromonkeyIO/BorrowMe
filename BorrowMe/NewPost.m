@@ -199,6 +199,7 @@
         
         //[self.itemInput resignFirstResponder];
         PFObject *newPost = [PFObject objectWithClassName:@"Posts"];
+        newPost[@"userId"] = self.currentUser.objectId;
         newPost[@"item"] = self.itemInput.text;
         if(![self.noteBox.text isEqualToString:@"Leave a little note!"] && self.noteBox.text.length != 0) {
             newPost[@"note"] = self.noteBox.text;
@@ -229,10 +230,6 @@
                  //__weak NewPost *weakSelf = self;
                  PFRelation* userToPostRelation = [self.currentUser relationForKey:@"posts"];
                  [userToPostRelation addObject:newPost];
-                 //[self.currentUser save];
-                 //NSDictionary *finishDict = @{@"postKey":postKey,@"objectId":newPost.objectId};
-                 //[[NSNotificationCenter defaultCenter] postNotificationName:@"PostFinished" object:self userInfo:finishDict];
-                 
                  NSMutableDictionary* returnDic = [self convertPFObjectToNSMutableDictionary:newPost];
                  [[NSNotificationCenter defaultCenter] postNotificationName:@"NewUserPost" object:self userInfo:returnDic];
                  

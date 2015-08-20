@@ -130,6 +130,8 @@
                                                      text:@"Now with media messages!"],
                      nil];
     
+    
+    
     [self addPhotoMediaMessage];
     
     /**

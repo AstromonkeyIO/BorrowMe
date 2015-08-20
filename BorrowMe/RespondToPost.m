@@ -208,8 +208,10 @@
         rotation.repeatCount = HUGE_VALF; // Repeat forever. Can be a finite number.
         [self.loadingImage.layer removeAllAnimations];
         [self.loadingImage.layer addAnimation:rotation forKey:@"Spin"];
-        
+    
         PFObject* newResponse = [PFObject objectWithClassName:@"Responses"];
+        newResponse[@"postId"] = self.receivedPostObject.getPost.objectId;
+        newResponse[@"referenceToUser"] = [PFUser currentUser];
         NSData *imageData = UIImageJPEGRepresentation(self.itemImage.image, 0.1);
         PFFile* imageInPFFile = [PFFile fileWithName:@"test.png" data:imageData];
         newResponse[@"itemImage"] = imageInPFFile;

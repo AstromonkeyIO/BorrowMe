@@ -92,9 +92,9 @@
                 Response* newResponse = [[Response alloc] init];
                 
                 newResponse.responsePFObject = response;
-                PFUser* user = (PFUser*)[[[response relationForKey:@"user"] query] getFirstObject];
+                //PFUser* user = (PFUser*)[[[response relationForKey:@"user"] query] getFirstObject];
+                PFUser* user = response[@"referenceToUser"];
                 newResponse.user = user;
-                
                 PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
                 NSData* profilePictureData = [profilePictureFile getData];
                 newResponse.userProfile = [UIImage imageWithData: profilePictureData];

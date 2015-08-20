@@ -17,8 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *lenderPicture4;
 @property (weak, nonatomic) IBOutlet UILabel *addtionalLenders;
 @property (weak, nonatomic) IBOutlet UILabel *deadline;
-
-
-
+@property (strong, nonatomic) NSString* type;
 
 @end

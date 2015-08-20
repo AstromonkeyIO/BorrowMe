@@ -385,6 +385,8 @@
     if([[[self.mainfeedRows objectAtIndex:indexPath.row] valueForKey:@"type"] isEqualToString:@"loadingCell"])
     {
         
+        self.tableView.scrollEnabled = NO;
+        
         LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
         loadingCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -720,7 +722,7 @@
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
 }
-
+/*
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     
     CGPoint targetPoint = *targetContentOffset;
@@ -761,7 +763,7 @@
     }
     
 }
-
+*/
 - (void)deletePost: (NSNotification*) notification
 {
     

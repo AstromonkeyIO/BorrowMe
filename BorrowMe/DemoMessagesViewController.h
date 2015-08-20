@@ -19,7 +19,6 @@
 
 // Import all the things
 #import "JSQMessages.h"
-
 #import "DemoModelData.h"
 #import "NSUserDefaults+DemoSettings.h"
 

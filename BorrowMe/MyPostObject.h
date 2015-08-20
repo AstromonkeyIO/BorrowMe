@@ -11,6 +11,7 @@
 
 @interface MyPostObject : NSObject
 
+@property (strong, nonatomic) NSString* type;
 @property (strong, nonatomic) NSString* item;
 @property (strong, nonatomic) NSMutableArray* lenders;
 @property (strong, nonatomic) NSMutableArray* responses;
