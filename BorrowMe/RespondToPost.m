@@ -12,12 +12,6 @@
 
 @implementation RespondToPost
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    //show camera...
-}
-
 - (void) viewDidLoad {
     
     NSLog(@"%@", [self.receivedPostObject getPost]);
@@ -56,7 +50,7 @@
     self.cameraButtonContainer.center = saveCenter2;
     self.cameraButtonContainer.clipsToBounds = YES;
     
-    [self.itemDescription becomeFirstResponder];
+    //[self.itemDescription becomeFirstResponder];
     
     self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAllKeyboards)];
     self.gestureRecognizer.cancelsTouchesInView = NO;
@@ -76,8 +70,13 @@
         
     }
     
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     
-    
+    [super viewDidAppear:animated];
+    [self.itemDescription becomeFirstResponder];
     
 }
 

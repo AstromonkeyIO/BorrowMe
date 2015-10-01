@@ -12,6 +12,7 @@
 #import "ReviewObject.h"
 #import "ReviewCell.h"
 #import "LoadingCell.h"
+#import "PostReview.h"
 
 @implementation UserProfile
 
@@ -51,6 +52,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.view.backgroundColor = [UIColor colorWithRed: 169.0/255.0 green: 226.0/255.0 blue:243.0/255.0 alpha: 1.0];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newPostAdded:) name:@"NewReviewAdded" object:nil];
+    
 }
 
 
@@ -77,25 +81,24 @@
     
     __block float totalRating = 0;
     NSLog(@"userr   %@", self.user);
-    PFQuery* queryReviews = [[self.user relationForKey:@"reviews"] query];
+    
+    PFQuery* queryReviews = [PFQuery queryWithClassName:@"Reviews"];
+    [queryReviews whereKey:@"reviewedUserId" equalTo:self.user.objectId];
+    [queryReviews includeKey:@"referenceToUser"];
     [queryReviews orderByDescending:@"createdAt"];
-    //NSLog(@"queryReviews   %@", queryReviews);
+
     [queryReviews findObjectsInBackgroundWithBlock:^(NSArray *reviews, NSError *error) {
 
         if (!error)
         {
-            
-            //if([reviews count] > 0) {
+
             [self.reviews removeAllObjects];
-            //}
-            
+
             for (PFObject *review in reviews)
             {
                 
                 ReviewObject* reviewObject = [[ReviewObject alloc] init];
-                
-                PFUser* user = (PFUser*)[[[review relationForKey:@"user"] query] getFirstObject];
-                
+                PFUser* user = review[@"referenceToUser"];
                 reviewObject.user = user;
                 reviewObject.username = user.username;
                 PFFile* profilePictureFile = [user valueForKey:@"profilePicture"];
@@ -108,9 +111,7 @@
                 float reviewRating = [reviewObject.rating floatValue];
                 totalRating += reviewRating;
 
-                //[self.reviews addObject:reviewObject];
                 [tempReviews addObject:reviewObject];
-                
                 
             }
           
@@ -183,8 +184,6 @@
         [userCell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
         UserObject* userObject = [self.reviews objectAtIndex:indexPath.row];
-        
-
         
         CGPoint saveCenter = userCell.userProfilePictureButton.center;
         CGRect newFrame = CGRectMake(userCell.userProfilePictureButton.frame.origin.x, userCell.userProfilePictureButton.frame.origin.y, 90, 90);
@@ -468,7 +467,115 @@
     
 }
 
+//Functions
 
+- (void) newPostAdded: (NSNotification*) notification
+{
+    
+    NSDictionary* newReviewInDictionary = notification.userInfo;
+    
+    PFObject* reviewsPFObject = [self convertReviewNSMutableDictionaryToReviewsPFObject:newReviewInDictionary];
+    NSLog(@"PFObject %@", reviewsPFObject);
+    ReviewObject* newReviewObject = [self createNewReviewObject:reviewsPFObject];
+    [self.reviews insertObject:newReviewObject atIndex:1];
+    [self calculateUserRating];
+    [self.tableView reloadData];
+    /*
+    [self.tableView beginUpdates];
+    [self.reviews insertObject:newReviewObject atIndex:1];
+    NSIndexPath *ip = [NSIndexPath indexPathForRow:1 inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
+    */
+
+}
+
+- (PFObject*) convertReviewNSMutableDictionaryToReviewsPFObject:(NSDictionary*) nsDictionary {
+    NSArray * allKeys = [nsDictionary allKeys];
+    PFObject* postObject = [PFObject objectWithoutDataWithClassName:@"Posts" objectId:[nsDictionary objectForKey:@"objectId"]];
+    
+    for (NSString * key in allKeys)
+    {
+        
+        if([key isEqualToString:@"user"])
+        {
+            
+            
+        }
+        else if([key isEqualToString:@"objectId"])
+        {
+            
+            //postObject.objectId = [nsDictionary objectForKey:key];
+            
+        }
+        else
+        {
+            
+            postObject[key] = [nsDictionary objectForKey:key];
+            
+        }
+        
+        
+    }
+    
+    
+    
+    NSLog(@"result PFpostobject %@", postObject);
+    return postObject;
+    
+}
+
+- (ReviewObject*) createNewReviewObject: (PFObject*) reviewsPFObject
+{
+    
+    ReviewObject *newReviewObject = [[ReviewObject alloc] init];
+    newReviewObject.reviewPFObject = reviewsPFObject;
+    NSLog(@"pfpost %@", reviewsPFObject);
+    newReviewObject.type = @"review";
+    
+    NSLog(@"referenceToUserInCreateNewPost %@", reviewsPFObject[@"referenceToUser"]);
+    newReviewObject.user = reviewsPFObject[@"referenceToUser"];
+    PFFile* profilePictureFile = newReviewObject.user[@"profilePicture"];
+    NSData* profilePictureData = [profilePictureFile getData];
+    newReviewObject.userProfile = [UIImage imageWithData: profilePictureData];
+    
+    newReviewObject.username = newReviewObject.user[@"username"];
+    
+    newReviewObject.rating = reviewsPFObject[@"rating"];
+    newReviewObject.review = reviewsPFObject[@"review"];
+
+    return newReviewObject;
+    
+}
+
+- (void) calculateUserRating
+{
+    
+    if([self.reviews count] > 1)
+    {
+        
+        float totalRating = 0;
+        
+        for(int i = 1; i < [self.reviews count]; i++)
+        {
+            
+            ReviewObject* reviewObject = [self.reviews objectAtIndex:i];
+            float reviewRating = [reviewObject.rating floatValue];
+            totalRating += reviewRating;
+        }
+        
+        float averageRating = totalRating/([self.reviews count] -1);
+        int roundedAverageRating = roundf(averageRating);
+        
+        UserObject* userObject = [self.reviews objectAtIndex:0];
+        [self.reviews removeObjectAtIndex:0];
+        userObject.averageRating = [NSString stringWithFormat:@"%d", roundedAverageRating];
+        [self.reviews insertObject:userObject atIndex:0];
+        
+    }
+    
+    
+}
 
 #pragma mark - Navigation
 
@@ -476,14 +583,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
    
-    /*
-    if([segue.identifier isEqualToString:@"GoToMyPostLenders"])
+    if([segue.identifier isEqualToString:@"PostReviewSegue"])
     {
         
-
+        PostReview* postReview = (PostReview *)segue.destinationViewController;
+        postReview.reviewedUser = self.user;
         
     }
-    */
     
 }
 
@@ -493,6 +599,8 @@
     [self dismissViewControllerAnimated:true completion:nil];
     
 }
+
+
 
 
 @end

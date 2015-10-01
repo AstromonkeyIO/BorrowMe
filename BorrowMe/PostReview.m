@@ -42,6 +42,7 @@
 
 - (IBAction)writeReviewButtonPressed:(id)sender
 {
+    
     [UIView animateWithDuration:0.1 delay:0.1 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.rateButton.transform = CGAffineTransformMakeScale(1.1,1.1);
     } completion:^(BOOL finished) {
@@ -83,21 +84,26 @@
                         
                     }
                     newReview[@"rating"] = self.currentRating;
-                    PFRelation *relation = [newReview relationForKey:@"user"];
-                    [relation addObject:self.currentUser];
-                    [newReview saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                        if (succeeded)
+                    newReview[@"referenceToUser"] = self.currentUser;
+                    newReview[@"reviewedUserId"] = self.reviewedUser.objectId;
+                    [newReview saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+                    {
+                        
+                        if(succeeded)
                         {
                             
-                            PFRelation* userToReviewRelation = [self.currentUser relationForKey:@"reviews"];
-                            [userToReviewRelation addObject:newReview];
-                            [self.currentUser save];
+                            NSMutableDictionary* returnDic = [self convertReviewsPFObjectToNSMutableDictionary:newReview];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"NewReviewAdded" object:self userInfo:returnDic];
+                            
                             [self.review resignFirstResponder];
                             [self dismissViewControllerAnimated:true completion:nil];
                             
                         }
-                        else {
-                            // There was a problem, check error.descriptio
+                        else
+                        {
+                            
+                            // There was a problem, check error.description
+                            
                         }
                         }];
                     }
@@ -297,10 +303,27 @@
     
 }
 
+- (NSMutableDictionary*) convertReviewsPFObjectToNSMutableDictionary:(PFObject*) reviewsPFObject
+{
 
+    NSArray * allKeys = [reviewsPFObject allKeys];
+    NSMutableDictionary * retDict = [[NSMutableDictionary alloc] init];
+    
+    for (NSString * key in allKeys)
+    {
+        
+        [retDict setObject:[reviewsPFObject objectForKey:key] forKey:key];
+        
+    }
+    
+    [retDict setValue:reviewsPFObject.objectId forKey:@"objectId"];
+    
+    return retDict;
+    
+}
 
-
-- (IBAction)dismissViewButtonPressed:(id)sender {
+- (IBAction)dismissViewButtonPressed:(id)sender
+{
     
     [self dismissViewControllerAnimated:YES completion:nil];
     

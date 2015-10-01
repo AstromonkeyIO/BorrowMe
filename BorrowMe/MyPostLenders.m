@@ -502,8 +502,9 @@
 
          //UserProfile* tableView = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
          //PFUser* passUser = self.viewUser;
-         UserProfile* tableView = (UserProfile*)[self.navigationController.viewControllers objectAtIndex:0];
-        PFUser* passUser = self.viewUser;
+         //UserProfile* tableView = (UserProfile*)[self.navigationController.viewControllers objectAtIndex:0];
+         UserProfile* tableView = (UserProfile*)segue.destinationViewController;
+         PFUser* passUser = self.viewUser;
          tableView.user = passUser;
          
          /*

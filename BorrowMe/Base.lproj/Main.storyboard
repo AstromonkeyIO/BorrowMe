@@ -1016,6 +1016,35 @@
                                     <segue destination="Q1U-K5-jo7" kind="modal" identifier="GoToMyPostLenders" id="z3J-9o-yke"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyPostLoading" rowHeight="92" id="inT-6Y-EnN" customClass="MyPostLoading">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="inT-6Y-EnN" id="urW-E3-i3z">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="495.GIF" translatesAutoresizingMaskIntoConstraints="NO" id="MA8-eY-1OZ">
+                                            <rect key="frame" x="25" y="44" width="40" height="40"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r7I-ch-KLq">
+                                            <rect key="frame" x="25" y="8" width="271" height="28"/>
+                                            <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFV-NZ-EV3">
+                                            <rect key="frame" x="254" y="38" width="42" height="16"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
+                                            <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="deadline" destination="qFV-NZ-EV3" id="NI4-PB-DJo"/>
+                                    <outlet property="item" destination="r7I-ch-KLq" id="gdH-N0-WtB"/>
+                                    <outlet property="loadingImage" destination="MA8-eY-1OZ" id="jCy-XL-R3w"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyPostNoLenders" rowHeight="58" id="CCZ-M0-J5D" customClass="MyPostNoLenders">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1538,6 +1567,9 @@
                                         <rect key="frame" x="14" y="72" width="293" height="53"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="dismissKeyboard:" destination="MCZ-E1-SWZ" eventType="editingDidEnd" id="CSj-Af-fKC"/>
+                                        </connections>
                                     </textField>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ESt-Vs-6jW">
                                         <rect key="frame" x="43" y="133" width="234" height="29"/>
@@ -1669,7 +1701,7 @@
                                             </state>
                                             <connections>
                                                 <action selector="writeReviewButtonPressed:" destination="OGb-9V-PGV" eventType="touchUpInside" id="Jjw-B5-TGd"/>
-                                                <segue destination="Aet-KS-ZxF" kind="modal" id="C3o-rR-9RS"/>
+                                                <segue destination="Aet-KS-ZxF" kind="modal" identifier="PostReviewSegue" id="C3o-rR-9RS"/>
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heartIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="HEV-rm-MT9">

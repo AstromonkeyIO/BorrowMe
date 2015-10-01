@@ -9,6 +9,7 @@
 #import "MyPosts.h"
 #import "MyPostObject.h"
 #import "MyPost.h"
+#import "MyPostLoading.h"
 #import "MyPostNoLenders.h"
 #import "MyPostLenders.h"
 #import "PostObject.h"
@@ -594,7 +595,9 @@
     if([myPostObject.type isEqualToString: @"loadingCell"])
     {
         self.tableView.scrollEnabled = NO;
+        
         LoadingCell* loadingCell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
+
         loadingCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         CABasicAnimation *rotation;
@@ -617,8 +620,28 @@
     if([myPostObject.type isEqualToString:@"myPostGettingResponsesCell"])
     {
         
-    
+        
+        /*
+         static NSString *CellIdentifier = @"Cell";
+         
+         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+         if (cell == nil) {
+         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+         }
+         */
+        
+        static NSString* cellIdentifier = @"MyPost";
+        MyPost* myPost = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if(myPost == nil)
+        {
+            
+            myPost = [[MyPost alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: cellIdentifier];
+            
+        }
+        /*
         MyPost* myPost = [tableView dequeueReusableCellWithIdentifier:@"MyPost" forIndexPath:indexPath];
+        */
         MyPostObject* myPostObject = [self.myPosts objectAtIndex:indexPath.row];
             
         if([myPostObject.urgency isEqualToString: @"expired"])
@@ -650,6 +673,46 @@
             rotation.toValue = [NSNumber numberWithFloat:(2 * M_PI)];
             rotation.duration = 0.8f; // Speed
             rotation.repeatCount = HUGE_VALF; // Repeat forever. Can be a finite number.
+
+        /*
+        MyPostLoading* myPostLoading = [tableView dequeueReusableCellWithIdentifier:@"MyPostLoading" forIndexPath:indexPath];
+        
+        MyPostObject* myPostObject = [self.myPosts objectAtIndex:indexPath.row];
+        
+        if([myPostObject.urgency isEqualToString: @"expired"])
+        {
+            
+            myPostLoading.item.backgroundColor = [UIColor colorWithRed: 153.0/255.0 green: 153.0/255.0 blue:153.0/255.0 alpha: 1.0];
+            
+        }
+        else if([myPostObject.urgency isEqualToString: @"urgent"])
+        {
+            
+            myPostLoading.item.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 1.0];
+            
+        }
+        else if([myPostObject.urgency isEqualToString: @"not urgent"])
+        {
+            
+            //myPost.item.backgroundColor = [UIColor colorWithRed: 255.0/255.0 green: 102.0/255.0 blue:102.0/255.0 alpha: 1.0];
+            
+        }
+        
+        myPostLoading.item.text = myPostObject.item;
+        myPostLoading.deadline.text = myPostObject.deadline;
+        __block NSString* typeOfTableViewCell = [[NSString alloc] init];
+        // NSLog(@"responses %@", responses);
+        CABasicAnimation *rotation;
+        rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        rotation.fromValue = [NSNumber numberWithFloat:0];
+        rotation.toValue = [NSNumber numberWithFloat:(2 * M_PI)];
+        rotation.duration = 0.8f; // Speed
+        rotation.repeatCount = HUGE_VALF; // Repeat forever. Can be a finite number.
+        
+        myPostLoading.loadingImage.hidden = NO;
+        [myPostLoading.loadingImage.layer removeAllAnimations];
+        [myPostLoading.loadingImage.layer addAnimation:rotation forKey:@"Spin"];
+        */
         
             myPost.lenderPicture1.hidden = NO;
             [myPost.lenderPicture1.layer removeAllAnimations];

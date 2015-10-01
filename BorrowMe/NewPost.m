@@ -12,14 +12,11 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    [self.itemInput becomeFirstResponder];    
     
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    [self.itemInput becomeFirstResponder];
     
     CALayer* backgroundBubbleLayer = [self.backgroundBubble layer];
     [backgroundBubbleLayer setMasksToBounds:YES];
@@ -75,7 +72,6 @@
     
     [self.itemInput becomeFirstResponder];
     [self.tabBarController.tabBar setHidden:YES];
-    
     
 }
 
@@ -407,5 +403,12 @@
     return retDict;
 
 }
+
+- (IBAction)dismissKeyboard:(id)sender {
+    
+    [self.itemInput resignFirstResponder];
+}
+
+
 
 @end

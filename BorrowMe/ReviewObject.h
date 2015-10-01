@@ -11,6 +11,7 @@
 
 @interface ReviewObject : NSObject
 
+@property (strong, nonatomic) NSString* type;
 @property (strong, nonatomic) PFUser* user;
 @property (strong, nonatomic) UIImage* userProfile;
 @property (strong, nonatomic) NSString* username;

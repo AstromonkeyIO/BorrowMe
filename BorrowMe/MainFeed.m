@@ -638,7 +638,7 @@
     }
     else if([segue.identifier isEqualToString:@"GoToPostDetail"])
     {
-        //PostDetail* postDetail = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
+
         PostDetail* postDetail = (PostDetail *)segue.destinationViewController;
         PostObject* selectedPostObject = [self.mainfeedRows objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         postDetail.receivedPostObject = selectedPostObject;
@@ -647,15 +647,11 @@
     }
     else if([segue.identifier isEqualToString:@"View-User-Profile"])
     {
-        /*
-        UserProfile* tableView = [[(UINavigationController*)segue.destinationViewController viewControllers]lastObject];
-        PFUser* passUser = self.viewUser;
-        */
+
         UserProfile* tableView = (UserProfile*)segue.destinationViewController;
         PFUser* passUser = self.viewUser;
         tableView.user = passUser;
-        // MyPostLenders* tableView = (MyPostLenders*)[self.navigationController.viewControllers objectAtIndex:0];
-        
+
     }
     
     

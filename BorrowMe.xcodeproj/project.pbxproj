@@ -75,6 +75,7 @@
 		6678F2861B129F5D0080F8D5 /* logoutIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6678F2851B129F5D0080F8D5 /* logoutIcon.png */; };
 		6678F2881B12A0850080F8D5 /* settingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6678F2871B12A0850080F8D5 /* settingsIcon.png */; };
 		6680E0871ACA811F0067257E /* PostReview.m in Sources */ = {isa = PBXBuildFile; fileRef = 6680E0861ACA811E0067257E /* PostReview.m */; };
+		6681A7751BBBBE8300E54747 /* MyPostLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 6681A7741BBBBE8300E54747 /* MyPostLoading.m */; };
 		6687DD231B5C6899005E37E3 /* activityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6687DD221B5C6899005E37E3 /* activityIcon.png */; };
 		6687DD251B5C68A8005E37E3 /* activityIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6687DD241B5C68A8005E37E3 /* activityIcon@2x.png */; };
 		6687DD271B5C6F16005E37E3 /* chatIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6687DD261B5C6F16005E37E3 /* chatIcon.png */; };
@@ -336,6 +337,8 @@
 		6678F2871B12A0850080F8D5 /* settingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsIcon.png; sourceTree = "<group>"; };
 		6680E0851ACA811E0067257E /* PostReview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostReview.h; sourceTree = "<group>"; };
 		6680E0861ACA811E0067257E /* PostReview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostReview.m; sourceTree = "<group>"; };
+		6681A7731BBBBE8300E54747 /* MyPostLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPostLoading.h; sourceTree = "<group>"; };
+		6681A7741BBBBE8300E54747 /* MyPostLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostLoading.m; sourceTree = "<group>"; };
 		6687DD221B5C6899005E37E3 /* activityIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = activityIcon.png; sourceTree = "<group>"; };
 		6687DD241B5C68A8005E37E3 /* activityIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "activityIcon@2x.png"; sourceTree = "<group>"; };
 		6687DD261B5C6F16005E37E3 /* chatIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chatIcon.png; sourceTree = "<group>"; };
@@ -610,6 +613,8 @@
 				66AC793E1A9EA91300DDF2AE /* MyPostObject.m */,
 				668AD9D81AA0597600627437 /* MyPost.h */,
 				668AD9D91AA0597600627437 /* MyPost.m */,
+				6681A7731BBBBE8300E54747 /* MyPostLoading.h */,
+				6681A7741BBBBE8300E54747 /* MyPostLoading.m */,
 				660314461AA3038600C0F763 /* MyPostNoLenders.h */,
 				660314471AA3038600C0F763 /* MyPostNoLenders.m */,
 				66B07F731AAE8E86000F4B21 /* MyPostLenders.h */,
@@ -1421,6 +1426,7 @@
 				6666C90F1B34AE3B008F9E66 /* HeaderCell.m in Sources */,
 				66FC4F451B6D74F7001C4B7A /* JSQMediaItem.m in Sources */,
 				66F4C3361A7F1866001B97AA /* MainFeed.m in Sources */,
+				6681A7751BBBBE8300E54747 /* MyPostLoading.m in Sources */,
 				66FC4F371B6D74F7001C4B7A /* UIImage+JSQMessages.m in Sources */,
 				66FC4F401B6D74F7001C4B7A /* JSQMessagesToolbarButtonFactory.m in Sources */,
 				66F24A9F1AE22F5E00DEC153 /* AboutPost.m in Sources */,

@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *ratingSlider;
 @property (weak, nonatomic) IBOutlet UIButton *rateButton;
 @property (strong, nonatomic) PFUser* currentUser;
+@property (strong, nonatomic) PFUser* reviewedUser;
 @property (strong, nonatomic) NSString* currentRating;
 @property (weak, nonatomic) IBOutlet UIButton *heartButton1;
 @property (weak, nonatomic) IBOutlet UIButton *heartButton2;
