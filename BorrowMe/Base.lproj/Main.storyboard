@@ -241,6 +241,7 @@
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
+                        <outlet property="delegate" destination="kHm-CO-I80" id="1cB-Ni-1PR"/>
                         <segue destination="ZpA-g3-sxc" kind="relationship" relationship="rootViewController" id="tY3-Vs-Ayd"/>
                     </connections>
                 </navigationController>
@@ -2011,7 +2012,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="f0z-bG-46T"/>
         <segue reference="kgh-b9-K6U"/>
+        <segue reference="GiB-mT-Gdt"/>
     </inferredMetricsTieBreakers>
 </document>

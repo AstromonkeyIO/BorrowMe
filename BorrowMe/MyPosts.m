@@ -56,11 +56,14 @@
     //self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.currentUser = [PFUser currentUser];
+    
     self.myPosts = [[NSMutableArray alloc] init];
+    self.deletedMyPostsArray = [[NSMutableArray alloc] init];
+    
     [self pullFromDatabase];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init]; [refreshControl addTarget:self action:@selector(pullFromDatabase) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
-        
+    
     /*
     UISwipeGestureRecognizer *gestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
     [gestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
@@ -976,8 +979,37 @@
     
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        
+        NSMutableDictionary* deletedMyPostsDictionary = [[NSMutableDictionary alloc] init];
+        
+        MyPostObject* deletedMyPostObject = [self.myPosts objectAtIndex:indexPath.row];
+        [self.deletedMyPostsArray addObject:deletedMyPostObject.myPostPFObject.objectId];
+        
+        NSMutableArray* deletedMyPosts;
+        
+        if(!self.currentUser[@"deletedMyPosts"])
+        {
+            deletedMyPosts = [[NSMutableArray alloc] init];
+        }
+        else
+        {
+            deletedMyPosts = self.currentUser[@"deletedMyPosts"];
+        }
+
+        [deletedMyPosts addObject:deletedMyPostObject.myPostPFObject.objectId];
+        
+        self.currentUser[@"deletedMyPosts"] = deletedMyPosts;
+        [self.currentUser saveInBackground];
+        
+        [deletedMyPostsDictionary setObject:self.deletedMyPostsArray forKey:@"deletedMyPostsArray"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DeletedMyPostsDictionary" object:self userInfo:deletedMyPostsDictionary];
+        NSLog(@"%@", deletedMyPostsDictionary);
+        
         [[[self.myPosts objectAtIndex:indexPath.row ] myPostPFObject] deleteInBackground];
         [self.myPosts removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];

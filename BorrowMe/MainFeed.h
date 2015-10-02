@@ -15,7 +15,7 @@
 #import <CoreLocation/CLPlacemark.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface MainFeed : UITableViewController <CLLocationManagerDelegate>
+@interface MainFeed : UITableViewController <CLLocationManagerDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) PFUser* currentUser;
 @property (strong, nonatomic) NSMutableArray* mainfeedRows;

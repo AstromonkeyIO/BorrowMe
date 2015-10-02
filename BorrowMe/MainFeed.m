@@ -41,6 +41,7 @@
     [super viewDidLoad];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     SWRevealViewController *revealViewController = self.revealViewController;
+
     if ( revealViewController )
     {
         [self.sideBarButton setTarget: self.revealViewController];
@@ -48,6 +49,8 @@
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     }
+    
+    self.tabBarController.delegate = self;
     
     [self.navBarSegmentedControl setTitle:@"Lend"forSegmentAtIndex:0];
     [self.navBarSegmentedControl setTitle:@"Borrow"forSegmentAtIndex:1];
@@ -86,6 +89,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletePost:) name:@"DeletePost" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(directToUserProfile:) name:@"DisplayUserProfile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newPostAdded:) name:@"NewUserPost" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteMyPost:) name:@"DeletedMyPostsDictionary" object:nil];
     
     self.view.backgroundColor = [UIColor colorWithRed: 169.0/255.0 green: 226.0/255.0 blue:243.0/255.0 alpha: 1.0];
     
@@ -816,6 +820,20 @@
         
     }
     
+    
+}
+
+-(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:      (UIViewController *)viewController
+{
+    
+    //NSLog(@"Selected index: %d", tabBarController.selectedIndex);
+    //[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    if(tabBarController.selectedIndex == 0)
+    {
+        [self.tableView setContentOffset:CGPointZero animated:YES];
+        [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    }
+    
 }
 
 - (void) pullFromDatabase
@@ -858,6 +876,52 @@
     [self.tableView insertRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView endUpdates];
     
+    
+}
+
+- (void) deleteMyPost: (NSNotification*) notification
+{
+    
+    [self.tableView beginUpdates];
+    NSLog(@"deleteMyPost function called!");
+    //NSDictionary *ud = notification.userInfo;
+
+    NSLog(@"user object deleted posts array %@", self.currentUser[@"deletedMyPosts"]);
+    NSMutableArray* deletedMyPostsArray = self.currentUser[@"deletedMyPosts"];
+    
+    
+    NSLog(@"deletedMyPostsArray %@", deletedMyPostsArray);
+    for(int i = 0; i < [self.mainfeedRows count]; i++)
+    {
+        
+        PostObject* postObject = [self.mainfeedRows objectAtIndex:i];
+        for(int k = 0; k < [deletedMyPostsArray count]; k++)
+        {
+            
+            if([postObject.post.objectId isEqualToString:[deletedMyPostsArray objectAtIndex:k]])
+            {
+                
+                [deletedMyPostsArray removeObjectAtIndex:k];
+                [self.posts removeObjectAtIndex:i];
+                [self.mainfeedRows removeObjectAtIndex:i];
+
+                //NSInteger lastRowIndex = [self.posts count];
+                NSIndexPath* pathToRow = [NSIndexPath indexPathForRow:i inSection:0];
+                NSArray* deleteIndexPaths = [[NSArray alloc] initWithObjects: pathToRow, nil];
+                [self.tableView deleteRowsAtIndexPaths:deleteIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+                
+                
+            }
+            
+        }
+        
+        
+    }
+    
+    self.currentUser[@"deletedMyPosts"] = deletedMyPostsArray;
+    [self.currentUser saveInBackground];
+
+    [self.tableView endUpdates];
     
 }
 

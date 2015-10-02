@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSMutableArray* myPosts;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *myPostsSelector;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *filterSegmentedControl;
+@property (strong, nonatomic) NSMutableArray* deletedMyPostsArray;
 
 
 @end

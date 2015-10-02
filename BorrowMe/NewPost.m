@@ -10,7 +10,8 @@
 
 @implementation NewPost
 
--(void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated
+{
     
     
 }
@@ -64,11 +65,10 @@
     [gestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:gestureRecognizer];
     
-    
-    
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     
     [self.itemInput becomeFirstResponder];
     [self.tabBarController.tabBar setHidden:YES];
@@ -81,7 +81,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)closeWindow:(id)sender {
+- (IBAction)closeWindow:(id)sender
+{
     
     self.itemInput.text = @"";
     //self.noteBox.text = @"Leave a little note!";
@@ -99,8 +100,8 @@
     
 }
 
-- (IBAction)askButtonPressed:(id)sender {
-
+- (IBAction)askButtonPressed:(id)sender
+{
     
     NSLog(@"nsdate noww!!!!!!!!! %@", self.datePicker.date);
     
@@ -234,7 +235,6 @@
                       if (succeeded)
                       {
                           // Add all Parse data to returnDict
-
                           self.itemInput.text = @"";
                           self.noteBox.text = @"";
                           self.datePicker.hidden = NO;
@@ -244,8 +244,6 @@
                           self.loadingBox.hidden = YES;
                           self.loadingImage.hidden = YES;
                           [self dismissViewControllerAnimated:YES completion:NULL];
-                          //[self.tabBarController.tabBar setHidden:NO];
-                          //[self.tabBarController setSelectedIndex:0];
                           
                       }
                       else
@@ -289,30 +287,37 @@
     }
 }
 
-- (IBAction)dateRangeSelectorValueChanged:(id)sender {
+- (IBAction)dateRangeSelectorValueChanged:(id)sender
+{
     
-    if(self.dateRangeSelector.selectedSegmentIndex == 0) {
+    if(self.dateRangeSelector.selectedSegmentIndex == 0)
+    {
         self.returnDatePicker.hidden = YES;
         self.datePicker.hidden = NO;
-    }else if(self.dateRangeSelector.selectedSegmentIndex == 1){
+        
+    }
+    else if(self.dateRangeSelector.selectedSegmentIndex == 1)
+    {
+        
         self.datePicker.hidden = YES;
         self.returnDatePicker.hidden = NO;
+        
     }
     
 }
 
 
 
--(void)swipeRight:(UISwipeGestureRecognizer *)recognizer {
+-(void)swipeRight:(UISwipeGestureRecognizer *)recognizer
+{
     
     [self dismissViewControllerAnimated:YES completion:Nil];
     
-    
 }
 
-- (IBAction)switchViewComponent:(id)sender {
-    
-    
+- (IBAction)switchViewComponent:(id)sender
+{
+
     if(self.datePicker.hidden == NO || self.returnDatePicker.hidden == NO)
     {
         
@@ -358,6 +363,7 @@
 
 -(void) textViewDidChange:(UITextView *)textView
 {
+    
     /*
     if(self.noteBox.text.length == 0)
     {
@@ -385,7 +391,6 @@
     
     NSArray * allKeys = [pfobject allKeys];
     NSMutableDictionary * retDict = [[NSMutableDictionary alloc] init];
-    
 
     for (NSString * key in allKeys)
     {
@@ -404,9 +409,11 @@
 
 }
 
-- (IBAction)dismissKeyboard:(id)sender {
+- (IBAction)dismissKeyboard:(id)sender
+{
     
     [self.itemInput resignFirstResponder];
+    
 }
 
 
